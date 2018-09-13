@@ -1,4 +1,4 @@
-#React + Google Apps Script
+#React + Google Apps Script#
 
 Use this repo as your boilerplate React app for use with Google Apps Script html dialogs.
 
