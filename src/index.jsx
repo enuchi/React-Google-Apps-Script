@@ -1,9 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; 
-
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import css from "./styles.css";
-
 
 class FormInput extends React.Component {
   constructor(props) {
@@ -75,6 +73,7 @@ class SheetEditor extends React.Component {
     return (
       <div>
         <FormInput newSheetFormHandler={this.newSheetFormHandler}/>
+        <span>Clicking on the X will delete the respective sheet. This cannot be undoed. It is recommended you use this sample tool on a new, empty Spreadsheet.</span>
         <ReactCSSTransitionGroup
           transitionName="sheetNames"
           transitionAppear={true}
