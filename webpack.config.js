@@ -2,7 +2,7 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const GasPlugin = require('gas-webpack-plugin');
-// const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
@@ -10,43 +10,65 @@ const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin
 const destination = 'dist';
 
 const htmlPlugin = new HtmlWebpackPlugin({
-  template: "./src/dialog.html",
-  filename: "./dialog.html",
+  template: "./src/client/dialog-template.html",
+  filename: "dialog.html",
   inlineSource: '.(js|css)$' // embed all javascript and css inline
 });
 
 const htmlWebpackInlineSourcePlugin = new HtmlWebpackInlineSourcePlugin();
 
-const config = {
+const sharedConfigSettings = {
   optimization: {
-    // Set to true to minimize code (e.g. for production).
-    minimize: true
+    minimizer: [
+      new UglifyJSPlugin({
+        uglifyOptions: {
+          ie8: true,
+          mangle: false,
+          compress: {
+            properties: false
+          },
+          output: {
+            beautify: true
+          }
+        }
+      })
+    ]
   },
   module: {},
 };
 
 const appsscriptConfig = {
-  name: "appsscript copy json",
+  name: "COPY APPSSCRIPT.JSON",
   entry: "./appsscript.json",
   plugins: [
     new CleanWebpackPlugin([destination]),
     new CopyWebpackPlugin([
       {
         from: './appsscript.json'
-        // to: path.resolve(__dirname, destination)
       }
     ])
   ]
 };
 
-const clientConfig = Object.assign({}, config, {
+const clientConfig = Object.assign({}, sharedConfigSettings, {
   name: "CLIENT",
-  entry: "./src/index.jsx",
+  entry: "./src/client/index.jsx",
   output: {
     path: path.resolve(__dirname, destination),
   },
   module: {
     rules: [
+      {
+        enforce: 'pre',
+        test: /\.jsx$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          cache: false,
+          failOnError: false,
+            fix: true
+        }
+      },
       {
         test: /\.jsx$/,
         exclude: /node_modules/,
@@ -66,17 +88,29 @@ const clientConfig = Object.assign({}, config, {
   ]
 });
 
-const serverConfig = Object.assign({}, config, {
+const serverConfig = Object.assign({}, sharedConfigSettings, {
   name: "SERVER",
-  entry: "./src/code.gs",
+  entry: "./src/server/code.js",
   output: {
-    filename: 'code.gs',
+    filename: 'code.js',
     path: path.resolve(__dirname, destination),
+    libraryTarget: 'this'
   },
   module: {
     rules: [
       {
-        test: /\.gs$/,
+        enforce: 'pre',
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          cache: false,
+          failOnError: false,
+          fix: true
+        }
+      },
+      {
+        test: /\.js$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader"
@@ -84,19 +118,16 @@ const serverConfig = Object.assign({}, config, {
       },
     ],
   },
-  optimization: {
-    //don't minimize .gs server code
-    minimize: false
-  },
+  // optimization: {
+  //   //don't minimize .js server code
+  //   minimize: true
+  // },
   plugins: [
     new GasPlugin()
   ]
 });
 
-
-// Return Array of Configurations
 module.exports = [
-  // initialConfig,
   appsscriptConfig,
   clientConfig,
   serverConfig,

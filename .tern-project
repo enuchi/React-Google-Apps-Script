@@ -1,0 +1,15 @@
+{
+	"ecmaVersion": 7,
+	"libs": [
+	],
+	"plugins": {
+		"complete_strings": {},
+		"googleappsscript": {},
+		"es_modules": {},
+		"node": {},
+		"doc_comment": {
+			"fullDocs": true,
+			"strong": true
+		}
+	}
+}

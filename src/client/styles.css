@@ -45,8 +45,8 @@ button:focus {
     font-weight: 700;
 }
 
-
 .sheetLine {
+	cursor: pointer;
 	line-height: 3;
 	height: 30px;
 }
@@ -59,8 +59,6 @@ button:focus {
 .sheetNameText.active-sheet {
 	border-bottom: 3px solid #338236;
 }
-
-
 
 /*
 ReactCSSTransitionGroup styling
