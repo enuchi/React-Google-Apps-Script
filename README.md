@@ -1,68 +1,76 @@
-## React + Google Apps Script 
-*Use this repo as your boilerplate React app for use with HTML dialogs in Google Sheets, Docs and Forms.*
 
-This project uses labnol's excellent [apps-script-starter](https://github.com/labnol/apps-script-starter) as a starting point, adding support for client-side dialogs built with React. It demonstrates how easy it is to build React apps that interact with Google Apps server-side scripts.
+## React + Google Apps Script 
+*Use this demo project as your boilerplate React app for HTML dialogs in Google Sheets, Docs and Forms.*
+
+This project uses labnol's excellent [apps-script-starter](https://github.com/labnol/apps-script-starter) as a starting point, adding support for React. It demonstrates how easy it is to build React apps that interact with Google Apps server-side scripts. Simply clone this project and modify the source code to get started developing with React for Google Apps Script client-side dialogs.
+
+![Google Apps Script / React development](https://i.imgur.com/0yYQoYj.jpg "Start a React project for Google Apps Script")
+*The demo app for Google Sheets shows insertion/deletion/activation of sheets through React-built HTML dialog.* 
 
 ## Installation
 
- Set up the sample project:
+ Clone the sample project and install dependencies:
 ```
-mkdir my-gas-react-app && cd my-gas-react-app
 git clone https://github.com/enuchi/React-Google-Apps-Script.git
+cd React-Google-Apps-Script
 npm install
 ```
-Create a new Google Sheets spreadsheet. Open the Script Editor (Tools --> Script Editor) and copy the ScriptId (File --> Project properties).
+Then [create a new Google Sheets spreadsheet](https://sheets.google.com). Open the Script Editor and copy the script's scriptId. [**Tools > Script Editor**, then **File > Project properties**].
 
-Add the ScriptId to the .clasp.json file:
+Paste the **scriptId** into the .clasp.json file as below:
 ```
 // .clasp.json
 {"rootDir": "dist",
  "scriptId":"...paste scriptId here..."}
 ```
-Log into CLASP, a tool that lets you develop Apps Script projects locally, and follow the authorization flow:
+Log into CLASP to push code to the server from the command line:
 ```
 npx clasp login
 ```
-Modify your server-side and client-side code in the `src` folder using ES6/7 and React. Change the scopes in `appsscript.json`. When you're ready, build the app!
+Modify the server-side and client-side source code in the `src` folder using ES6/7 and React. Change the scopes in `appsscript.json` if needed. When you're ready, build the app!
 ```
 npm run build
 ```
-Webpack will bundle your files in `dist`. Push your files to Google's servers using CLASP:
+Webpack will display any linting errors, and then bundle your files in `dist`. Finally, push your files to Google's servers using CLASP:
 ```
 clasp push
 ```
 
 
 ## The sample app
-Insert new sheets and delete sheets through a simple dialog, built with React:
+Insert/activate/delete sheets through a simple HTML dialog, built with React. Access the dialog through the new menu item that appears. You may need to refresh the spreadsheet and approve the app's permissions the first time you use it.
 
 ## How it works
-Code is written in the `src` directory and bundled into the `dist` directory when `npm run build` is run. CLASP pushes files from `dist` to Script Editor files.
+"[Google Apps Script](https://en.wikipedia.org/wiki/Google_Apps_Script) is based on JavaScript 1.6 with some portions of 1.7 and 1.8 and provides subset of ECMAScript 5 API."
 
-Multiple Webpack entry points are used to generate code that is compatible with the Google Apps Script environment on both server and client. On the server side that means ending up as (basically) ES5. On the client side, the challenge is that GAS does not easily support multiple pages, so a single HTML page is created. This is done with the help of some Webpack plugins that use HTML templates and add the necessary CSS and JavaScript/React assets inline. (You'll see the original output bundle, `main.js`, in the `dist` directory, but it's ignored through .clasp.ignore). The appsscript.json manifest file is simply copied into `dist`.
+That means many JavaScript tools used today in modern web development will not work in the Google Apps Script environment, including `let`/`const` declarations, arrow functions, spread operator, etc.
+
+This project circumvents those restrictions by transpiling newer code to older code that Google Apps Script understands using Babel, and also bundles separate files and modules using Webpack.
+
+On the client-side, there are restrictions on the way HTML dialogs are used in Google Apps (Sheets, Docs and Forms). In web development you can simply reference a separate css file:
+```
+<link rel="stylesheet" href="styles.css">
+```
+In the Google Apps Script environment you need to use [HTML templates](https://developers.google.com/apps-script/guides/html/templates), which can be cumbersome. With this project, all files are bundled together by inlining .css and .js files. Using a transpiler and bundling tool also allows us to use JSX syntax, and external libraries such as React.
 
 ## Features
 - Support for JSX syntax:
 ```
-render() {
-   return (<div className="formBlock"><span>Add a sheet: </span>
-              <form onSubmit={(e) => this.handleSubmit(e)}>
-                <input onChange={this.handleChange} value={this.state.text} />
-              </form>
-            </div>);
-}
+return <div>Name: {person.firstName}</div>
 ```
-- Support for npm packages. Simply install with npm and `import`:
+- Support for external packages. Simply install with npm or from a file and `import`:
 ```
-import React from "react";
-import ReactDOM from "react-dom";
+$ npm install react-addons-css-transition-group
+```
+```
+// index.jsx
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 ```
 - `import` CSS from another file:
 ```
 import "./styles.css";
 ```
- - Shows how server calls are made in React using `google.script.run`:
+ - Make server calls in React with `google.script.run`:
  ```
 componentDidMount() {
    google.script.run
@@ -71,17 +79,56 @@ componentDidMount() {
       .getSheetsData()
 }
   ```
+- Use newer ES6/7 code, including arrow functions, spread operators, `const`/`let`, and more:
+```
+const getSheetsData = () => {
+  let activeSheetName = getActiveSheetName();
+  return getSheets().map((sheet, index) => {
+    let sheetName = sheet.getName();
+    return {
+      text: sheetName,
+      sheetIndex: index,
+      isActive: sheetName === activeSheetName,
+    };
+  });
+};
+```
+## Tern support
+This project includes support for GAS definitions and autocomplete through a [Tern](http://ternjs.net/) plugin. Tern is a code-analysis engine for JavaScript, providing many useful tools for developing. See Tern's site for setup instructions for many popular code editors, such as Sublime, Vim and others.
+
+Tern provides many indispensable tools for working with Google Apps Script, such as autocompletion on variables and properties, function argument hints and querying the type of an expression.
+
+- Autocomplete example. Lists all available methods from the appropriate Google Apps Script API: 
+![tern support](https://i.imgur.com/s1OrQNr.png "autocomplete and intelligent type detection with Tern")
+
+- Full definitions with links to official documentation, plus information on argument and return type:
+![tern support](https://i.imgur.com/yg5VwAC.png "definitions with links to official documentation make developing with Google Apps Script")
+
+
 
 ## Extending this app
-- You can split up server-side code into multiple files and folders . Simply use `import` and `export`.
-- Make sure to expose all public functions (functions called from the client with `google.script.run`) as well as onOpen using e.g.:
+- You can split up server-side code into multiple files and folders using `import` and `export` statements.
+- Make sure to expose all public functions including any functions called from the client with `google.script.run` as well as onOpen. Example below shows assignment to `global` object:
 ```
 const onOpen = () => {
-	SpreadsheetApp.getUi() // Or DocumentApp or FormApp.
-      	.createMenu('Dialog')
-      	.addItem('Add sheets', 'openDialog')
-		    .addToUi();
+  SpreadsheetApp.getUi() // Or DocumentApp or FormApp.
+        .createMenu('Dialog')
+        .addItem('Add sheets', 'openDialog')
+        .addToUi();
 }
 
 global.onOpen = onOpen
 ```
+- You may wish to remove automatic linting when running Webpack. You can do so by editing the Webpack config file and commenting out the eslintConfig line in client or server settings:
+```
+// webpack.config.js
+
+const clientConfig = Object.assign({}, sharedConfigSettings, {
+  ...
+  module: {
+    rules: [
+      // eslintConfig,
+      {
+```
+## Suggestions
+Open a pull request!

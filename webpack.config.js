@@ -37,6 +37,18 @@ const sharedConfigSettings = {
   module: {},
 };
 
+const eslintConfig = {
+  enforce: 'pre',
+  test: /\.jsx?$/,
+  exclude: /node_modules/,
+  loader: 'eslint-loader',
+  options: {
+    cache: false,
+    failOnError: false,
+    fix: true
+  }
+};
+
 const appsscriptConfig = {
   name: "COPY APPSSCRIPT.JSON",
   entry: "./appsscript.json",
@@ -58,17 +70,7 @@ const clientConfig = Object.assign({}, sharedConfigSettings, {
   },
   module: {
     rules: [
-      {
-        enforce: 'pre',
-        test: /\.jsx$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {
-          cache: false,
-          failOnError: false,
-            fix: true
-        }
-      },
+      // eslintConfig,
       {
         test: /\.jsx$/,
         exclude: /node_modules/,
@@ -98,17 +100,7 @@ const serverConfig = Object.assign({}, sharedConfigSettings, {
   },
   module: {
     rules: [
-      {
-        enforce: 'pre',
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {
-          cache: false,
-          failOnError: false,
-          fix: true
-        }
-      },
+      // eslintConfig,
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -118,10 +110,6 @@ const serverConfig = Object.assign({}, sharedConfigSettings, {
       },
     ],
   },
-  // optimization: {
-  //   //don't minimize .js server code
-  //   minimize: true
-  // },
   plugins: [
     new GasPlugin()
   ]
