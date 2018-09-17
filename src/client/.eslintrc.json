@@ -1,0 +1,19 @@
+{
+  "root": true,
+  "parser": "babel-eslint",
+  "extends": ["plugin:react/recommended", "eslint:recommended", "google"],
+  "plugins": ["react"],
+  "env": {
+    "browser": true
+  },
+  "globals": {
+    "google": false,
+    "alert": false,
+    "css": true
+  },
+  "rules": {
+    "import/prefer-default-export": 0,
+    "no-console": 0,
+    "require-jsdoc" : 0
+  }
+}

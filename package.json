@@ -1,7 +1,7 @@
 {
   "name": "react-google-apps-script",
   "version": "1.0.0",
-  "description": "Boilerplate sample project for using React with Google Apps Scipt",
+  "description": "Starter project for using React with Google Apps Script",
   "scripts": {
     "test": "test",
     "start": "webpack --mode development",
@@ -36,7 +36,7 @@
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
-    "eslint": "^5.3.0",
+    "eslint": "^5.6.0",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-config-google": "^0.9.1",
@@ -56,11 +56,13 @@
     "html-webpack-inline-source-plugin": "0.0.10",
     "html-webpack-plugin": "^3.2.0",
     "prettier": "^1.13.7",
+    "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.4.2",
     "react-transition-group": "^2.4.0",
     "style-loader": "^0.22.1",
+    "tern-googleappsscript": "^1.0.0",
     "uglifyjs-webpack-plugin": "^1.2.7",
     "webpack": "^4.16.1",
     "webpack-cli": "^3.1.0"

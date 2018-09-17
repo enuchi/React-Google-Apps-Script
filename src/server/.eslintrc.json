@@ -1,0 +1,17 @@
+{
+  "root": true,
+  "parser": "babel-eslint",
+  "extends": ["eslint:recommended", "google"],
+  "plugins": ["googleappsscript"],
+  "env": {
+    "googleappsscript/googleappsscript": true
+  },
+  "globals": {
+    "SpreadsheetApp": true,
+    "HtmlService": true,
+    "global": true
+  },
+  "rules": {
+    "import/prefer-default-export": 0
+  }
+}
