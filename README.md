@@ -1,11 +1,11 @@
 
-## React + Google Apps Script 
+## React + Google Apps Script
 *Use this demo project as your boilerplate React app for HTML dialogs in Google Sheets, Docs and Forms.*
 
 This project uses labnol's excellent [apps-script-starter](https://github.com/labnol/apps-script-starter) as a starting point, adding support for React. It demonstrates how easy it is to build React apps that interact with Google Apps server-side scripts. Simply clone this project and modify the source code to get started developing with React for Google Apps Script client-side dialogs.
 
 ![Google Apps Script / React development](https://i.imgur.com/0yYQoYj.jpg "Start a React project for Google Apps Script")
-*The demo app for Google Sheets shows insertion/deletion/activation of sheets through React-built HTML dialog.* 
+*The demo app for Google Sheets shows insertion/deletion/activation of sheets through React-built HTML dialog.*
 
 ## Installation
 
@@ -23,6 +23,7 @@ Paste the **scriptId** into the .clasp.json file as below:
 {"rootDir": "dist",
  "scriptId":"...paste scriptId here..."}
 ```
+If you have not enabled Google's Apps Script API, do so by visiting https://script.google.com/home/usersettings.
 Log into CLASP to push code to the server from the command line:
 ```
 npx clasp login
@@ -34,6 +35,7 @@ npm run build
 Webpack will display any linting errors, and then bundle your files in `dist`. Finally, push your files to Google's servers using CLASP:
 ```
 clasp push
+// if command doesn't work, try 'npm run build'
 ```
 
 
@@ -98,7 +100,7 @@ This project includes support for GAS definitions and autocomplete through a [Te
 
 Tern provides many indispensable tools for working with Google Apps Script, such as autocompletion on variables and properties, function argument hints and querying the type of an expression.
 
-- Autocomplete example. Lists all available methods from the appropriate Google Apps Script API: 
+- Autocomplete example. Lists all available methods from the appropriate Google Apps Script API:
 ![tern support](https://i.imgur.com/s1OrQNr.png "autocomplete and intelligent type detection with Tern")
 
 - Full definitions with links to official documentation, plus information on argument and return type:
