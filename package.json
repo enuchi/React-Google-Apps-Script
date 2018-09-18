@@ -6,7 +6,7 @@
     "test": "test",
     "start": "webpack --mode development",
     "build": "webpack --mode production",
-    "deploy": "clasp push"
+    "deploy": "npm run build && npx clasp push"
   },
   "keywords": [
     "react",
@@ -19,7 +19,7 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "@google/clasp": "^1.5.0",
+    "@google/clasp": "^1.5.3",
     "@types/google-apps-script": "0.0.26",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
