@@ -66,7 +66,10 @@ const clientConfig = Object.assign({}, sharedConfigSettings, {
   name: "CLIENT",
   entry: "./src/client/index.jsx",
   output: {
-    path: path.resolve(__dirname, destination),
+    path: path.resolve(__dirname, destination)
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.json']
   },
   module: {
     rules: [
