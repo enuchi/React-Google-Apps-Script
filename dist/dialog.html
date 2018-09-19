@@ -50,7 +50,7 @@
         return __webpack_require__.d(getter, "a", getter), getter;
     }, __webpack_require__.o = function(object, property) {
         return Object.prototype.hasOwnProperty.call(object, property);
-    }, __webpack_require__.p = "", __webpack_require__(__webpack_require__.s = 10);
+    }, __webpack_require__.p = "", __webpack_require__(__webpack_require__.s = 36);
 }([ function(module, exports, __webpack_require__) {
     "use strict";
     module.exports = __webpack_require__(11);
@@ -168,105 +168,18 @@
         appearActive: _propTypes2["default"].string
     }) ]);
 }, function(module, exports, __webpack_require__) {
+    var content = __webpack_require__(32);
+    "string" == typeof content && (content = [ [ module.i, content, "" ] ]);
+    var options = {
+        hmr: !0,
+        transform: void 0
+    };
+    options.insertInto = undefined;
+    __webpack_require__(34)(content, options);
+    content.locals && (module.exports = content.locals);
+}, function(module, exports, __webpack_require__) {
     "use strict";
     module.exports = __webpack_require__(19);
-}, function(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-    __webpack_require__.r(__webpack_exports__);
-    var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0), react__WEBPACK_IMPORTED_MODULE_0___default = __webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__), react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2), react_dom__WEBPACK_IMPORTED_MODULE_1___default = __webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__), react_addons_css_transition_group__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9), react_addons_css_transition_group__WEBPACK_IMPORTED_MODULE_2___default = __webpack_require__.n(react_addons_css_transition_group__WEBPACK_IMPORTED_MODULE_2__), prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1), prop_types__WEBPACK_IMPORTED_MODULE_3___default = __webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
-    __webpack_require__(32);
-    class FormInput extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
-        constructor(props) {
-            super(props), this.state = {
-                text: ""
-            }, this.handleChange = this.handleChange.bind(this), this.handleSubmit = this.handleSubmit.bind(this);
-        }
-        handleChange(e) {
-            this.setState({
-                text: e.target.value
-            });
-        }
-        handleSubmit(e) {
-            e.preventDefault(), this.state.text.length && (this.props.newSheetFormHandler(e, this.state.text), 
-            this.setState(prevState => ({
-                text: ""
-            })));
-        }
-        render() {
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-                className: "formBlock"
-            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Add a sheet: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-                onSubmit: e => this.handleSubmit(e)
-            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-                onChange: this.handleChange,
-                value: this.state.text
-            })));
-        }
-    }
-    FormInput.propTypes = {
-        newSheetFormHandler: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func
-    };
-    class SheetButton extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
-        render() {
-            let sheetIndex = this.props.name.sheetIndex, sheetName = this.props.name.text, isActiveSheet = this.props.name.isActive;
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-                className: "sheetLine"
-            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-                onClick: e => this.props.deleteButtonHandler(e, sheetIndex)
-            }, "X"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-                onClick: e => this.props.clickSheetNameHandler(e, sheetName),
-                className: "sheetNameText " + (isActiveSheet ? "active-sheet" : "")
-            }, sheetName));
-        }
-    }
-    SheetButton.propTypes = {
-        name: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object,
-        deleteButtonHandler: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func,
-        clickSheetNameHandler: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func
-    }, react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(class extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
-        constructor(props) {
-            super(props), this.state = {
-                names: []
-            }, this.deleteButtonHandler = this.deleteButtonHandler.bind(this), this.clickSheetNameHandler = this.clickSheetNameHandler.bind(this), 
-            this.newSheetFormHandler = this.newSheetFormHandler.bind(this);
-        }
-        componentDidMount() {
-            google.script.run.withSuccessHandler(data => this.setState({
-                names: data
-            })).withFailureHandler(error => alert(error)).getSheetsData();
-        }
-        deleteButtonHandler(e, sheetIndex) {
-            return google.script.run.withSuccessHandler(data => this.setState({
-                names: data
-            })).withFailureHandler(error => alert(error)).deleteSheet(sheetIndex);
-        }
-        clickSheetNameHandler(e, sheetName) {
-            return google.script.run.withSuccessHandler(data => this.setState({
-                names: data
-            })).withFailureHandler(error => alert(error)).setActiveSheet(sheetName);
-        }
-        newSheetFormHandler(e, newSheetTitle) {
-            return google.script.run.withSuccessHandler(data => this.setState({
-                names: data
-            })).withFailureHandler(error => alert(error)).addSheet(newSheetTitle);
-        }
-        render() {
-            let names = this.state.names;
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FormInput, {
-                newSheetFormHandler: this.newSheetFormHandler
-            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_addons_css_transition_group__WEBPACK_IMPORTED_MODULE_2___default.a, {
-                transitionName: "sheetNames",
-                transitionAppear: !0,
-                transitionEnterTimeout: 100,
-                transitionLeaveTimeout: 100
-            }, names.length ? names.map(name => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SheetButton, {
-                name: name,
-                deleteButtonHandler: this.deleteButtonHandler,
-                clickSheetNameHandler: this.clickSheetNameHandler,
-                key: name.sheetName
-            })) : null));
-        }
-    }, null), document.getElementById("index"));
 }, function(module, exports, __webpack_require__) {
     "use strict";
     var k = __webpack_require__(3), n = __webpack_require__(4), p = __webpack_require__(5), q = __webpack_require__(6), r = "function" == typeof Symbol && Symbol["for"], t = r ? Symbol["for"]("react.element") : 60103, u = r ? Symbol["for"]("react.portal") : 60106, v = r ? Symbol["for"]("react.fragment") : 60107, w = r ? Symbol["for"]("react.strict_mode") : 60108, x = r ? Symbol["for"]("react.profiler") : 60114, y = r ? Symbol["for"]("react.provider") : 60109, z = r ? Symbol["for"]("react.context") : 60110, A = r ? Symbol["for"]("react.async_mode") : 60111, B = r ? Symbol["for"]("react.forward_ref") : 60112;
@@ -4911,17 +4824,7 @@
         duration: transitionDuration
     };
 }, function(module, exports, __webpack_require__) {
-    var content = __webpack_require__(33);
-    "string" == typeof content && (content = [ [ module.i, content, "" ] ]);
-    var options = {
-        hmr: !0,
-        transform: void 0
-    };
-    options.insertInto = undefined;
-    __webpack_require__(35)(content, options);
-    content.locals && (module.exports = content.locals);
-}, function(module, exports, __webpack_require__) {
-    (exports = module.exports = __webpack_require__(34)(!1)).push([ module.i, "@import url(https://fonts.googleapis.com/css?family=Lora|Mukta);", "" ]), 
+    (exports = module.exports = __webpack_require__(33)(!1)).push([ module.i, "@import url(https://fonts.googleapis.com/css?family=Lora|Mukta);", "" ]), 
     exports.push([ module.i, "input {\n    width: 130px;\n    margin-left: 8px;\n}\n\nbutton {\n\t-webkit-transition-duration: 0.4s; /* Safari */\n\tbackground-color: #f44336;\n\tborder: 1px solid #f44336;\n\tcolor: white;\n\tdisplay: inline-block;\n\tfont-family: 'Mukta', sans-serif;\n\tfont-size: 11px;\n\theight: 20px;\n\tline-height: 15px;\n\tmargin-left: 3px;\n\tmargin-right: 11px;\n\tpadding: 3px;\n\ttext-transform: uppercase;\n\ttransition-duration: 0.6s;\n\tvertical-align: middle;\n\twidth: 20px;\n}\n\nbutton:hover {\n    background-color: white;\n    color: black;\n}\n\nbutton:active {\n\tbackground-color: #fafafa;\n\ttransform: translateY(1px);\n\ttransition-duration: 0.3s;\n}\n\nbutton:focus {\n\toutline: none;\n}\n\n.formBlock {\n    display: -webkit-box;\n    font-family: 'Lora', serif;\n    font-weight: 700;\n}\n\n.sheetLine {\n\tcursor: pointer;\n\tline-height: 3;\n\theight: 30px;\n}\n\n.sheetNameText {\n\tfont-size: 14px;\n\tfont-family: 'Lora', serif;\n}\n\n.sheetNameText.active-sheet {\n\tborder-bottom: 3px solid #338236;\n}\n\n/*\nReactCSSTransitionGroup styling\n */\n.sheetNames-enter {\n  opacity: 0.01;\n}\n\n.sheetNames-enter.sheetNames-enter-active {\n  opacity: 1;\n  transition: opacity 800ms ease-in;\n}\n\n.sheetNames-leave {\n  opacity: 1;\n}\n\n.sheetNames-leave.sheetNames-leave-active {\n  opacity: 0.01;\n  transition: opacity 100ms ease-in;\n}\n\n.sheetNames-appear {\n  opacity: 0.01;\n}\n\n.sheetNames-appear.sheetNames-appear-active {\n  opacity: 1;\n  transition: opacity .5s ease-in;\n}", "" ]);
 }, function(module, exports) {
     module.exports = function(useSourceMap) {
@@ -4977,7 +4880,7 @@
             }
             return memo[target];
         };
-    }(), singleton = null, singletonCounter = 0, stylesInsertedAtTop = [], fixUrls = __webpack_require__(36);
+    }(), singleton = null, singletonCounter = 0, stylesInsertedAtTop = [], fixUrls = __webpack_require__(35);
     function addStylesToDom(styles, options) {
         for (var i = 0; i < styles.length; i++) {
             var item = styles[i], domStyle = stylesInDom[item.id];
@@ -5131,5 +5034,102 @@
             "url(" + JSON.stringify(newUrl) + ")");
         });
     };
+}, function(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+    __webpack_require__.r(__webpack_exports__);
+    var react = __webpack_require__(0), react_default = __webpack_require__.n(react), react_dom = __webpack_require__(2), react_dom_default = __webpack_require__.n(react_dom), react_addons_css_transition_group = __webpack_require__(10), react_addons_css_transition_group_default = __webpack_require__.n(react_addons_css_transition_group), prop_types = __webpack_require__(1), prop_types_default = __webpack_require__.n(prop_types);
+    __webpack_require__(9);
+    class form_input_FormInput extends react_default.a.Component {
+        constructor(props) {
+            super(props), this.state = {
+                text: ""
+            }, this.handleChange = this.handleChange.bind(this), this.handleSubmit = this.handleSubmit.bind(this);
+        }
+        handleChange(e) {
+            this.setState({
+                text: e.target.value
+            });
+        }
+        handleSubmit(e) {
+            e.preventDefault(), this.state.text.length && (this.props.newSheetFormHandler(e, this.state.text), 
+            this.setState({
+                text: ""
+            }));
+        }
+        render() {
+            return react_default.a.createElement("div", {
+                className: "formBlock"
+            }, react_default.a.createElement("span", null, "Add a sheet: "), react_default.a.createElement("form", {
+                onSubmit: e => this.handleSubmit(e)
+            }, react_default.a.createElement("input", {
+                onChange: this.handleChange,
+                value: this.state.text
+            })));
+        }
+    }
+    form_input_FormInput.propTypes = {
+        newSheetFormHandler: prop_types_default.a.func
+    };
+    const SheetButton = props => {
+        let sheetIndex = props.name.sheetIndex, sheetName = props.name.text, isActiveSheet = props.name.isActive;
+        return react_default.a.createElement("div", {
+            className: "sheetLine"
+        }, react_default.a.createElement("button", {
+            onClick: e => props.deleteButtonHandler(e, sheetIndex)
+        }, "X"), react_default.a.createElement("span", {
+            onClick: e => props.clickSheetNameHandler(e, sheetName),
+            className: "sheetNameText " + (isActiveSheet ? "active-sheet" : "")
+        }, sheetName));
+    };
+    var sheet_button = SheetButton;
+    SheetButton.propTypes = {
+        name: prop_types_default.a.object,
+        deleteButtonHandler: prop_types_default.a.func,
+        clickSheetNameHandler: prop_types_default.a.func
+    };
+    react_dom_default.a.render(react_default.a.createElement(class extends react_default.a.Component {
+        constructor(props) {
+            super(props), this.state = {
+                names: []
+            }, this.deleteButtonHandler = this.deleteButtonHandler.bind(this), this.clickSheetNameHandler = this.clickSheetNameHandler.bind(this), 
+            this.newSheetFormHandler = this.newSheetFormHandler.bind(this);
+        }
+        componentDidMount() {
+            google.script.run.withSuccessHandler(data => this.setState({
+                names: data
+            })).withFailureHandler(error => alert(error)).getSheetsData();
+        }
+        deleteButtonHandler(e, sheetIndex) {
+            return google.script.run.withSuccessHandler(data => this.setState({
+                names: data
+            })).withFailureHandler(error => alert(error)).deleteSheet(sheetIndex);
+        }
+        clickSheetNameHandler(e, sheetName) {
+            return google.script.run.withSuccessHandler(data => this.setState({
+                names: data
+            })).withFailureHandler(error => alert(error)).setActiveSheet(sheetName);
+        }
+        newSheetFormHandler(e, newSheetTitle) {
+            return google.script.run.withSuccessHandler(data => this.setState({
+                names: data
+            })).withFailureHandler(error => alert(error)).addSheet(newSheetTitle);
+        }
+        render() {
+            let names = this.state.names;
+            return react_default.a.createElement("div", null, react_default.a.createElement(form_input_FormInput, {
+                newSheetFormHandler: this.newSheetFormHandler
+            }), react_default.a.createElement(react_addons_css_transition_group_default.a, {
+                transitionName: "sheetNames",
+                transitionAppear: !0,
+                transitionEnterTimeout: 100,
+                transitionLeaveTimeout: 100
+            }, names.length ? names.map(name => react_default.a.createElement(sheet_button, {
+                name: name,
+                deleteButtonHandler: this.deleteButtonHandler,
+                clickSheetNameHandler: this.clickSheetNameHandler,
+                key: name.sheetName
+            })) : null));
+        }
+    }, null), document.getElementById("index"));
 } ]);</script></body>
 </html>
