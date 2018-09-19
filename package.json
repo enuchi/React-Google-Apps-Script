@@ -6,7 +6,7 @@
     "test": "test",
     "start": "webpack --mode development",
     "build": "webpack --mode production",
-    "deploy": "clasp push"
+    "deploy": "npm run build && npx clasp push"
   },
   "keywords": [
     "react",
