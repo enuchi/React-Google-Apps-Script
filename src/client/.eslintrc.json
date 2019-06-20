@@ -27,6 +27,6 @@
       "never"
     ],
     "no-invalid-this": 0,
-    "babel/no-invalid-this": 1
+    "babel/no-invalid-this": 0
   }
 }
