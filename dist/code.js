@@ -110,7 +110,7 @@ function setActiveSheet() {
         return this;
     }();
     try {
-        g = g || Function("return this")() || (0, eval)("this");
+        g = g || new Function("return this")();
     } catch (e) {
         "object" == typeof window && (g = window);
     }
