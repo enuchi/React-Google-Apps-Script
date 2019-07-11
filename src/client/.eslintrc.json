@@ -22,10 +22,6 @@
     "import/prefer-default-export": 0,
     "no-console": 0,
     "require-jsdoc": 0,
-    "semi": [
-      2,
-      "never"
-    ],
     "no-invalid-this": 0,
     "babel/no-invalid-this": 0
   }
