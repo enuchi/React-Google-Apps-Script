@@ -3,16 +3,24 @@ const onOpen = () => {
   SpreadsheetApp.getUi() // Or DocumentApp or FormApp.
     .createMenu('Custom scripts')
     .addItem('Edit sheets [sample React project]', 'openDialog')
+    .addItem('About me', 'openAboutSidebar')
     .addToUi();
 };
 
 const openDialog = () => {
-  let html = HtmlService.createHtmlOutputFromFile('dialog')
+  let html = HtmlService.createHtmlOutputFromFile('main')
     .setWidth(400)
     .setHeight(600);
   SpreadsheetApp
     .getUi() // Or DocumentApp or FormApp.
     .showModalDialog(html, 'Sheet Editor');
+};
+
+const openAboutSidebar = () => {
+  let html = HtmlService.createHtmlOutputFromFile('about');
+  SpreadsheetApp
+    .getUi()
+    .showSidebar(html);
 };
 
 const getSheets = () => SpreadsheetApp
@@ -61,6 +69,7 @@ const setActiveSheet = (sheetName) => {
 export {
   onOpen,
   openDialog,
+  openAboutSidebar,
   getSheetsData,
   addSheet,
   deleteSheet,

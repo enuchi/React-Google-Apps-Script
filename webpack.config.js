@@ -4,19 +4,30 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const GasPlugin = require('gas-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const WebpackCleanPlugin = require('webpack-clean');
-
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 
+// settings
 const destination = 'dist';
-
-const htmlPlugin = new HtmlWebpackPlugin({
-  template: "./src/client/dialog-template.html",
-  filename: "dialog.html",
-  inlineSource: '.(js|css)$' // embed all javascript and css inline
-});
-
+const htmlTemplate = './src/client/dialog-template.html';
 const htmlWebpackInlineSourcePlugin = new HtmlWebpackInlineSourcePlugin();
+const webpackCleanPlugin = new WebpackCleanPlugin([
+  destination + '/' + 'main.js',
+]);
+
+// Client entrypoints:
+const clientEntrypoints = [
+  {
+    name: "CLIENT - main dialog",
+    entry: "./src/client/index.jsx",
+    filename: "main.html"
+  },
+  {
+    name: "CLIENT - about sidebar",
+    entry: "./src/client/index.jsx",
+    filename: "about.html"
+  },
+];
 
 const sharedConfigSettings = {
   optimization: {
@@ -64,9 +75,10 @@ const appsscriptConfig = {
   ]
 };
 
-const clientConfig = Object.assign({}, sharedConfigSettings, {
-  name: "CLIENT",
-  entry: "./src/client/index.jsx",
+const clientConfig = {
+  ...sharedConfigSettings,
+  // name: "CLIENT",
+  // entry: "./src/client/index.jsx",
   output: {
     path: path.resolve(__dirname, destination),
   },
@@ -89,16 +101,35 @@ const clientConfig = Object.assign({}, sharedConfigSettings, {
       }
     ],
   },
-  plugins: [
-    htmlPlugin,
-    new HtmlWebpackInlineSourcePlugin(),
-    new WebpackCleanPlugin([
-      destination + '/' + 'main.js',
-    ])
-  ]
-});
+  // plugins: [
+  //   htmlWebpackInlineSourcePlugin,
+  //   webpackCleanPlugin,
+  // ]
+};
 
-const serverConfig = Object.assign({}, sharedConfigSettings, {
+const clientConfigs = clientEntrypoints.map((clientEntrypoint) => {
+  return ({
+    ...clientConfig,
+    name: clientEntrypoint.name,
+    entry: clientEntrypoint.entry,
+    plugins: [
+      new HtmlWebpackPlugin({
+        template: htmlTemplate,
+        filename: clientEntrypoint.filename,
+        inlineSource: '.(js|css)$' // embed all javascript and css inline
+      }),
+      htmlWebpackInlineSourcePlugin,
+      webpackCleanPlugin,
+    ],
+  })
+});
+    // };
+  // };
+
+console.log(clientConfigs)
+
+const serverConfig = {
+  ...sharedConfigSettings,
   name: "SERVER",
   entry: "./src/server/code.js",
   output: {
@@ -121,10 +152,10 @@ const serverConfig = Object.assign({}, sharedConfigSettings, {
   plugins: [
     new GasPlugin()
   ]
-});
+};
 
 module.exports = [
   appsscriptConfig,
-  clientConfig,
+  ...clientConfigs,
   serverConfig,
 ];
