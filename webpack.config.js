@@ -27,7 +27,7 @@ const sharedConfigSettings = {
           ie8: true,
           mangle: false,
           compress: {
-            properties: true
+            properties: false
           },
           output: {
             beautify: true
