@@ -3,19 +3,20 @@ import PropTypes from 'prop-types';
 import '../styles.css';
 
 const SheetButton = (props) => {
-  let sheetIndex = props.name.sheetIndex;
-  let sheetName = props.name.text;
-  let isActiveSheet = props.name.isActive;
+  const {name, deleteButtonHandler, clickSheetNameHandler} = props;
+
+  const {sheetIndex, text, isActive} = name;
+
   return (
     <div className="sheetLine">
       <button
-        onClick={(e) => props.deleteButtonHandler(e, sheetIndex)}
+        onClick={(e) => deleteButtonHandler(e, sheetIndex)}
       >X
       </button>
       <span
-          onClick={(e) => props.clickSheetNameHandler(e, sheetName)}
-          className={'sheetNameText ' + (isActiveSheet ? 'active-sheet' : '')}
-        >{sheetName}
+          onClick={(e) => clickSheetNameHandler(e, text)}
+          className={'sheetNameText ' + (isActive ? 'active-sheet' : '')}
+        >{text}
       </span>
     </div>
   );

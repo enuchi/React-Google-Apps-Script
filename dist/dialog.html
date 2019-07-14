@@ -50,12 +50,18 @@
         return __webpack_require__.d(getter, "a", getter), getter;
     }, __webpack_require__.o = function(object, property) {
         return Object.prototype.hasOwnProperty.call(object, property);
-    }, __webpack_require__.p = "", __webpack_require__(__webpack_require__.s = 30);
+    }, __webpack_require__.p = "", __webpack_require__(__webpack_require__.s = 31);
 }([ function(module, exports, __webpack_require__) {
     "use strict";
-    module.exports = __webpack_require__(8);
+    module.exports = __webpack_require__(9);
 }, function(module, exports, __webpack_require__) {
-    module.exports = __webpack_require__(14)();
+    module.exports = __webpack_require__(15)();
+}, function(module, exports) {
+    module.exports = function(obj) {
+        return obj && obj.__esModule ? obj : {
+            "default": obj
+        };
+    };
 }, function(module, exports, __webpack_require__) {
     "use strict";
     !function checkDCE() {
@@ -64,7 +70,7 @@
         } catch (err) {
             console.error(err);
         }
-    }(), module.exports = __webpack_require__(9);
+    }(), module.exports = __webpack_require__(10);
 }, function(module, exports, __webpack_require__) {
     "use strict";
     var getOwnPropertySymbols = Object.getOwnPropertySymbols, hasOwnProperty = Object.prototype.hasOwnProperty, propIsEnumerable = Object.prototype.propertyIsEnumerable;
@@ -99,10 +105,9 @@
     };
 }, function(module, exports, __webpack_require__) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", {
-        value: !0
-    }), exports["default"] = !("undefined" == typeof window || !window.document || !window.document.createElement), 
-    module.exports = exports["default"];
+    exports.__esModule = !0, exports["default"] = void 0;
+    var _default = !("undefined" == typeof window || !window.document || !window.document.createElement);
+    exports["default"] = _default, module.exports = exports["default"];
 }, function(module, exports, __webpack_require__) {
     "use strict";
     exports.__esModule = !0, exports.nameShape = undefined, exports.transitionTimeout = function(transitionType) {
@@ -135,21 +140,21 @@
         appearActive: _propTypes2["default"].string
     }) ]);
 }, function(module, exports, __webpack_require__) {
-    var content = __webpack_require__(26);
+    var content = __webpack_require__(27);
     "string" == typeof content && (content = [ [ module.i, content, "" ] ]);
     var options = {
         hmr: !0,
         transform: void 0
     };
     options.insertInto = undefined;
-    __webpack_require__(28)(content, options);
+    __webpack_require__(29)(content, options);
     content.locals && (module.exports = content.locals);
 }, function(module, exports, __webpack_require__) {
     "use strict";
-    module.exports = __webpack_require__(13);
+    module.exports = __webpack_require__(14);
 }, function(module, exports, __webpack_require__) {
     "use strict";
-    var k = __webpack_require__(3), n = "function" == typeof Symbol && Symbol["for"], p = n ? Symbol["for"]("react.element") : 60103, q = n ? Symbol["for"]("react.portal") : 60106, r = n ? Symbol["for"]("react.fragment") : 60107, t = n ? Symbol["for"]("react.strict_mode") : 60108, u = n ? Symbol["for"]("react.profiler") : 60114, v = n ? Symbol["for"]("react.provider") : 60109, w = n ? Symbol["for"]("react.context") : 60110, x = n ? Symbol["for"]("react.concurrent_mode") : 60111, y = n ? Symbol["for"]("react.forward_ref") : 60112, z = n ? Symbol["for"]("react.suspense") : 60113, aa = n ? Symbol["for"]("react.memo") : 60115, ba = n ? Symbol["for"]("react.lazy") : 60116, A = "function" == typeof Symbol && Symbol.iterator;
+    var k = __webpack_require__(4), n = "function" == typeof Symbol && Symbol["for"], p = n ? Symbol["for"]("react.element") : 60103, q = n ? Symbol["for"]("react.portal") : 60106, r = n ? Symbol["for"]("react.fragment") : 60107, t = n ? Symbol["for"]("react.strict_mode") : 60108, u = n ? Symbol["for"]("react.profiler") : 60114, v = n ? Symbol["for"]("react.provider") : 60109, w = n ? Symbol["for"]("react.context") : 60110, x = n ? Symbol["for"]("react.concurrent_mode") : 60111, y = n ? Symbol["for"]("react.forward_ref") : 60112, z = n ? Symbol["for"]("react.suspense") : 60113, aa = n ? Symbol["for"]("react.memo") : 60115, ba = n ? Symbol["for"]("react.lazy") : 60116, A = "function" == typeof Symbol && Symbol.iterator;
     function B(a) {
         for (var b = arguments.length - 1, d = "https://reactjs.org/docs/error-decoder.html?invariant=" + a, c = 0; c < b; c++) d += "&args[]=" + encodeURIComponent(arguments[c + 1]);
         !function(a, b, d, c, e, g, h, f) {
@@ -443,7 +448,7 @@
     module.exports = Z["default"] || Z;
 }, function(module, exports, __webpack_require__) {
     "use strict";
-    var aa = __webpack_require__(0), n = __webpack_require__(3), r = __webpack_require__(10);
+    var aa = __webpack_require__(0), n = __webpack_require__(4), r = __webpack_require__(11);
     function x(a) {
         for (var b = arguments.length - 1, c = "https://reactjs.org/docs/error-decoder.html?invariant=" + a, d = 0; d < b; d++) c += "&args[]=" + encodeURIComponent(arguments[d + 1]);
         !function(a, b, c, d, e, f, g, h) {
@@ -4845,7 +4850,7 @@
     module.exports = Xi["default"] || Xi;
 }, function(module, exports, __webpack_require__) {
     "use strict";
-    module.exports = __webpack_require__(11);
+    module.exports = __webpack_require__(12);
 }, function(module, exports, __webpack_require__) {
     "use strict";
     (function(global) {
@@ -5109,7 +5114,7 @@
         }, exports.unstable_pauseExecution = function() {}, exports.unstable_getFirstCallbackNode = function() {
             return d;
         };
-    }).call(this, __webpack_require__(12));
+    }).call(this, __webpack_require__(13));
 }, function(module, exports) {
     var g;
     g = function() {
@@ -5130,7 +5135,7 @@
             for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
         }
         return target;
-    }, _react2 = _interopRequireDefault(__webpack_require__(0)), _propTypes2 = _interopRequireDefault(__webpack_require__(1)), _TransitionGroup2 = _interopRequireDefault(__webpack_require__(16)), _CSSTransitionGroupChild2 = _interopRequireDefault(__webpack_require__(20)), _PropTypes = __webpack_require__(5);
+    }, _react2 = _interopRequireDefault(__webpack_require__(0)), _propTypes2 = _interopRequireDefault(__webpack_require__(1)), _TransitionGroup2 = _interopRequireDefault(__webpack_require__(17)), _CSSTransitionGroupChild2 = _interopRequireDefault(__webpack_require__(21)), _PropTypes = __webpack_require__(6);
     function _interopRequireDefault(obj) {
         return obj && obj.__esModule ? obj : {
             "default": obj
@@ -5187,7 +5192,7 @@
     }, exports["default"] = CSSTransitionGroup, module.exports = exports["default"];
 }, function(module, exports, __webpack_require__) {
     "use strict";
-    var ReactPropTypesSecret = __webpack_require__(15);
+    var ReactPropTypesSecret = __webpack_require__(16);
     function emptyFunction() {}
     function emptyFunctionWithReset() {}
     emptyFunctionWithReset.resetWarningCache = emptyFunction, module.exports = function() {
@@ -5237,8 +5242,8 @@
             for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
         }
         return target;
-    }, _chainFunction2 = _interopRequireDefault(__webpack_require__(17)), _react2 = _interopRequireDefault(__webpack_require__(0)), _propTypes2 = _interopRequireDefault(__webpack_require__(1)), _ChildMapping = (_interopRequireDefault(__webpack_require__(18)), 
-    __webpack_require__(19));
+    }, _chainFunction2 = _interopRequireDefault(__webpack_require__(18)), _react2 = _interopRequireDefault(__webpack_require__(0)), _propTypes2 = _interopRequireDefault(__webpack_require__(1)), _ChildMapping = (_interopRequireDefault(__webpack_require__(19)), 
+    __webpack_require__(20));
     function _interopRequireDefault(obj) {
         return obj && obj.__esModule ? obj : {
             "default": obj
@@ -5399,7 +5404,7 @@
             for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
         }
         return target;
-    }, _addClass2 = _interopRequireDefault(__webpack_require__(21)), _removeClass2 = _interopRequireDefault(__webpack_require__(23)), _requestAnimationFrame2 = _interopRequireDefault(__webpack_require__(24)), _properties = __webpack_require__(25), _react2 = _interopRequireDefault(__webpack_require__(0)), _propTypes2 = _interopRequireDefault(__webpack_require__(1)), _reactDom = __webpack_require__(2), _PropTypes = __webpack_require__(5);
+    }, _addClass2 = _interopRequireDefault(__webpack_require__(22)), _removeClass2 = _interopRequireDefault(__webpack_require__(24)), _requestAnimationFrame2 = _interopRequireDefault(__webpack_require__(25)), _properties = __webpack_require__(26), _react2 = _interopRequireDefault(__webpack_require__(0)), _propTypes2 = _interopRequireDefault(__webpack_require__(1)), _reactDom = __webpack_require__(3), _PropTypes = __webpack_require__(6);
     function _interopRequireDefault(obj) {
         return obj && obj.__esModule ? obj : {
             "default": obj
@@ -5489,20 +5494,15 @@
     exports["default"] = CSSTransitionGroupChild, module.exports = exports["default"];
 }, function(module, exports, __webpack_require__) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", {
-        value: !0
-    }), exports["default"] = function(element, className) {
-        element.classList ? element.classList.add(className) : (0, _hasClass2["default"])(element, className) || ("string" == typeof element.className ? element.className = element.className + " " + className : element.setAttribute("class", (element.className && element.className.baseVal || "") + " " + className));
+    var _interopRequireDefault = __webpack_require__(2);
+    exports.__esModule = !0, exports["default"] = function(element, className) {
+        element.classList ? element.classList.add(className) : (0, _hasClass["default"])(element, className) || ("string" == typeof element.className ? element.className = element.className + " " + className : element.setAttribute("class", (element.className && element.className.baseVal || "") + " " + className));
     };
-    var obj, _hasClass = __webpack_require__(22), _hasClass2 = (obj = _hasClass) && obj.__esModule ? obj : {
-        "default": obj
-    };
+    var _hasClass = _interopRequireDefault(__webpack_require__(23));
     module.exports = exports["default"];
 }, function(module, exports, __webpack_require__) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", {
-        value: !0
-    }), exports["default"] = function(element, className) {
+    exports.__esModule = !0, exports["default"] = function(element, className) {
         return element.classList ? !!className && element.classList.contains(className) : -1 !== (" " + (element.className.baseVal || element.className) + " ").indexOf(" " + className + " ");
     }, module.exports = exports["default"];
 }, function(module, exports, __webpack_require__) {
@@ -5515,19 +5515,15 @@
     };
 }, function(module, exports, __webpack_require__) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", {
-        value: !0
-    });
-    var obj, _inDOM = __webpack_require__(4);
+    var _interopRequireDefault = __webpack_require__(2);
+    exports.__esModule = !0, exports["default"] = void 0;
     var compatRaf, cancel = "clearTimeout", raf = function(fn) {
         var curr = new Date().getTime(), ms = Math.max(0, 16 - (curr - prev)), req = setTimeout(fn, ms);
         return prev = curr, req;
     }, getKey = function(vendor, k) {
         return vendor + (vendor ? k[0].toUpperCase() + k.substr(1) : k) + "AnimationFrame";
     };
-    ((obj = _inDOM) && obj.__esModule ? obj : {
-        "default": obj
-    })["default"] && [ "", "webkit", "moz", "o", "ms" ].some(function(vendor) {
+    _interopRequireDefault(__webpack_require__(5))["default"] && [ "", "webkit", "moz", "o", "ms" ].some(function(vendor) {
         var rafKey = getKey(vendor, "request");
         if (rafKey in window) return cancel = getKey(vendor, "cancel"), raf = function(cb) {
             return window[rafKey](cb);
@@ -5538,19 +5534,22 @@
         return raf(cb);
     }).cancel = function(id) {
         window[cancel] && "function" == typeof window[cancel] && window[cancel](id);
-    }, exports["default"] = compatRaf, module.exports = exports["default"];
+    };
+    var _default = compatRaf;
+    exports["default"] = _default, module.exports = exports["default"];
 }, function(module, exports, __webpack_require__) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", {
-        value: !0
-    }), exports.animationEnd = exports.animationDelay = exports.animationTiming = exports.animationDuration = exports.animationName = exports.transitionEnd = exports.transitionDuration = exports.transitionDelay = exports.transitionTiming = exports.transitionProperty = exports.transform = undefined;
-    var obj, _inDOM = __webpack_require__(4);
-    var transform = "transform", prefix = void 0, transitionEnd = void 0, animationEnd = void 0, transitionProperty = void 0, transitionDuration = void 0, transitionTiming = void 0, transitionDelay = void 0, animationName = void 0, animationDuration = void 0, animationTiming = void 0, animationDelay = void 0;
-    if (((obj = _inDOM) && obj.__esModule ? obj : {
-        "default": obj
-    })["default"]) {
+    var _interopRequireDefault = __webpack_require__(2);
+    exports.__esModule = !0, exports["default"] = exports.animationEnd = exports.animationDelay = exports.animationTiming = exports.animationDuration = exports.animationName = exports.transitionEnd = exports.transitionDuration = exports.transitionDelay = exports.transitionTiming = exports.transitionProperty = exports.transform = void 0;
+    var prefix, transitionEnd, animationEnd, transitionProperty, transitionDuration, transitionTiming, transitionDelay, animationName, animationDuration, animationTiming, animationDelay, _inDOM = _interopRequireDefault(__webpack_require__(5)), transform = "transform";
+    if (exports.transform = transform, exports.animationEnd = animationEnd, exports.transitionEnd = transitionEnd, 
+    exports.transitionDelay = transitionDelay, exports.transitionTiming = transitionTiming, 
+    exports.transitionDuration = transitionDuration, exports.transitionProperty = transitionProperty, 
+    exports.animationDelay = animationDelay, exports.animationTiming = animationTiming, 
+    exports.animationDuration = animationDuration, exports.animationName = animationName, 
+    _inDOM["default"]) {
         var _getTransitionPropert = function() {
-            for (var style = document.createElement("div").style, vendorMap = {
+            for (var transitionEnd, animationEnd, style = document.createElement("div").style, vendorMap = {
                 O: function(e) {
                     return "o" + e.toLowerCase();
                 },
@@ -5563,7 +5562,7 @@
                 ms: function(e) {
                     return "MS" + e;
                 }
-            }, vendors = Object.keys(vendorMap), transitionEnd = void 0, animationEnd = void 0, prefix = "", i = 0; i < vendors.length; i++) {
+            }, vendors = Object.keys(vendorMap), prefix = "", i = 0; i < vendors.length; i++) {
                 var vendor = vendors[i];
                 if (vendor + "TransitionProperty" in style) {
                     prefix = "-" + vendor.toLowerCase(), transitionEnd = vendorMap[vendor]("TransitionEnd"), 
@@ -5587,12 +5586,7 @@
         exports.animationName = animationName = prefix + "-animation-name", exports.animationDuration = animationDuration = prefix + "-animation-duration", 
         exports.animationTiming = animationTiming = prefix + "-animation-delay", exports.animationDelay = animationDelay = prefix + "-animation-timing-function";
     }
-    exports.transform = transform, exports.transitionProperty = transitionProperty, 
-    exports.transitionTiming = transitionTiming, exports.transitionDelay = transitionDelay, 
-    exports.transitionDuration = transitionDuration, exports.transitionEnd = transitionEnd, 
-    exports.animationName = animationName, exports.animationDuration = animationDuration, 
-    exports.animationTiming = animationTiming, exports.animationDelay = animationDelay, 
-    exports.animationEnd = animationEnd, exports["default"] = {
+    var _default = {
         transform: transform,
         end: transitionEnd,
         property: transitionProperty,
@@ -5600,8 +5594,9 @@
         delay: transitionDelay,
         duration: transitionDuration
     };
+    exports["default"] = _default;
 }, function(module, exports, __webpack_require__) {
-    (exports = module.exports = __webpack_require__(27)(!1)).push([ module.i, "@import url(https://fonts.googleapis.com/css?family=Lora|Mukta);", "" ]), 
+    (exports = module.exports = __webpack_require__(28)(!1)).push([ module.i, "@import url(https://fonts.googleapis.com/css?family=Lora|Mukta);", "" ]), 
     exports.push([ module.i, "input {\n    width: 130px;\n    margin-left: 8px;\n}\n\nbutton {\n\t-webkit-transition-duration: 0.4s; /* Safari */\n\tbackground-color: #f44336;\n\tborder: 1px solid #f44336;\n\tcolor: white;\n\tdisplay: inline-block;\n\tfont-family: 'Mukta', sans-serif;\n\tfont-size: 11px;\n\theight: 20px;\n\tline-height: 15px;\n\tmargin-left: 3px;\n\tmargin-right: 11px;\n\tpadding: 3px;\n\ttext-transform: uppercase;\n\ttransition-duration: 0.6s;\n\tvertical-align: middle;\n\twidth: 20px;\n}\n\nbutton:hover {\n    background-color: white;\n    color: black;\n}\n\nbutton:active {\n\tbackground-color: #fafafa;\n\ttransform: translateY(1px);\n\ttransition-duration: 0.3s;\n}\n\nbutton:focus {\n\toutline: none;\n}\n\n.formBlock {\n    display: -webkit-box;\n    font-family: 'Lora', serif;\n    font-weight: 700;\n}\n\n.sheetLine {\n\tcursor: pointer;\n\tline-height: 3;\n\theight: 30px;\n}\n\n.sheetNameText {\n\tfont-size: 14px;\n\tfont-family: 'Lora', serif;\n}\n\n.sheetNameText.active-sheet {\n\tborder-bottom: 3px solid #338236;\n}\n\n/*\nReactCSSTransitionGroup styling\n */\n.sheetNames-enter {\n  opacity: 0.01;\n}\n\n.sheetNames-enter.sheetNames-enter-active {\n  opacity: 1;\n  transition: opacity 800ms ease-in;\n}\n\n.sheetNames-leave {\n  opacity: 1;\n}\n\n.sheetNames-leave.sheetNames-leave-active {\n  opacity: 0.01;\n  transition: opacity 100ms ease-in;\n}\n\n.sheetNames-appear {\n  opacity: 0.01;\n}\n\n.sheetNames-appear.sheetNames-appear-active {\n  opacity: 1;\n  transition: opacity .5s ease-in;\n}", "" ]);
 }, function(module, exports) {
     module.exports = function(useSourceMap) {
@@ -5657,7 +5652,7 @@
             }
             return memo[target];
         };
-    }(), singleton = null, singletonCounter = 0, stylesInsertedAtTop = [], fixUrls = __webpack_require__(29);
+    }(), singleton = null, singletonCounter = 0, stylesInsertedAtTop = [], fixUrls = __webpack_require__(30);
     function addStylesToDom(styles, options) {
         for (var i = 0; i < styles.length; i++) {
             var item = styles[i], domStyle = stylesInDom[item.id];
@@ -5814,49 +5809,35 @@
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
     __webpack_require__.r(__webpack_exports__);
-    var react = __webpack_require__(0), react_default = __webpack_require__.n(react), react_dom = __webpack_require__(2), react_dom_default = __webpack_require__.n(react_dom), react_addons_css_transition_group = __webpack_require__(7), react_addons_css_transition_group_default = __webpack_require__.n(react_addons_css_transition_group), prop_types = __webpack_require__(1), prop_types_default = __webpack_require__.n(prop_types);
-    __webpack_require__(6);
-    class form_input_FormInput extends react_default.a.Component {
-        constructor(props) {
-            super(props), this.state = {
-                text: ""
-            }, this.handleChange = this.handleChange.bind(this), this.handleSubmit = this.handleSubmit.bind(this);
-        }
-        handleChange(e) {
-            this.setState({
-                text: e.target.value
-            });
-        }
-        handleSubmit(e) {
-            e.preventDefault(), this.state.text.length && (this.props.newSheetFormHandler(e, this.state.text), 
-            this.setState({
-                text: ""
-            }));
-        }
-        render() {
-            return react_default.a.createElement("div", {
-                className: "formBlock"
-            }, react_default.a.createElement("span", null, "Add a sheet: "), react_default.a.createElement("form", {
-                onSubmit: e => this.handleSubmit(e)
-            }, react_default.a.createElement("input", {
-                onChange: this.handleChange,
-                value: this.state.text
-            })));
-        }
+    var react = __webpack_require__(0), react_default = __webpack_require__.n(react), react_dom = __webpack_require__(3), react_dom_default = __webpack_require__.n(react_dom), react_addons_css_transition_group = __webpack_require__(8), react_addons_css_transition_group_default = __webpack_require__.n(react_addons_css_transition_group), prop_types = __webpack_require__(1), prop_types_default = __webpack_require__.n(prop_types);
+    __webpack_require__(7);
+    function FormInput(props) {
+        const [text, setText] = Object(react.useState)("");
+        return react_default.a.createElement("div", {
+            className: "formBlock"
+        }, react_default.a.createElement("span", null, "Add a sheet: "), react_default.a.createElement("form", {
+            onSubmit: event => {
+                event.preventDefault(), 0 !== text.length && (props.newSheetFormHandler(event, text), 
+                setText(""));
+            }
+        }, react_default.a.createElement("input", {
+            onChange: event => setText(event.target.value),
+            value: text
+        })));
     }
-    form_input_FormInput.propTypes = {
+    FormInput.propTypes = {
         newSheetFormHandler: prop_types_default.a.func
     };
     const SheetButton = props => {
-        let sheetIndex = props.name.sheetIndex, sheetName = props.name.text, isActiveSheet = props.name.isActive;
+        const {name: name, deleteButtonHandler: deleteButtonHandler, clickSheetNameHandler: clickSheetNameHandler} = props, {sheetIndex: sheetIndex, text: text, isActive: isActive} = name;
         return react_default.a.createElement("div", {
             className: "sheetLine"
         }, react_default.a.createElement("button", {
-            onClick: e => props.deleteButtonHandler(e, sheetIndex)
+            onClick: e => deleteButtonHandler(e, sheetIndex)
         }, "X"), react_default.a.createElement("span", {
-            onClick: e => props.clickSheetNameHandler(e, sheetName),
-            className: "sheetNameText " + (isActiveSheet ? "active-sheet" : "")
-        }, sheetName));
+            onClick: e => clickSheetNameHandler(e, text),
+            className: "sheetNameText " + (isActive ? "active-sheet" : "")
+        }, text));
     };
     var sheet_button = SheetButton;
     SheetButton.propTypes = {
@@ -5864,49 +5845,36 @@
         deleteButtonHandler: prop_types_default.a.func,
         clickSheetNameHandler: prop_types_default.a.func
     };
-    react_dom_default.a.render(react_default.a.createElement(class extends react_default.a.Component {
-        constructor(props) {
-            super(props), this.state = {
-                names: []
-            }, this.deleteButtonHandler = this.deleteButtonHandler.bind(this), this.clickSheetNameHandler = this.clickSheetNameHandler.bind(this), 
-            this.newSheetFormHandler = this.newSheetFormHandler.bind(this);
-        }
-        componentDidMount() {
-            google.script.run.withSuccessHandler(data => this.setState({
-                names: data
-            })).withFailureHandler(error => alert(error)).getSheetsData();
-        }
-        deleteButtonHandler(e, sheetIndex) {
-            return google.script.run.withSuccessHandler(data => this.setState({
-                names: data
-            })).withFailureHandler(error => alert(error)).deleteSheet(sheetIndex);
-        }
-        clickSheetNameHandler(e, sheetName) {
-            return google.script.run.withSuccessHandler(data => this.setState({
-                names: data
-            })).withFailureHandler(error => alert(error)).setActiveSheet(sheetName);
-        }
-        newSheetFormHandler(e, newSheetTitle) {
-            return google.script.run.withSuccessHandler(data => this.setState({
-                names: data
-            })).withFailureHandler(error => alert(error)).addSheet(newSheetTitle);
-        }
-        render() {
-            let names = this.state.names;
-            return react_default.a.createElement("div", null, react_default.a.createElement(form_input_FormInput, {
-                newSheetFormHandler: this.newSheetFormHandler
-            }), react_default.a.createElement(react_addons_css_transition_group_default.a, {
-                transitionName: "sheetNames",
-                transitionAppear: !0,
-                transitionEnterTimeout: 100,
-                transitionLeaveTimeout: 100
-            }, names.length ? names.map(name => react_default.a.createElement(sheet_button, {
-                name: name,
-                deleteButtonHandler: this.deleteButtonHandler,
-                clickSheetNameHandler: this.clickSheetNameHandler,
-                key: name.sheetName
-            })) : null));
-        }
+    const ignoredMethods = [ "withFailureHandler", "withLogger", "withSuccessHandler", "withUserObject" ], serverMethods = {};
+    for (const method in google.script.run) ignoredMethods.includes(method) || (serverMethods[method] = ((...args) => new Promise((resolve, reject) => {
+        google.script.run.withSuccessHandler(resolve).withFailureHandler(reject)[method](...args);
+    })));
+    var server = serverMethods;
+    react_dom_default.a.render(react_default.a.createElement(function() {
+        const {getSheetsData: getSheetsData, addSheet: addSheet, deleteSheet: deleteSheet, setActiveSheet: setActiveSheet} = server, [names, setNames] = Object(react.useState)([]);
+        Object(react.useEffect)(() => {
+            getSheetsData().then(setNames)["catch"](alert);
+        }, []);
+        const deleteButtonHandler = (e, sheetIndex) => {
+            deleteSheet(sheetIndex).then(setNames)["catch"](alert);
+        }, clickSheetNameHandler = (e, sheetName) => {
+            setActiveSheet(sheetName).then(setNames)["catch"](alert);
+        };
+        return react_default.a.createElement("div", null, react_default.a.createElement(FormInput, {
+            newSheetFormHandler: (e, newSheetTitle) => {
+                addSheet(newSheetTitle).then(setNames)["catch"](alert);
+            }
+        }), react_default.a.createElement(react_addons_css_transition_group_default.a, {
+            transitionName: "sheetNames",
+            transitionAppear: !0,
+            transitionEnterTimeout: 100,
+            transitionLeaveTimeout: 100
+        }, names.length ? names.map(name => react_default.a.createElement(sheet_button, {
+            name: name,
+            deleteButtonHandler: deleteButtonHandler,
+            clickSheetNameHandler: clickSheetNameHandler,
+            key: name.sheetName
+        })) : null));
     }, null), document.getElementById("index"));
 } ]);</script></body>
 </html>

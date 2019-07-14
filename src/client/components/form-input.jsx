@@ -1,37 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import '../styles.css';
 
-export default class FormInput extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {text: ''};
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+export default function FormInput(props) {
+  const [text, setText] = useState('');
 
-  handleChange(e) {
-    this.setState({text: e.target.value});
-  }
+  const handleChange = (event) => setText(event.target.value);
 
-  handleSubmit(e) {
-    e.preventDefault();
-    if (this.state.text.length) {
-      this.props.newSheetFormHandler(e, this.state.text);
-      this.setState({text: ''});
-    }
-  }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (text.length === 0) return;
 
-  render() {
-    return (
-      <div className="formBlock">
-        <span>Add a sheet: </span>
-        <form onSubmit={(e) => this.handleSubmit(e)}>
-          <input onChange={this.handleChange} value={this.state.text} />
-        </form>
-      </div>
-    );
-  }
+    props.newSheetFormHandler(event, text);
+    setText('');
+  };
+
+  return (
+    <div className="formBlock">
+      <span>Add a sheet: </span>
+      <form onSubmit={handleSubmit}>
+        <input onChange={handleChange} value={text} />
+      </form>
+    </div>
+  );
 }
 
 FormInput.propTypes = {

@@ -3,6 +3,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const GasPlugin = require('gas-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const WebpackCleanPlugin = require('webpack-clean');
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
@@ -22,6 +23,7 @@ const sharedConfigSettings = {
     minimizer: [
       new UglifyJSPlugin({
         uglifyOptions: {
+          warnings: false,
           ie8: true,
           mangle: false,
           compress: {
@@ -66,7 +68,7 @@ const clientConfig = Object.assign({}, sharedConfigSettings, {
   name: "CLIENT",
   entry: "./src/client/index.jsx",
   output: {
-    path: path.resolve(__dirname, destination)
+    path: path.resolve(__dirname, destination),
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json']
@@ -89,7 +91,10 @@ const clientConfig = Object.assign({}, sharedConfigSettings, {
   },
   plugins: [
     htmlPlugin,
-    new HtmlWebpackInlineSourcePlugin()
+    new HtmlWebpackInlineSourcePlugin(),
+    new WebpackCleanPlugin([
+      destination + '/' + 'main.js',
+    ])
   ]
 });
 
