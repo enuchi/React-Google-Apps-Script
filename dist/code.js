@@ -100,9 +100,9 @@ function setActiveSheet() {
     "use strict";
     __webpack_require__.r(__webpack_exports__), function(global) {
         var _sheets_utilities_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-        global.onOpen = _sheets_utilities_js__WEBPACK_IMPORTED_MODULE_0__["d"], global.openDialog = _sheets_utilities_js__WEBPACK_IMPORTED_MODULE_0__["e"], 
-        global.getSheetsData = _sheets_utilities_js__WEBPACK_IMPORTED_MODULE_0__["c"], global.addSheet = _sheets_utilities_js__WEBPACK_IMPORTED_MODULE_0__["a"], 
-        global.deleteSheet = _sheets_utilities_js__WEBPACK_IMPORTED_MODULE_0__["b"], global.setActiveSheet = _sheets_utilities_js__WEBPACK_IMPORTED_MODULE_0__["f"];
+        global.onOpen = _sheets_utilities_js__WEBPACK_IMPORTED_MODULE_0__.d, global.openDialog = _sheets_utilities_js__WEBPACK_IMPORTED_MODULE_0__.e, 
+        global.getSheetsData = _sheets_utilities_js__WEBPACK_IMPORTED_MODULE_0__.c, global.addSheet = _sheets_utilities_js__WEBPACK_IMPORTED_MODULE_0__.a, 
+        global.deleteSheet = _sheets_utilities_js__WEBPACK_IMPORTED_MODULE_0__.b, global.setActiveSheet = _sheets_utilities_js__WEBPACK_IMPORTED_MODULE_0__.f;
     }.call(this, __webpack_require__(2));
 }, function(module, exports) {
     var g;
