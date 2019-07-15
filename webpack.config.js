@@ -19,12 +19,12 @@ const webpackCleanPlugin = new WebpackCleanPlugin([
 const clientEntrypoints = [
   {
     name: "CLIENT - main dialog",
-    entry: "./src/client/index.jsx",
+    entry: "./src/client/main.jsx",
     filename: "main.html"
   },
   {
     name: "CLIENT - about sidebar",
-    entry: "./src/client/index.jsx",
+    entry: "./src/client/about.jsx",
     filename: "about.html"
   },
 ];
@@ -123,10 +123,6 @@ const clientConfigs = clientEntrypoints.map((clientEntrypoint) => {
     ],
   })
 });
-    // };
-  // };
-
-console.log(clientConfigs)
 
 const serverConfig = {
   ...sharedConfigSettings,
