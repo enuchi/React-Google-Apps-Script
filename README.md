@@ -1,4 +1,5 @@
 
+
 ## React + Google Apps Script
 *Use this demo project as your boilerplate React app for HTML dialogs in Google Sheets, Docs and Forms.*
 
@@ -9,30 +10,45 @@ This project uses labnol's excellent [apps-script-starter](https://github.com/la
 
 ## Installation
 
- Clone the sample project and install dependencies:
-```
-git clone https://github.com/enuchi/React-Google-Apps-Script.git
-cd React-Google-Apps-Script
-npm install
-```
-Then [create a new Google Sheets spreadsheet](https://sheets.google.com). Open the Script Editor and copy the script's scriptId. [**Tools > Script Editor**, then **File > Project properties**].
+ 
 
-Paste the **scriptId** into the .clasp.json file as below:
+ 1. Clone the sample project and install dependencies:
+  ```
+  > git clone https://github.com/enuchi/React-Google-Apps-Script.git
+  > cd React-Google-Apps-Script
+  > npm install
+  ```
+ 2. Enable the Google Apps Script API [(script.google.com/home/usersettings)](https://script.google.com/home/usersettings):
+![Enable Google Apps Script](https://i.imgur.com/PxuNbP3.png "enable the Google Apps Script API")
+
+3. Log in to `clasp` to manage your Google Apps Scripts from the command line:
+  ```
+  > npm run login
+  ```
+4. Create a new Google Sheets file and a bound Google Scripts project for your React project:
+  ```
+  > npm run setup
+  Created new Google Sheet: https://drive.google.com/open?id=1lVQUPZ*************************************
+  Created new Google Sheets Add-on script: https://script.google.com/d/1K7MPtCH*************************************-**/edit
+  ```
+  You've created a new Sheet and attached Script file! (But they're still empty for now.) See the notes below if you want to use an existing Google Sheet and Script instead of creating a new one.
+5. Build the app and deploy!
+  ```
+  > npm run deploy
+  ```
+  You can now visit your Google Sheet and see your new React app.
+
+### Using an existing Sheet
+The above installation instructions create a new Google Sheets spreadsheet and 'bound' Apps Script, and saves the credentials to a `.clasp.json` file in the root directory. If you want to use an existing sheet's script file, then simply copy the scriptId into the `.clasp.json` file as below. You can find the script's scriptId by opening your sheet, selecting **Tools > Script Editor**, then **File > Project properties**.
+
+Paste the `scriptId` into the `.clasp.json` file. *Make sure to include `"rootDir": "dist"` in this file:
 ```
 // .clasp.json
-{"rootDir": "dist",
- "scriptId":"...paste scriptId here..."}
+{"rootDir": "dist", "scriptId":"...paste scriptId here..."}
 ```
-If you have not enabled Google's Apps Script API, do so by visiting https://script.google.com/home/usersettings.
-Log into CLASP to push code to the server from the command line:
-```
-npx clasp login
-```
-Modify the server-side and client-side source code in the `src` folder using ES6/7 and React. Change the scopes in `appsscript.json` if needed. When you're ready, build the app and deploy!
-```
-npm run deploy
-```
-Webpack will display any linting errors, bundle your files in `dist`, and push your files to Google's servers using CLASP. You can run `npm run build` to just build.
+### Making changes to the code
+Modify the server-side and client-side source code in the `src` folder using ES6/7 and React. Change the scopes in `appsscript.json` if needed. When you're ready, build the app and deploy! You can run `npm run deploy` to build and deploy, or `npm run build` just to build the bundled files in the `./dist` directory.
+
 
 ## The sample app
 Insert/activate/delete sheets through a simple HTML dialog, built with React. Access the dialog through the new menu item that appears. You may need to refresh the spreadsheet and approve the app's permissions the first time you use it.
@@ -44,11 +60,11 @@ That means many JavaScript tools used today in modern web development will not w
 
 This project circumvents those restrictions by transpiling newer code to older code that Google Apps Script understands using Babel, and also bundles separate files and modules using Webpack.
 
-On the client-side, there are restrictions on the way HTML dialogs are used in Google Apps (Sheets, Docs and Forms). In web development you can simply reference a separate css file:
+On the client-side, Google Apps Scripts has restrictions on the way HTML dialogs are used. While in normal web development you can simply reference a separate css file, e.g.
 ```
 <link rel="stylesheet" href="styles.css">
 ```
-In the Google Apps Script environment you need to use [HTML templates](https://developers.google.com/apps-script/guides/html/templates), which can be cumbersome. With this project, all files are bundled together by inlining .css and .js files. Using a transpiler and bundling tool also allows us to use JSX syntax, and external libraries such as React.
+in the Google Apps Script environment you need to use [HTML templates](https://developers.google.com/apps-script/guides/html/templates), which can be cumbersome to work with. With this project, all files are bundled together by inlining .css and .js files. Using a transpiler and bundling tool also allows us to use JSX syntax, and external libraries such as React.
 
 ## Features
 - Support for JSX syntax:
@@ -67,15 +83,51 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 ```
 import "./styles.css";
 ```
- - Make server calls in React with `google.script.run`:
+ - Use promises with e.g. `.then`/`.catch` instead of `google.script.run`:
  ```
-componentDidMount() {
-   google.script.run
-      .withSuccessHandler((data) => this.setState({names: data}))
-      .withFailureHandler((error) => alert(error))
-      .getSheetsData()
-}
+// instead of this:
+google.script.run
+   .withSuccessHandler(successHandler)
+   .withFailureHandler(failureHandler)
+   .getSheetsData()
+
+// you can do this:
+import server from '../server';
+// access all your server functions here:
+const { getSheetsData } = server;
+addSheet(newSheetTitle)
+   .then(successHandler)
+   .catch(failureHandler);
   ```
+How does this work? We rewrite `google.script.run` to support Promises:
+```
+// ./src/client/server.js
+
+const serverMethods = {};
+
+// skip the reserved methods
+const ignoredMethods = [
+  'withFailureHandler',
+  'withLogger',
+  'withSuccessHandler',
+  'withUserObject',
+];
+
+for (const method in google.script.run) {
+  if (!ignoredMethods.includes(method)) {
+    serverMethods[method] = (...args) => {
+      return new Promise((resolve, reject) => {
+        google.script.run
+          .withSuccessHandler(resolve)
+          .withFailureHandler(reject)[method](...args);
+      });
+    };
+  }
+}
+export default serverMethods;
+```
+Now we can use familiar Promises in our client-side code and have easy access to all server functions!
+
 - Use newer ES6/7 code, including arrow functions, spread operators, `const`/`let`, and more:
 ```
 const getSheetsData = () => {
@@ -105,7 +157,7 @@ Tern provides many indispensable tools for working with Google Apps Script, such
 
 ## Extending this app
 - You can split up server-side code into multiple files and folders using `import` and `export` statements.
-- Make sure to expose all public functions including any functions called from the client with `google.script.run` as well as onOpen. Example below shows assignment to `global` object:
+- Make sure to expose all public functions including `onOpen` and any functions you are calling from the client. Example below shows assignment to `global` object:
 ```
 const onOpen = () => {
   SpreadsheetApp.getUi() // Or DocumentApp or FormApp.
@@ -127,5 +179,46 @@ const clientConfig = Object.assign({}, sharedConfigSettings, {
       // eslintConfig,
       {
 ```
+
+## Multiple dialogs
+This project now supports multiple dialogs and sidebars. Here is an example of the `server` code for a 'main.html' dialog and an 'about.html' sidebar:
+```
+// ./src/server/sheets-utilities.js
+
+const openDialog = () => {
+  const html = HtmlService.createHtmlOutputFromFile('main')
+    .setWidth(400)
+    .setHeight(600);
+  SpreadsheetApp
+    .getUi() // Or DocumentApp or FormApp.
+    .showModalDialog(html, 'Sheet Editor');
+};
+
+const openAboutSidebar = () => {
+  const html = HtmlService.createHtmlOutputFromFile('about');
+  SpreadsheetApp
+    .getUi()
+    .showSidebar(html);
+};
+```
+And here is the configuration in webpack that creates multiple html files. You will need to edit this if you want to add more dialog html files:
+```
+// ./webpack.config.js
+
+// Client entrypoints:
+const clientEntrypoints = [
+  {
+    name: "CLIENT - main dialog",
+    entry: "./src/client/main.jsx",
+    filename: "main.html"
+  },
+  {
+    name: "CLIENT - about sidebar",
+    entry: "./src/client/about.jsx",
+    filename: "about.html"
+  },
+];
+```
+
 ## Suggestions
 Open a pull request!
