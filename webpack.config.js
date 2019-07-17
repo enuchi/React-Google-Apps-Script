@@ -77,8 +77,6 @@ const appsscriptConfig = {
 
 const clientConfig = {
   ...sharedConfigSettings,
-  // name: "CLIENT",
-  // entry: "./src/client/index.jsx",
   output: {
     path: path.resolve(__dirname, destination),
   },
@@ -101,10 +99,6 @@ const clientConfig = {
       }
     ],
   },
-  // plugins: [
-  //   htmlWebpackInlineSourcePlugin,
-  //   webpackCleanPlugin,
-  // ]
 };
 
 const clientConfigs = clientEntrypoints.map((clientEntrypoint) => {
