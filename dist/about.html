@@ -50,7 +50,7 @@
         return __webpack_require__.d(getter, "a", getter), getter;
     }, __webpack_require__.o = function(object, property) {
         return Object.prototype.hasOwnProperty.call(object, property);
-    }, __webpack_require__.p = "", __webpack_require__(__webpack_require__.s = 8);
+    }, __webpack_require__.p = "", __webpack_require__(__webpack_require__.s = 13);
 }([ function(module, exports, __webpack_require__) {
     "use strict";
     module.exports = __webpack_require__(3);
@@ -5069,10 +5069,238 @@
         "object" == typeof window && (g = window);
     }
     module.exports = g;
+}, function(module, exports, __webpack_require__) {
+    var content = __webpack_require__(9);
+    "string" == typeof content && (content = [ [ module.i, content, "" ] ]);
+    var options = {
+        hmr: !0,
+        transform: void 0
+    };
+    options.insertInto = undefined;
+    __webpack_require__(11)(content, options);
+    content.locals && (module.exports = content.locals);
+}, function(module, exports, __webpack_require__) {
+    (exports = module.exports = __webpack_require__(10)(!1)).push([ module.i, "@import url(https://fonts.googleapis.com/css?family=Lora|Mukta);", "" ]), 
+    exports.push([ module.i, "input {\n    width: 130px;\n    margin-left: 8px;\n}\n\nbutton {\n\t-webkit-transition-duration: 0.4s; /* Safari */\n\tbackground-color: #f44336;\n\tborder: 1px solid #f44336;\n\tcolor: white;\n\tdisplay: inline-block;\n\tfont-family: 'Mukta', sans-serif;\n\tfont-size: 11px;\n\theight: 20px;\n\tline-height: 15px;\n\tmargin-left: 3px;\n\tmargin-right: 11px;\n\tpadding: 3px;\n\ttext-transform: uppercase;\n\ttransition-duration: 0.6s;\n\tvertical-align: middle;\n\twidth: 20px;\n}\n\nbutton:hover {\n    background-color: white;\n    color: black;\n}\n\nbutton:active {\n\tbackground-color: #fafafa;\n\ttransform: translateY(1px);\n\ttransition-duration: 0.3s;\n}\n\nbutton:focus {\n\toutline: none;\n}\n\n.formBlock {\n    display: -webkit-box;\n    font-family: 'Lora', serif;\n    font-weight: 700;\n}\n\n.sheetLine {\n\tcursor: pointer;\n\tline-height: 3;\n\theight: 30px;\n}\n\n.sheetNameText {\n\tfont-size: 14px;\n\tfont-family: 'Lora', serif;\n}\n\n.sheetNameText.active-sheet {\n\tborder-bottom: 3px solid #338236;\n}\n\n/*\nReactCSSTransitionGroup styling\n */\n.sheetNames-enter {\n  opacity: 0.01;\n}\n\n.sheetNames-enter.sheetNames-enter-active {\n  opacity: 1;\n  transition: opacity 800ms ease-in;\n}\n\n.sheetNames-leave {\n  opacity: 1;\n}\n\n.sheetNames-leave.sheetNames-leave-active {\n  opacity: 0.01;\n  transition: opacity 100ms ease-in;\n}\n\n.sheetNames-appear {\n  opacity: 0.01;\n}\n\n.sheetNames-appear.sheetNames-appear-active {\n  opacity: 1;\n  transition: opacity .5s ease-in;\n}", "" ]);
+}, function(module, exports) {
+    module.exports = function(useSourceMap) {
+        var list = [];
+        return list.toString = function() {
+            return this.map(function(item) {
+                var content = function(item, useSourceMap) {
+                    var content = item[1] || "", cssMapping = item[3];
+                    if (!cssMapping) return content;
+                    if (useSourceMap && "function" == typeof btoa) {
+                        var sourceMapping = (sourceMap = cssMapping, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */"), sourceURLs = cssMapping.sources.map(function(source) {
+                            return "/*# sourceURL=" + cssMapping.sourceRoot + source + " */";
+                        });
+                        return [ content ].concat(sourceURLs).concat([ sourceMapping ]).join("\n");
+                    }
+                    var sourceMap;
+                    return [ content ].join("\n");
+                }(item, useSourceMap);
+                return item[2] ? "@media " + item[2] + "{" + content + "}" : content;
+            }).join("");
+        }, list.i = function(modules, mediaQuery) {
+            "string" == typeof modules && (modules = [ [ null, modules, "" ] ]);
+            for (var alreadyImportedModules = {}, i = 0; i < this.length; i++) {
+                var id = this[i][0];
+                "number" == typeof id && (alreadyImportedModules[id] = !0);
+            }
+            for (i = 0; i < modules.length; i++) {
+                var item = modules[i];
+                "number" == typeof item[0] && alreadyImportedModules[item[0]] || (mediaQuery && !item[2] ? item[2] = mediaQuery : mediaQuery && (item[2] = "(" + item[2] + ") and (" + mediaQuery + ")"), 
+                list.push(item));
+            }
+        }, list;
+    };
+}, function(module, exports, __webpack_require__) {
+    var fn, memo, stylesInDom = {}, isOldIE = (fn = function() {
+        return window && document && document.all && !window.atob;
+    }, function() {
+        return void 0 === memo && (memo = fn.apply(this, arguments)), memo;
+    }), getElement = function(fn) {
+        var memo = {};
+        return function(target, parent) {
+            if ("function" == typeof target) return target();
+            if ("undefined" == typeof memo[target]) {
+                var styleTarget = function(target, parent) {
+                    return parent ? parent.querySelector(target) : document.querySelector(target);
+                }.call(this, target, parent);
+                if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) try {
+                    styleTarget = styleTarget.contentDocument.head;
+                } catch (e) {
+                    styleTarget = null;
+                }
+                memo[target] = styleTarget;
+            }
+            return memo[target];
+        };
+    }(), singleton = null, singletonCounter = 0, stylesInsertedAtTop = [], fixUrls = __webpack_require__(12);
+    function addStylesToDom(styles, options) {
+        for (var i = 0; i < styles.length; i++) {
+            var item = styles[i], domStyle = stylesInDom[item.id];
+            if (domStyle) {
+                domStyle.refs++;
+                for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j](item.parts[j]);
+                for (;j < item.parts.length; j++) domStyle.parts.push(addStyle(item.parts[j], options));
+            } else {
+                var parts = [];
+                for (j = 0; j < item.parts.length; j++) parts.push(addStyle(item.parts[j], options));
+                stylesInDom[item.id] = {
+                    id: item.id,
+                    refs: 1,
+                    parts: parts
+                };
+            }
+        }
+    }
+    function listToStyles(list, options) {
+        for (var styles = [], newStyles = {}, i = 0; i < list.length; i++) {
+            var item = list[i], id = options.base ? item[0] + options.base : item[0], part = {
+                css: item[1],
+                media: item[2],
+                sourceMap: item[3]
+            };
+            newStyles[id] ? newStyles[id].parts.push(part) : styles.push(newStyles[id] = {
+                id: id,
+                parts: [ part ]
+            });
+        }
+        return styles;
+    }
+    function insertStyleElement(options, style) {
+        var target = getElement(options.insertInto);
+        if (!target) throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+        var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
+        if ("top" === options.insertAt) lastStyleElementInsertedAtTop ? lastStyleElementInsertedAtTop.nextSibling ? target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling) : target.appendChild(style) : target.insertBefore(style, target.firstChild), 
+        stylesInsertedAtTop.push(style); else if ("bottom" === options.insertAt) target.appendChild(style); else {
+            if ("object" != typeof options.insertAt || !options.insertAt.before) throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
+            var nextSibling = getElement(options.insertAt.before, target);
+            target.insertBefore(style, nextSibling);
+        }
+    }
+    function removeStyleElement(style) {
+        if (null === style.parentNode) return !1;
+        style.parentNode.removeChild(style);
+        var idx = stylesInsertedAtTop.indexOf(style);
+        idx >= 0 && stylesInsertedAtTop.splice(idx, 1);
+    }
+    function createStyleElement(options) {
+        var style = document.createElement("style");
+        if (options.attrs.type === undefined && (options.attrs.type = "text/css"), options.attrs.nonce === undefined) {
+            var nonce = function() {
+                0;
+                return __webpack_require__.nc;
+            }();
+            nonce && (options.attrs.nonce = nonce);
+        }
+        return addAttrs(style, options.attrs), insertStyleElement(options, style), style;
+    }
+    function addAttrs(el, attrs) {
+        Object.keys(attrs).forEach(function(key) {
+            el.setAttribute(key, attrs[key]);
+        });
+    }
+    function addStyle(obj, options) {
+        var style, update, remove, result;
+        if (options.transform && obj.css) {
+            if (!(result = options.transform(obj.css))) return function() {};
+            obj.css = result;
+        }
+        if (options.singleton) {
+            var styleIndex = singletonCounter++;
+            style = singleton || (singleton = createStyleElement(options)), update = applyToSingletonTag.bind(null, style, styleIndex, !1), 
+            remove = applyToSingletonTag.bind(null, style, styleIndex, !0);
+        } else obj.sourceMap && "function" == typeof URL && "function" == typeof URL.createObjectURL && "function" == typeof URL.revokeObjectURL && "function" == typeof Blob && "function" == typeof btoa ? (style = function(options) {
+            var link = document.createElement("link");
+            return options.attrs.type === undefined && (options.attrs.type = "text/css"), options.attrs.rel = "stylesheet", 
+            addAttrs(link, options.attrs), insertStyleElement(options, link), link;
+        }(options), update = function(link, options, obj) {
+            var css = obj.css, sourceMap = obj.sourceMap, autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
+            (options.convertToAbsoluteUrls || autoFixUrls) && (css = fixUrls(css));
+            sourceMap && (css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */");
+            var blob = new Blob([ css ], {
+                type: "text/css"
+            }), oldSrc = link.href;
+            link.href = URL.createObjectURL(blob), oldSrc && URL.revokeObjectURL(oldSrc);
+        }.bind(null, style, options), remove = function() {
+            removeStyleElement(style), style.href && URL.revokeObjectURL(style.href);
+        }) : (style = createStyleElement(options), update = function(style, obj) {
+            var css = obj.css, media = obj.media;
+            media && style.setAttribute("media", media);
+            if (style.styleSheet) style.styleSheet.cssText = css; else {
+                for (;style.firstChild; ) style.removeChild(style.firstChild);
+                style.appendChild(document.createTextNode(css));
+            }
+        }.bind(null, style), remove = function() {
+            removeStyleElement(style);
+        });
+        return update(obj), function(newObj) {
+            if (newObj) {
+                if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap) return;
+                update(obj = newObj);
+            } else remove();
+        };
+    }
+    module.exports = function(list, options) {
+        if ("undefined" != typeof DEBUG && DEBUG && "object" != typeof document) throw new Error("The style-loader cannot be used in a non-browser environment");
+        (options = options || {}).attrs = "object" == typeof options.attrs ? options.attrs : {}, 
+        options.singleton || "boolean" == typeof options.singleton || (options.singleton = isOldIE()), 
+        options.insertInto || (options.insertInto = "head"), options.insertAt || (options.insertAt = "bottom");
+        var styles = listToStyles(list, options);
+        return addStylesToDom(styles, options), function(newList) {
+            for (var mayRemove = [], i = 0; i < styles.length; i++) {
+                var item = styles[i];
+                (domStyle = stylesInDom[item.id]).refs--, mayRemove.push(domStyle);
+            }
+            newList && addStylesToDom(listToStyles(newList, options), options);
+            for (i = 0; i < mayRemove.length; i++) {
+                var domStyle;
+                if (0 === (domStyle = mayRemove[i]).refs) {
+                    for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
+                    delete stylesInDom[domStyle.id];
+                }
+            }
+        };
+    };
+    var textStore, replaceText = (textStore = [], function(index, replacement) {
+        return textStore[index] = replacement, textStore.filter(Boolean).join("\n");
+    });
+    function applyToSingletonTag(style, index, remove, obj) {
+        var css = remove ? "" : obj.css;
+        if (style.styleSheet) style.styleSheet.cssText = replaceText(index, css); else {
+            var cssNode = document.createTextNode(css), childNodes = style.childNodes;
+            childNodes[index] && style.removeChild(childNodes[index]), childNodes.length ? style.insertBefore(cssNode, childNodes[index]) : style.appendChild(cssNode);
+        }
+    }
+}, function(module, exports) {
+    module.exports = function(css) {
+        var location = "undefined" != typeof window && window.location;
+        if (!location) throw new Error("fixUrls requires window.location");
+        if (!css || "string" != typeof css) return css;
+        var baseUrl = location.protocol + "//" + location.host, currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
+        return css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
+            var newUrl, unquotedOrigUrl = origUrl.trim().replace(/^"(.*)"$/, function(o, $1) {
+                return $1;
+            }).replace(/^'(.*)'$/, function(o, $1) {
+                return $1;
+            });
+            return /^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(unquotedOrigUrl) ? fullMatch : (newUrl = 0 === unquotedOrigUrl.indexOf("//") ? unquotedOrigUrl : 0 === unquotedOrigUrl.indexOf("/") ? baseUrl + unquotedOrigUrl : currentDir + unquotedOrigUrl.replace(/^\.\//, ""), 
+            "url(" + JSON.stringify(newUrl) + ")");
+        });
+    };
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
     __webpack_require__.r(__webpack_exports__);
-    var react = __webpack_require__(0), react_default = __webpack_require__.n(react), react_dom = __webpack_require__(2);
-    __webpack_require__.n(react_dom).a.render(react_default.a.createElement(() => react_default.a.createElement("div", null, "By Elisha Nuchi ©2019"), null), document.getElementById("index"));
+    var react = __webpack_require__(0), react_default = __webpack_require__.n(react), react_dom = __webpack_require__(2), react_dom_default = __webpack_require__.n(react_dom);
+    __webpack_require__(8);
+    react_dom_default.a.render(react_default.a.createElement(() => react_default.a.createElement("div", {
+        className: "sheetNameText"
+    }, react_default.a.createElement("div", null, "Github repo:"), react_default.a.createElement("a", {
+        href: "https://www.github.com/enuchi/React-Google-Apps-Script",
+        target: "_blank",
+        rel: "noopener noreferrer"
+    }, "React + Google Apps Script"), react_default.a.createElement("div", null, "-Elisha Nuchi")), null), document.getElementById("index"));
 } ]);</script></body>
 </html>

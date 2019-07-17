@@ -8,7 +8,7 @@ const onOpen = () => {
 };
 
 const openDialog = () => {
-  let html = HtmlService.createHtmlOutputFromFile('main')
+  const html = HtmlService.createHtmlOutputFromFile('main')
     .setWidth(400)
     .setHeight(600);
   SpreadsheetApp
@@ -17,7 +17,7 @@ const openDialog = () => {
 };
 
 const openAboutSidebar = () => {
-  let html = HtmlService.createHtmlOutputFromFile('about');
+  const html = HtmlService.createHtmlOutputFromFile('about');
   SpreadsheetApp
     .getUi()
     .showSidebar(html);
@@ -32,9 +32,9 @@ const getActiveSheetName = () => SpreadsheetApp
   .getSheetName();
 
 const getSheetsData = () => {
-  let activeSheetName = getActiveSheetName();
+  const activeSheetName = getActiveSheetName();
   return getSheets().map((sheet, index) => {
-    let sheetName = sheet.getName();
+    const sheetName = sheet.getName();
     return {
       text: sheetName,
       sheetIndex: index,
@@ -51,7 +51,7 @@ const addSheet = (sheetTitle) => {
 };
 
 const deleteSheet = (sheetIndex) => {
-  let sheets = getSheets();
+  const sheets = getSheets();
   SpreadsheetApp
     .getActive()
     .deleteSheet(sheets[sheetIndex]);

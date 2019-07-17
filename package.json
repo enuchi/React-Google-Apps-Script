@@ -4,6 +4,8 @@
   "description": "Starter project for using React with Google Apps Script",
   "scripts": {
     "test": "test",
+    "login": "clasp login",
+    "setup": "clasp create --type sheets --title 'My React Project' --rootDir ./dist",
     "start": "webpack --mode development",
     "build": "webpack --mode production",
     "deploy": "npm run build && npx clasp push"
