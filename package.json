@@ -4,6 +4,8 @@
   "description": "Starter project for using React with Google Apps Script",
   "scripts": {
     "test": "test",
+    "login": "clasp login",
+    "setup": "clasp create --type sheets --title 'My React Project' --rootDir ./dist",
     "start": "webpack --mode development",
     "build": "webpack --mode production",
     "deploy": "npm run build && npx clasp push"
@@ -34,6 +36,7 @@
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
     "babel-plugin-transform-es3-property-literals": "^6.22.0",
+    "clasp": "^1.0.0",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^1.0.1",

@@ -3,16 +3,24 @@ const onOpen = () => {
   SpreadsheetApp.getUi() // Or DocumentApp or FormApp.
     .createMenu('Custom scripts')
     .addItem('Edit sheets [sample React project]', 'openDialog')
+    .addItem('About me', 'openAboutSidebar')
     .addToUi();
 };
 
 const openDialog = () => {
-  let html = HtmlService.createHtmlOutputFromFile('dialog')
+  const html = HtmlService.createHtmlOutputFromFile('main')
     .setWidth(400)
     .setHeight(600);
   SpreadsheetApp
     .getUi() // Or DocumentApp or FormApp.
     .showModalDialog(html, 'Sheet Editor');
+};
+
+const openAboutSidebar = () => {
+  const html = HtmlService.createHtmlOutputFromFile('about');
+  SpreadsheetApp
+    .getUi()
+    .showSidebar(html);
 };
 
 const getSheets = () => SpreadsheetApp
@@ -24,9 +32,9 @@ const getActiveSheetName = () => SpreadsheetApp
   .getSheetName();
 
 const getSheetsData = () => {
-  let activeSheetName = getActiveSheetName();
+  const activeSheetName = getActiveSheetName();
   return getSheets().map((sheet, index) => {
-    let sheetName = sheet.getName();
+    const sheetName = sheet.getName();
     return {
       text: sheetName,
       sheetIndex: index,
@@ -43,7 +51,7 @@ const addSheet = (sheetTitle) => {
 };
 
 const deleteSheet = (sheetIndex) => {
-  let sheets = getSheets();
+  const sheets = getSheets();
   SpreadsheetApp
     .getActive()
     .deleteSheet(sheets[sheetIndex]);
@@ -61,6 +69,7 @@ const setActiveSheet = (sheetName) => {
 export {
   onOpen,
   openDialog,
+  openAboutSidebar,
   getSheetsData,
   addSheet,
   deleteSheet,

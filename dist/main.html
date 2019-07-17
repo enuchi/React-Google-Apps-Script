@@ -5812,7 +5812,7 @@
     var react = __webpack_require__(0), react_default = __webpack_require__.n(react), react_dom = __webpack_require__(3), react_dom_default = __webpack_require__.n(react_dom), react_addons_css_transition_group = __webpack_require__(8), react_addons_css_transition_group_default = __webpack_require__.n(react_addons_css_transition_group), prop_types = __webpack_require__(1), prop_types_default = __webpack_require__.n(prop_types);
     __webpack_require__(7);
     function FormInput(props) {
-        const [text, setText] = Object(react.useState)("");
+        const [text, setText] = Object(react["useState"])("");
         return react_default.a.createElement("div", {
             className: "formBlock"
         }, react_default.a.createElement("span", null, "Add a sheet: "), react_default.a.createElement("form", {
@@ -5845,14 +5845,14 @@
         deleteButtonHandler: prop_types_default.a.func,
         clickSheetNameHandler: prop_types_default.a.func
     };
-    const ignoredMethods = [ "withFailureHandler", "withLogger", "withSuccessHandler", "withUserObject" ], serverMethods = {};
+    const serverMethods = {}, ignoredMethods = [ "withFailureHandler", "withLogger", "withSuccessHandler", "withUserObject" ];
     for (const method in google.script.run) ignoredMethods.includes(method) || (serverMethods[method] = ((...args) => new Promise((resolve, reject) => {
         google.script.run.withSuccessHandler(resolve).withFailureHandler(reject)[method](...args);
     })));
     var server = serverMethods;
     react_dom_default.a.render(react_default.a.createElement(function() {
-        const {getSheetsData: getSheetsData, addSheet: addSheet, deleteSheet: deleteSheet, setActiveSheet: setActiveSheet} = server, [names, setNames] = Object(react.useState)([]);
-        Object(react.useEffect)(() => {
+        const {getSheetsData: getSheetsData, addSheet: addSheet, deleteSheet: deleteSheet, setActiveSheet: setActiveSheet} = server, [names, setNames] = Object(react["useState"])([]);
+        Object(react["useEffect"])(() => {
             getSheetsData().then(setNames)["catch"](alert);
         }, []);
         const deleteButtonHandler = (e, sheetIndex) => {
