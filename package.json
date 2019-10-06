@@ -23,7 +23,8 @@
     "google",
     "apps",
     "script",
-    "sheets"
+    "sheets",
+    "typescript"
   ],
   "author": "Elisha Nuchi",
   "license": "MIT",
@@ -45,8 +46,6 @@
     "prettier": "^1.18.2",
     "prop-types": "^15.7.2",
     "style-loader": "^0.22.1",
-    "tern": "^0.22.3",
-    "tern-googleappsscript": "^1.0.2",
     "ts-loader": "^6.2.0",
     "tslint": "^5.20.0",
     "tslint-react": "^4.1.0",

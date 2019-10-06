@@ -232,18 +232,6 @@ const getSheetsData = () => {
 };
 ```
 
-## Tern support
-
-This project includes support for GAS definitions and autocomplete through a [Tern](http://ternjs.net/) plugin. Tern is a code-analysis engine for JavaScript, providing many useful tools for developing. See Tern's site for setup instructions for many popular code editors, such as Sublime, Vim and others.
-
-Tern provides many indispensable tools for working with Google Apps Script, such as autocompletion on variables and properties, function argument hints and querying the type of an expression.
-
-- Autocomplete example. Lists all available methods from the appropriate Google Apps Script API:
-  ![tern support](https://i.imgur.com/s1OrQNr.png 'autocomplete and intelligent type detection with Tern')
-
-- Full definitions with links to official documentation, plus information on argument and return type:
-  ![tern support](https://i.imgur.com/yg5VwAC.png 'definitions with links to official documentation make developing with Google Apps Script')
-
 ## Extending this app
 
 - You can split up server-side code into multiple files and folders using `import` and `export` statements.
