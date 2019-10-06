@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { FormInput } from './form-input';
 import { SheetButton } from './sheet-button';
 
@@ -53,25 +53,26 @@ export function SheetEditor(props: SheetEditorProps) {
   return (
     <div>
       <FormInput newSheetFormHandler={newSheetFormHandler} />
-      <ReactCSSTransitionGroup
-        transitionName="sheetNames"
-        transitionAppear={true}
-        transitionEnterTimeout={100}
-        transitionLeaveTimeout={100}
-      >
+      <TransitionGroup>
         {names.length
           ? names.map(name => {
               return (
-                <SheetButton
-                  name={name}
-                  deleteButtonHandler={deleteButtonHandler}
-                  clickSheetNameHandler={clickSheetNameHandler}
+                <CSSTransition
                   key={name.sheetName}
-                />
+                  classNames="sheetNames"
+                  timeout={{ enter: 100, exit: 100 }}
+                >
+                  <SheetButton
+                    name={name}
+                    deleteButtonHandler={deleteButtonHandler}
+                    clickSheetNameHandler={clickSheetNameHandler}
+                    key={name.sheetName}
+                  />
+                </CSSTransition>
               );
             })
           : null}
-      </ReactCSSTransitionGroup>
+      </TransitionGroup>
     </div>
   );
 }
