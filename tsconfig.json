@@ -4,7 +4,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "lib": ["es6", "dom", "es2017"],
-    "target": "es3",
+    "target": "es5",
     "jsx": "react",
     "rootDir": "./src",
     "outDir": "./dist",
