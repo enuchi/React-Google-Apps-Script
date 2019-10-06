@@ -1,10 +1,10 @@
 ## Preact + Google Apps Script + Typescript
 
-_Use this demo project as your boilerplate React app for HTML dialogs in Google Sheets, Docs and Forms._
+_Use this demo project as your boilerplate preact app for HTML dialogs in Google Sheets, Docs and Forms._
 
 This project uses labnol's excellent [apps-script-starter](https://github.com/labnol/apps-script-starter) and enuchi's [React-Google-Apps-Script](https://github.com/enuchi/React-Google-Apps-Script.git) as a starting point, adding support for Typescript. It demonstrates how easy it is to build React apps that interact with Google Apps server-side scripts. Simply clone this project and modify the source code to get started developing with React for Google Apps Script client-side dialogs.
 
-![Google Apps Script / React development](https://i.imgur.com/0yYQoYj.jpg 'Start a React project for Google Apps Script')
+![Google Apps Script / Preact development](https://i.imgur.com/LGPqfYE.png 'Start a React project for Google Apps Script')
 _The demo app for Google Sheets shows insertion/deletion/activation of sheets through React-built HTML dialog._
 
 ## Installation
@@ -13,7 +13,7 @@ _The demo app for Google Sheets shows insertion/deletion/activation of sheets th
 
 ```
 > git clone https://github.com/msembinelli/preact-ts-gas.git
-> cd React-Google-Apps-Script
+> cd preact-ts-gas
 > npm install
 ```
 
