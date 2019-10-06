@@ -2,8 +2,11 @@
 Convert google script server calls to more
 familiar js/promise-based functions.
 */
+interface ServerMethods {
+  [method: string]: Function;
+}
 
-const serverMethods = {};
+const serverMethods: ServerMethods = {};
 
 // skip the reserved methods
 const ignoredMethods = [
@@ -15,15 +18,16 @@ const ignoredMethods = [
 
 for (const method in google.script.run) {
   if (!ignoredMethods.includes(method)) {
-    serverMethods[method] = (...args) => {
+    // tslint:disable-next-line: no-any
+    serverMethods[method] = (...args: any[]) => {
       return new Promise((resolve, reject) => {
         google.script.run
           .withSuccessHandler(resolve)
-          .withFailureHandler(reject)[method](...args);
+          .withFailureHandler(reject)
+          [method](...args);
       });
     };
   }
 }
-
 
 export default serverMethods;
