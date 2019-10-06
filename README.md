@@ -12,7 +12,7 @@ _The demo app for Google Sheets shows insertion/deletion/activation of sheets th
 1.  Clone the sample project and install dependencies:
 
 ```
-> git clone https://github.com/msembinelli/React-Google-Apps-Script.git
+> git clone https://github.com/msembinelli/react-ts-google-apps-script.git
 > cd React-Google-Apps-Script
 > npm install
 ```
