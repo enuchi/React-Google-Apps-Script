@@ -9,13 +9,13 @@ export const AboutPage: FunctionalComponent<AboutPageProps> = (
     <div className="sheetNameText">
       <div>Github repo:</div>
       <a
-        href="https://www.github.com/enuchi/React-Google-Apps-Script"
+        href="https://www.github.com/msembinelli/preact-ts-gas"
         target="_blank"
         rel="noopener noreferrer"
       >
-        React + Google Apps Script
+        Preact + Typescript + Google Apps Script
       </a>
-      <div>-Elisha Nuchi</div>
+      <div>-Matthew Sembinelli</div>
     </div>
   );
 };

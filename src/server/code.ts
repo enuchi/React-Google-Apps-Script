@@ -2,7 +2,7 @@
 function onOpen() {
   SpreadsheetApp.getUi() // Or DocumentApp or FormApp.
     .createMenu('Custom scripts')
-    .addItem('Edit sheets [sample React project]', 'openDialog')
+    .addItem('Edit sheets [sample preact project]', 'openDialog')
     .addItem('About me', 'openAboutSidebar')
     .addToUi();
 }

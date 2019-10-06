@@ -3,7 +3,7 @@ import { useState, useEffect } from 'preact/hooks';
 import { FormInput } from './form-input';
 import { SheetButton } from './sheet-button';
 
-import server from '../server';
+import { serverMethods } from '../server';
 
 interface SheetEditorProps {}
 
@@ -17,7 +17,12 @@ interface SheetEditorState {
 export const SheetEditor: FunctionalComponent<SheetEditorProps> = (
   props: SheetEditorProps
 ) => {
-  const { getSheetsData, addSheet, deleteSheet, setActiveSheet } = server;
+  const {
+    getSheetsData,
+    addSheet,
+    deleteSheet,
+    setActiveSheet,
+  } = serverMethods;
 
   const [names, setNames] = useState<SheetEditorState[]>([
     {

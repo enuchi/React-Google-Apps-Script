@@ -30,4 +30,4 @@ for (const method in google.script.run) {
   }
 }
 
-export default serverMethods;
+export { serverMethods };
