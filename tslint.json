@@ -2,7 +2,8 @@
   "extends": ["gts/tslint.json", "tslint-react", "tslint-react-hooks"],
   "rules": {
     "jsx-no-lambda": false,
-    "jsx-no-multiline-js": false
+    "jsx-no-multiline-js": false,
+    "variable-name": false
   },
   "linterOptions": {
     "exclude": ["**/*.json"]

@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { FunctionalComponent, h } from 'preact';
 import '../styles.css';
 
 interface SheetButtonProps {
@@ -12,26 +11,24 @@ interface SheetButtonProps {
   clickSheetNameHandler: Function;
 }
 
-export function SheetButton(props: SheetButtonProps) {
+export const SheetButton: FunctionalComponent<SheetButtonProps> = (
+  props: SheetButtonProps
+) => {
   const { name, deleteButtonHandler, clickSheetNameHandler } = props;
 
   const { sheetIndex, text, isActive } = name;
 
   return (
     <div className="sheetLine">
-      <button onClick={e => deleteButtonHandler(e, sheetIndex)}>X</button>
+      <button onClick={(e: Event) => deleteButtonHandler(e, sheetIndex)}>
+        X
+      </button>
       <span
-        onClick={e => clickSheetNameHandler(e, text)}
+        onClick={(e: Event) => clickSheetNameHandler(e, text)}
         className={'sheetNameText ' + (isActive ? 'active-sheet' : '')}
       >
         {text}
       </span>
     </div>
   );
-}
-
-SheetButton.propTypes = {
-  name: PropTypes.object,
-  deleteButtonHandler: PropTypes.func,
-  clickSheetNameHandler: PropTypes.func,
 };

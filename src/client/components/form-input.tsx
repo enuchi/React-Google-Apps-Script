@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { FunctionalComponent, h } from 'preact';
+import { useState } from 'preact/hooks';
 import '../styles.css';
 
 interface FormInputProps {
   newSheetFormHandler: Function;
 }
 
-export function FormInput(props: FormInputProps) {
+export const FormInput: FunctionalComponent<FormInputProps> = (
+  props: FormInputProps
+) => {
   const [text, setText] = useState('');
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+  const handleChange = (event: Event) =>
     setText((event.target as HTMLInputElement).value);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: Event) => {
     event.preventDefault();
     if (text.length === 0) return;
 
@@ -28,8 +30,4 @@ export function FormInput(props: FormInputProps) {
       </form>
     </div>
   );
-}
-
-FormInput.propTypes = {
-  newSheetFormHandler: PropTypes.func,
 };

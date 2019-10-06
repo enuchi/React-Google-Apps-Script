@@ -59,33 +59,3 @@ button:focus {
 .sheetNameText.active-sheet {
   border-bottom: 3px solid #338236;
 }
-
-/*
-ReactCSSTransitionGroup styling
- */
-.sheetNames-enter {
-  opacity: 0.01;
-}
-
-.sheetNames-enter.sheetNames-enter-active {
-  opacity: 1;
-  transition: opacity 800ms ease-in;
-}
-
-.sheetNames-exit {
-  opacity: 1;
-}
-
-.sheetNames-exit.sheetNames-exit-active {
-  opacity: 0.01;
-  transition: opacity 100ms ease-in;
-}
-
-.sheetNames-appear {
-  opacity: 0.01;
-}
-
-.sheetNames-appear.sheetNames-appear-active {
-  opacity: 1;
-  transition: opacity 0.5s ease-in;
-}

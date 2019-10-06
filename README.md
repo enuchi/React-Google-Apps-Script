@@ -1,4 +1,4 @@
-## React + Google Apps Script + Typescript
+## Preact + Google Apps Script + Typescript
 
 _Use this demo project as your boilerplate React app for HTML dialogs in Google Sheets, Docs and Forms._
 
@@ -12,7 +12,7 @@ _The demo app for Google Sheets shows insertion/deletion/activation of sheets th
 1.  Clone the sample project and install dependencies:
 
 ```
-> git clone https://github.com/msembinelli/react-ts-google-apps-script.git
+> git clone https://github.com/msembinelli/preact-ts-gas.git
 > cd React-Google-Apps-Script
 > npm install
 ```
@@ -81,7 +81,15 @@ in the Google Apps Script environment you need to use [HTML templates](https://d
 
 ## Features
 
-- Support for Typescript & [gts](https://github.com/google/gts)
+- Support for [Preact](https://github.com/preactjs/preact)
+
+```
+import { render, h } from 'preact';
+import { AboutPage } from './components/about-sidebar';
+render(<AboutPage />, document.body);
+```
+
+- Support for [Typescript](https://github.com/microsoft/TypeScript) & [gts](https://github.com/google/gts)
 
 `tsconfig.json`
 
@@ -92,19 +100,25 @@ in the Google Apps Script environment you need to use [HTML templates](https://d
     "module": "esnext",
     "moduleResolution": "node",
     "lib": ["es6", "dom", "es2017"],
-    "target": "es3",
+    "target": "es5",
     "jsx": "react",
+    "jsxFactory": "h",
     "rootDir": "./src",
     "outDir": "./dist",
-    "types": ["google-apps-script"],
     "strict": true,
-    "typeRoots": ["./node_modules/@types", "./typings"],
     "esModuleInterop": true,
-    "declaration": false
+    "declaration": false,
+    "noImplicitAny": true
   },
-  "include": ["src/**/*.ts", "test/**/*.ts", "typings/**/*d.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "test/**/*.ts",
+    "typings/**/*d.ts"
+  ],
   "exclude": ["node_modules"]
 }
+
 ```
 
 `tslint.json`
@@ -114,7 +128,8 @@ in the Google Apps Script environment you need to use [HTML templates](https://d
   "extends": ["gts/tslint.json", "tslint-react", "tslint-react-hooks"],
   "rules": {
     "jsx-no-lambda": false,
-    "jsx-no-multiline-js": false
+    "jsx-no-multiline-js": false,
+    "variable-name": false
   },
   "linterOptions": {
     "exclude": ["**/*.json"]
@@ -168,7 +183,11 @@ How does this work? We rewrite `google.script.run` to support Promises:
 ```
 // ./src/client/server.js
 
-const serverMethods = {};
+interface ServerMethods {
+  [method: string]: Function;
+}
+
+const serverMethods: ServerMethods = {};
 
 // skip the reserved methods
 const ignoredMethods = [
@@ -180,16 +199,19 @@ const ignoredMethods = [
 
 for (const method in google.script.run) {
   if (!ignoredMethods.includes(method)) {
-    serverMethods[method] = (...args) => {
+    // tslint:disable-next-line: no-any
+    serverMethods[method] = (...args: any[]) => {
       return new Promise((resolve, reject) => {
         google.script.run
           .withSuccessHandler(resolve)
-          .withFailureHandler(reject)[method](...args);
+          .withFailureHandler(reject)
+          [method](...args);
       });
     };
   }
 }
-export default serverMethods;
+
+export { serverMethods };
 ```
 
 Now we can use familiar Promises in our client-side code and have easy access to all server functions!
@@ -247,7 +269,6 @@ const clientConfig = Object.assign({}, sharedConfigSettings, {
   ...
   module: {
     rules: [
-      // eslintConfig,
       {
 ```
 

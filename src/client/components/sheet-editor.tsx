@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { FunctionalComponent, h } from 'preact';
+import { useState, useEffect } from 'preact/hooks';
 import { FormInput } from './form-input';
 import { SheetButton } from './sheet-button';
 
-import server from '../server';
+import { serverMethods } from '../server';
 
 interface SheetEditorProps {}
 
@@ -14,8 +14,15 @@ interface SheetEditorState {
   isActive: boolean;
 }
 
-export function SheetEditor(props: SheetEditorProps) {
-  const { getSheetsData, addSheet, deleteSheet, setActiveSheet } = server;
+export const SheetEditor: FunctionalComponent<SheetEditorProps> = (
+  props: SheetEditorProps
+) => {
+  const {
+    getSheetsData,
+    addSheet,
+    deleteSheet,
+    setActiveSheet,
+  } = serverMethods;
 
   const [names, setNames] = useState<SheetEditorState[]>([
     {
@@ -53,26 +60,18 @@ export function SheetEditor(props: SheetEditorProps) {
   return (
     <div>
       <FormInput newSheetFormHandler={newSheetFormHandler} />
-      <TransitionGroup>
-        {names.length
-          ? names.map(name => {
-              return (
-                <CSSTransition
-                  key={name.sheetName}
-                  classNames="sheetNames"
-                  timeout={{ enter: 100, exit: 100 }}
-                >
-                  <SheetButton
-                    name={name}
-                    deleteButtonHandler={deleteButtonHandler}
-                    clickSheetNameHandler={clickSheetNameHandler}
-                    key={name.sheetName}
-                  />
-                </CSSTransition>
-              );
-            })
-          : null}
-      </TransitionGroup>
+      {names.length
+        ? names.map(name => {
+            return (
+              <SheetButton
+                name={name}
+                deleteButtonHandler={deleteButtonHandler}
+                clickSheetNameHandler={clickSheetNameHandler}
+                key={name.sheetName}
+              />
+            );
+          })
+        : null}
     </div>
   );
-}
+};
