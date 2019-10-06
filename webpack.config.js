@@ -4,7 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const GasPlugin = require('gas-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const WebpackCleanPlugin = require('webpack-clean');
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 
 // settings
@@ -18,14 +18,14 @@ const webpackCleanPlugin = new WebpackCleanPlugin([
 // Client entrypoints:
 const clientEntrypoints = [
   {
-    name: "CLIENT - main dialog",
-    entry: "./src/client/main.jsx",
-    filename: "main.html"
+    name: 'CLIENT - main dialog',
+    entry: './src/client/main.tsx',
+    filename: 'main.html',
   },
   {
-    name: "CLIENT - about sidebar",
-    entry: "./src/client/about.jsx",
-    filename: "about.html"
+    name: 'CLIENT - about sidebar',
+    entry: './src/client/about.tsx',
+    filename: 'about.html',
   },
 ];
 
@@ -38,41 +38,29 @@ const sharedConfigSettings = {
           ie8: true,
           mangle: false,
           compress: {
-            properties: false
+            properties: false,
           },
           output: {
-            beautify: true
-          }
-        }
-      })
-    ]
+            beautify: true,
+          },
+        },
+      }),
+    ],
   },
   module: {},
 };
 
-const eslintConfig = {
-  enforce: 'pre',
-  test: /\.jsx?$/,
-  exclude: /node_modules/,
-  loader: 'eslint-loader',
-  options: {
-    cache: false,
-    failOnError: false,
-    fix: true
-  }
-};
-
 const appsscriptConfig = {
-  name: "COPY APPSSCRIPT.JSON",
-  entry: "./appsscript.json",
+  name: 'COPY APPSSCRIPT.JSON',
+  entry: './appsscript.json',
   plugins: [
     new CleanWebpackPlugin([destination]),
     new CopyWebpackPlugin([
       {
-        from: './appsscript.json'
-      }
-    ])
-  ]
+        from: './appsscript.json',
+      },
+    ]),
+  ],
 };
 
 const clientConfig = {
@@ -81,28 +69,25 @@ const clientConfig = {
     path: path.resolve(__dirname, destination),
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json']
+    extensions: ['.ts', '.tsx', '.json', '.js'],
   },
   module: {
     rules: [
-      // eslintConfig,
       {
-        test: /\.jsx$/,
+        test: /\.tsx?$/,
+        use: 'ts-loader',
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        }
       },
       {
         test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
-      }
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
 };
 
-const clientConfigs = clientEntrypoints.map((clientEntrypoint) => {
-  return ({
+const clientConfigs = clientEntrypoints.map(clientEntrypoint => {
+  return {
     ...clientConfig,
     name: clientEntrypoint.name,
     entry: clientEntrypoint.entry,
@@ -110,42 +95,36 @@ const clientConfigs = clientEntrypoints.map((clientEntrypoint) => {
       new HtmlWebpackPlugin({
         template: htmlTemplate,
         filename: clientEntrypoint.filename,
-        inlineSource: '.(js|css)$' // embed all javascript and css inline
+        inlineSource: '.(js|css)$', // embed all javascript and css inline
       }),
       htmlWebpackInlineSourcePlugin,
       webpackCleanPlugin,
     ],
-  })
+  };
 });
 
 const serverConfig = {
   ...sharedConfigSettings,
-  name: "SERVER",
-  entry: "./src/server/code.js",
+  name: 'SERVER',
+  entry: './src/server/code.ts',
   output: {
-    filename: 'code.js',
+    filename: 'Code.js',
     path: path.resolve(__dirname, destination),
-    libraryTarget: 'this'
+    libraryTarget: 'this',
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
   },
   module: {
     rules: [
-      // eslintConfig,
       {
-        test: /\.js$/,
+        test: /\.ts$/,
+        use: 'ts-loader',
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        }
       },
     ],
   },
-  plugins: [
-    new GasPlugin()
-  ]
+  plugins: [new GasPlugin()],
 };
 
-module.exports = [
-  appsscriptConfig,
-  ...clientConfigs,
-  serverConfig,
-];
+module.exports = [appsscriptConfig, ...clientConfigs, serverConfig];

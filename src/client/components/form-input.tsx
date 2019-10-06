@@ -1,13 +1,18 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import '../styles.css';
 
-export default function FormInput(props) {
+interface FormInputProps {
+  newSheetFormHandler: Function;
+}
+
+export function FormInput(props: FormInputProps) {
   const [text, setText] = useState('');
 
-  const handleChange = (event) => setText(event.target.value);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setText((event.target as HTMLInputElement).value);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (text.length === 0) return;
 
