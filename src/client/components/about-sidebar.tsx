@@ -1,7 +1,10 @@
-import React from 'react';
 import '../styles.css';
+import { FunctionalComponent, h } from 'preact';
+interface AboutPageProps {}
 
-export function AboutPage() {
+export const AboutPage: FunctionalComponent<AboutPageProps> = (
+  props: AboutPageProps
+) => {
   return (
     <div className="sheetNameText">
       <div>Github repo:</div>
@@ -15,4 +18,4 @@ export function AboutPage() {
       <div>-Elisha Nuchi</div>
     </div>
   );
-}
+};

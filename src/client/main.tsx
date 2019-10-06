@@ -1,5 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { render, h } from 'preact';
 import { SheetEditor } from './components/sheet-editor';
-
-ReactDOM.render(<SheetEditor />, document.getElementById('index'));
+render(<SheetEditor />, document.body);

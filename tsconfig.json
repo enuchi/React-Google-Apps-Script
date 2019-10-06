@@ -6,14 +6,19 @@
     "lib": ["es6", "dom", "es2017"],
     "target": "es5",
     "jsx": "react",
+    "jsxFactory": "h",
     "rootDir": "./src",
     "outDir": "./dist",
-    "types": ["google-apps-script"],
     "strict": true,
-    "typeRoots": ["./node_modules/@types", "./typings"],
     "esModuleInterop": true,
-    "declaration": false
+    "declaration": false,
+    "noImplicitAny": true
   },
-  "include": ["src/**/*.ts", "test/**/*.ts", "typings/**/*d.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "test/**/*.ts",
+    "typings/**/*d.ts"
+  ],
   "exclude": ["node_modules"]
 }
