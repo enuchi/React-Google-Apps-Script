@@ -1,17 +1,11 @@
 {
   "root": true,
   "parser": "babel-eslint",
-  "extends": [
-    "plugin:react/recommended",
-    "eslint:recommended",
-    "google"
-  ],
-  "plugins": [
-    "babel",
-    "react"
-  ],
+  "extends": ["airbnb-base", "plugin:react/recommended", "eslint:recommended"],
+  "plugins": ["babel", "react"],
   "env": {
-    "browser": true
+    "browser": true,
+    "es6": true
   },
   "globals": {
     "google": false,

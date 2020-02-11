@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import FormInput from './form-input';
 import SheetButton from './sheet-button';
@@ -6,7 +6,7 @@ import SheetButton from './sheet-button';
 import server from '../server';
 
 export default function SheetEditor() {
-  const {getSheetsData, addSheet, deleteSheet, setActiveSheet} = server;
+  const { getSheetsData, addSheet, deleteSheet, setActiveSheet } = server;
 
   const [names, setNames] = useState([]);
 
@@ -43,18 +43,19 @@ export default function SheetEditor() {
         transitionEnterTimeout={100}
         transitionLeaveTimeout={100}
       >
-      {names.length ? names.map((name) => {
-        return <SheetButton
-          name={name}
-          deleteButtonHandler={deleteButtonHandler}
-          clickSheetNameHandler={clickSheetNameHandler}
-          key={name.sheetName}
-          />;
-          })
-        : null}
+        {names.length
+          ? names.map(name => {
+              return (
+                <SheetButton
+                  name={name}
+                  deleteButtonHandler={deleteButtonHandler}
+                  clickSheetNameHandler={clickSheetNameHandler}
+                  key={name.sheetName}
+                />
+              );
+            })
+          : null}
       </ReactCSSTransitionGroup>
     </div>
   );
 }
-
-

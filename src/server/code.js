@@ -1,4 +1,4 @@
-import * as publicFunctions from './sheets-utilities.js';
+import * as publicFunctions from './sheets-utilities';
 
 // Expose public functions
 global.onOpen = publicFunctions.onOpen;
