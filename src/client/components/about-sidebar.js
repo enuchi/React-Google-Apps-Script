@@ -1,5 +1,4 @@
 import React from 'react';
-import '../styles.css';
 
 export const AboutPage = () => (
   <div className="sheetNameText">
@@ -9,7 +8,7 @@ export const AboutPage = () => (
       target="_blank"
       rel="noopener noreferrer"
     >
-     React + Google Apps Script
+      React + Google Apps Script
     </a>
     <div>-Elisha Nuchi</div>
   </div>

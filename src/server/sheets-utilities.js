@@ -11,25 +11,18 @@ const openDialog = () => {
   const html = HtmlService.createHtmlOutputFromFile('main')
     .setWidth(400)
     .setHeight(600);
-  SpreadsheetApp
-    .getUi() // Or DocumentApp or FormApp.
+  SpreadsheetApp.getUi() // Or DocumentApp or FormApp.
     .showModalDialog(html, 'Sheet Editor');
 };
 
 const openAboutSidebar = () => {
   const html = HtmlService.createHtmlOutputFromFile('about');
-  SpreadsheetApp
-    .getUi()
-    .showSidebar(html);
+  SpreadsheetApp.getUi().showSidebar(html);
 };
 
-const getSheets = () => SpreadsheetApp
-  .getActive()
-  .getSheets();
+const getSheets = () => SpreadsheetApp.getActive().getSheets();
 
-const getActiveSheetName = () => SpreadsheetApp
-  .getActive()
-  .getSheetName();
+const getActiveSheetName = () => SpreadsheetApp.getActive().getSheetName();
 
 const getSheetsData = () => {
   const activeSheetName = getActiveSheetName();
@@ -43,24 +36,19 @@ const getSheetsData = () => {
   });
 };
 
-const addSheet = (sheetTitle) => {
-  SpreadsheetApp
-    .getActive()
-    .insertSheet(sheetTitle);
+const addSheet = sheetTitle => {
+  SpreadsheetApp.getActive().insertSheet(sheetTitle);
   return getSheetsData();
 };
 
-const deleteSheet = (sheetIndex) => {
+const deleteSheet = sheetIndex => {
   const sheets = getSheets();
-  SpreadsheetApp
-    .getActive()
-    .deleteSheet(sheets[sheetIndex]);
+  SpreadsheetApp.getActive().deleteSheet(sheets[sheetIndex]);
   return getSheetsData();
 };
 
-const setActiveSheet = (sheetName) => {
-  SpreadsheetApp
-    .getActive()
+const setActiveSheet = sheetName => {
+  SpreadsheetApp.getActive()
     .getSheetByName(sheetName)
     .activate();
   return getSheetsData();

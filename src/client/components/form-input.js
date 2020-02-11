@@ -1,13 +1,12 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import '../styles.css';
 
 export default function FormInput(props) {
   const [text, setText] = useState('');
 
-  const handleChange = (event) => setText(event.target.value);
+  const handleChange = event => setText(event.target.value);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     if (text.length === 0) return;
 
