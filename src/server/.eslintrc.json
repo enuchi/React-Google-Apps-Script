@@ -1,18 +1,16 @@
 {
   "root": true,
   "parser": "babel-eslint",
-  "extends": ["airbnb-base", "prettier"],
-  "plugins": ["googleappsscript", "prettier"],
+  "extends": ["airbnb-base", "plugin:prettier/recommended"],
+  "plugins": ["prettier", "googleappsscript"],
   "env": {
     "googleappsscript/googleappsscript": true
   },
-  "globals": {
-    "SpreadsheetApp": true,
-    "HtmlService": true,
-    "global": true
-  },
   "rules": {
-    "import/prefer-default-export": 0,
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "camelcase": "warn",
+    "import/prefer-default-export": "warn",
+    "import/no-extraneous-dependencies": "warn",
+    "prefer-object-spread": "warn"
   }
 }

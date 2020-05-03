@@ -3,13 +3,13 @@
  ********************************/
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const GasPlugin = require('gas-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const WebpackCleanPlugin = require('webpack-clean');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 const DynamicCdnWebpackPlugin = require('dynamic-cdn-webpack-plugin');
+const moduleToCdn = require('module-to-cdn');
 
 /*********************************
  *       define file paths
@@ -23,12 +23,12 @@ const htmlTemplate = './src/client/dialog-template.html';
 const clientEntrypoints = [
   {
     name: 'CLIENT - main dialog',
-    entry: './src/client/main.jsx',
+    entry: './src/client/MainDialog.jsx',
     filename: 'main.html',
   },
   {
     name: 'CLIENT - about sidebar',
-    entry: './src/client/about.jsx',
+    entry: './src/client/AboutDialog.jsx',
     filename: 'about.html',
   },
 ];
@@ -64,7 +64,6 @@ const appsscriptConfig = {
   name: 'COPY APPSSCRIPT.JSON',
   entry: './appsscript.json',
   plugins: [
-    new CleanWebpackPlugin([destination]),
     new CopyWebpackPlugin([
       {
         from: './appsscript.json',
@@ -115,7 +114,30 @@ const clientConfigs = clientEntrypoints.map(clientEntrypoint => {
       }),
       new HtmlWebpackInlineSourcePlugin(),
       new WebpackCleanPlugin([path.join(destination, 'main.js')]),
-      new DynamicCdnWebpackPlugin(),
+      new DynamicCdnWebpackPlugin({
+        verbose: true,
+        resolver: (packageName, packageVersion, options) => {
+          const moduleDetails = moduleToCdn(
+            packageName,
+            packageVersion,
+            options
+          );
+          if (moduleDetails) {
+            return moduleDetails;
+          }
+          switch (packageName) {
+            case 'react-transition-group':
+              return {
+                name: packageName,
+                var: 'ReactTransitionGroup',
+                version: packageVersion,
+                url: `https://unpkg.com/react-transition-group/dist/react-transition-group.min.js`,
+              };
+            default:
+              return null;
+          }
+        },
+      }),
     ],
   };
 });
@@ -123,7 +145,7 @@ const clientConfigs = clientEntrypoints.map(clientEntrypoint => {
 const serverConfig = {
   ...sharedConfigSettings,
   name: 'SERVER',
-  entry: './src/server/code.js',
+  entry: './src/server/index.js',
   output: {
     filename: 'code.js',
     path: path.resolve(__dirname, destination),

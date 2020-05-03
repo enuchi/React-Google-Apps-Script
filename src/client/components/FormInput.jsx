@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-export default function FormInput(props) {
+const FormInput = ({ newSheetFormHandler }) => {
   const [text, setText] = useState('');
 
   const handleChange = event => setText(event.target.value);
@@ -10,7 +10,7 @@ export default function FormInput(props) {
     event.preventDefault();
     if (text.length === 0) return;
 
-    props.newSheetFormHandler(event, text);
+    newSheetFormHandler(event, text);
     setText('');
   };
 
@@ -22,7 +22,9 @@ export default function FormInput(props) {
       </form>
     </div>
   );
-}
+};
+
+export default FormInput;
 
 FormInput.propTypes = {
   newSheetFormHandler: PropTypes.func,

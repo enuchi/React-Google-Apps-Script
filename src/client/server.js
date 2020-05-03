@@ -1,29 +1,32 @@
-/*
-Convert google script server calls to more
-familiar js/promise-based functions.
-*/
+// Convert google script server calls to more familiar promise-based functions
 
-const serverMethods = {};
+const myServerFunctions = {};
 
-// skip the reserved methods
-const ignoredMethods = [
+// identify the reserved functions
+const ignoredMethods = new Set([
   'withFailureHandler',
   'withLogger',
   'withSuccessHandler',
   'withUserObject',
-];
+]);
 
-for (const method in google.script.run) {
-  if (!ignoredMethods.includes(method)) {
-    serverMethods[method] = (...args) => {
-      return new Promise((resolve, reject) => {
-        google.script.run
-          .withSuccessHandler(resolve)
-          .withFailureHandler(reject)[method](...args);
-      });
-    };
-  }
-}
+// get all the public/global function names from the server
+const serverFunctionNames = Object.keys(google.script.run);
 
+// filter out the reserved names
+const myServerFunctionNames = serverFunctionNames.filter(
+  serverFunction => !ignoredMethods.has(serverFunction)
+);
 
-export default serverMethods;
+// save each function to our new server object using promises
+myServerFunctionNames.forEach(serverFunctionName => {
+  myServerFunctions[serverFunctionName] = (...args) =>
+    new Promise((resolve, reject) => {
+      google.script.run
+        .withSuccessHandler(resolve)
+        .withFailureHandler(reject)
+        [serverFunctionName](...args);
+    });
+});
+
+export default myServerFunctions;

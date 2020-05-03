@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const AboutPage = () => (
+const About = () => (
   <div className="sheetNameText">
     <div>Github repo:</div>
     <a
@@ -13,3 +13,5 @@ export const AboutPage = () => (
     <div>-Elisha Nuchi</div>
   </div>
 );
+
+export default About;
