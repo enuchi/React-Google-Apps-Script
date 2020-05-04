@@ -21,7 +21,7 @@ _The included demo React app for Google Sheets shows insertion, deletion and sel
     ```
 2.  Enable the Google Apps Script API for your account by visiting[(script.google.com/home/usersettings)](https://script.google.com/home/usersettings):
 
-    ![Enable Google Apps Script](https://i.imgur.com/vuwkzMU.png 'enable the Google Apps Script API')
+    <img width="215" height="82" src="https://i.imgur.com/vuwkzMU.png">
 
 3.  Log in to `clasp`:
     ```bash
@@ -84,37 +84,34 @@ Insert/activate/delete sheets through a simple HTML dialog, built with React. Ac
     .withSuccessHandler(response => doSomething(response))
     .withFailureHandler(err => handleError(err))
     .addSheet(sheetTitle);
+
+  // Poof! With a little magic we can now do this:
+  import server from '../server';
+
+  // We now have access to all our server functions, which return promises!
+  const { addSheet } = server;
+  addSheet(sheetTitle)
+  .then(response => doSomething(response))
+  .catch(handleError(err));
+
+  // Or we can use async/await:
+  async () => {
+    try {
+      const response = await addSheet(sheetTitle);
+      doSomething(response);
+    } catch (err) {
+      handleError(err)
+    }
+  }
+
   ```
+  Now we can use familiar Promises in our client-side code and have easy access to all server functions. See [the code](./src/client/server.js) for the implementation details.
 
-// Poof! With a little magic we can now do this:
-import server from '../server';
+- This project includes support for autocompletion and complete type definitions for all Google Apps Script methods.
 
-// We now have access to all our server functions, which return promises!
-const { addSheet } = server;
-addSheet(sheetTitle)
-.then(response => doSomething(response))
-.catch(handleError(err));
+  ![autocomplete support](https://i.imgur.com/W0Ks6Wj.gif "autocomplete")
 
-// Or we can use async/await:
-async () => {
-try {
-const response = await addSheet(sheetTitle);
-doSomething(response);
-} catch (err) {
-handleError(err)
-}
-}
-
-````
-Now we can use familiar Promises in our client-side code and have easy access to all server functions. See [the code](./src/client/server.js) for the implementation details.
-
-## Full Autocompletion
-This project includes support for autocompletion and complete type definitions for all Google Apps Script methods.
-
-![autocomplete support](https://i.imgur.com/W0Ks6Wj.gif "autocomplete")
-
-- Lists all available methods from the appropriate Google Apps Script API
-- Full definitions with links to official documentation, plus information on argument and return type
+- All available methods from the Google Apps Script API are shown with full definitions and links to the official documentation, plus information on argument and return type
 
 
 ## Extending this app
@@ -138,7 +135,7 @@ const onOpen = () => {
 }
 
 global.onOpen = onOpen
-````
+```
 
 ## Multiple dialogs
 
