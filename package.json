@@ -7,7 +7,6 @@
     "login": "clasp login",
     "setup": "rm .clasp.json && clasp create --type sheets --title 'My React Project' --rootDir ./dist",
     "setup:use-id": "clasp setting scriptId",
-    "start": "webpack --mode development",
     "build": "webpack --mode production",
     "deploy": "npm run build && npx clasp push"
   },
