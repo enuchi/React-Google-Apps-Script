@@ -115,7 +115,8 @@ const clientConfigs = clientEntrypoints.map(clientEntrypoint => {
       new HtmlWebpackInlineSourcePlugin(),
       new WebpackCleanPlugin([path.join(destination, 'main.js')]),
       new DynamicCdnWebpackPlugin({
-        verbose: true,
+        // set "verbose" to true to print console logs on CDN usage while webpack builds
+        verbose: false,
         resolver: (packageName, packageVersion, options) => {
           const moduleDetails = moduleToCdn(
             packageName,
