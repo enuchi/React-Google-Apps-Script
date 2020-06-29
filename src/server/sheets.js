@@ -5,11 +5,11 @@ const getActiveSheetName = () => SpreadsheetApp.getActive().getSheetName();
 export const getSheetsData = () => {
   const activeSheetName = getActiveSheetName();
   return getSheets().map((sheet, index) => {
-    const sheetName = sheet.getName();
+    const name = sheet.getName();
     return {
-      text: sheetName,
-      sheetIndex: index,
-      isActive: sheetName === activeSheetName,
+      name,
+      index,
+      isActive: name === activeSheetName,
     };
   });
 };

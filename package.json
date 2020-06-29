@@ -2,10 +2,14 @@
   "name": "react-google-apps-script",
   "version": "1.0.0",
   "description": "Starter project for using React with Google Apps Script",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/enuchi/React-Google-Apps-Script.git"
+  },
   "scripts": {
     "test": "test",
     "login": "clasp login",
-    "setup": "rm .clasp.json && clasp create --type sheets --title 'My React Project' --rootDir ./dist",
+    "setup": "rm -f .clasp.json && clasp create --type sheets --title 'My React Project' --rootDir ./dist",
     "setup:use-id": "clasp setting scriptId",
     "build": "webpack --mode production",
     "deploy": "npm run build && npx clasp push"
@@ -26,8 +30,9 @@
   "dependencies": {
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
+    "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.0",
-    "react-transition-group": "^1.2.1"
+    "react-transition-group": "^4.4.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
