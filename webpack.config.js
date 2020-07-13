@@ -15,21 +15,28 @@ const moduleToCdn = require('module-to-cdn');
  *       define file paths
  ********************************/
 const destination = 'dist';
-const htmlTemplate = './src/client/dialog-template.html';
 
 /*********************************
  *    client entry point paths
  ********************************/
 const clientEntrypoints = [
   {
-    name: 'CLIENT - main dialog',
-    entry: './src/client/MainDialog.jsx',
-    filename: 'main.html',
+    name: 'CLIENT - Dialog Demo',
+    entry: './src/client/dialog-demo/index.js',
+    filename: 'dialog-demo.html',
+    template: './src/client/dialog-demo/index.html',
   },
   {
-    name: 'CLIENT - about sidebar',
-    entry: './src/client/AboutDialog.jsx',
-    filename: 'about.html',
+    name: 'CLIENT - Dialog Demo Bootstrap',
+    entry: './src/client/dialog-demo-bootstrap/index.js',
+    filename: 'dialog-demo-bootstrap.html',
+    template: './src/client/dialog-demo-bootstrap/index.html',
+  },
+  {
+    name: 'CLIENT - Sidebar About Page',
+    entry: './src/client/sidebar-about-page/index.js',
+    filename: 'sidebar-about-page.html',
+    template: './src/client/sidebar-about-page/index.html',
   },
 ];
 
@@ -43,19 +50,6 @@ const sharedConfigSettings = {
     hints: 'warning',
     maxEntrypointSize: 512000,
     maxAssetSize: 512000,
-  },
-};
-
-// eslint settings, to check during build if desired
-const eslintConfig = {
-  enforce: 'pre',
-  test: /\.jsx?$/,
-  exclude: /node_modules/,
-  loader: 'eslint-loader',
-  options: {
-    cache: false,
-    failOnError: false,
-    fix: true,
   },
 };
 
@@ -83,8 +77,6 @@ const clientConfig = {
   },
   module: {
     rules: [
-      // turned off by default, but uncomment below to run linting during build
-      // eslintConfig,
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
@@ -108,16 +100,20 @@ const clientConfigs = clientEntrypoints.map(clientEntrypoint => {
     entry: clientEntrypoint.entry,
     plugins: [
       new HtmlWebpackPlugin({
-        template: htmlTemplate,
+        template: clientEntrypoint.template,
         filename: clientEntrypoint.filename,
         inlineSource: '^[^(//)]+.(js|css)$', // embed all js and css inline, exclude packages with '//' for dynamic cdn insertion
       }),
       new HtmlWebpackInlineSourcePlugin(),
-      new WebpackCleanPlugin([path.join(destination, 'main.js')]),
+      new WebpackCleanPlugin(['main.js'], {
+        basePath: path.join(__dirname, destination),
+      }),
+      // this plugin allows us to add dynamically load packages from cdn
       new DynamicCdnWebpackPlugin({
         // set "verbose" to true to print console logs on CDN usage while webpack builds
         verbose: false,
         resolver: (packageName, packageVersion, options) => {
+          const packageSuffix = options.env === 'production' ? '.min.js' : '.js'
           const moduleDetails = moduleToCdn(
             packageName,
             packageVersion,
@@ -132,7 +128,14 @@ const clientConfigs = clientEntrypoints.map(clientEntrypoint => {
                 name: packageName,
                 var: 'ReactTransitionGroup',
                 version: packageVersion,
-                url: `https://unpkg.com/react-transition-group/dist/react-transition-group.min.js`,
+                url: `https://unpkg.com/react-transition-group@${packageVersion}/dist/react-transition-group${packageSuffix}`,
+              };
+            case 'react-bootstrap':
+              return {
+                name: packageName,
+                var: 'ReactBootstrap',
+                version: packageVersion,
+                url: `https://unpkg.com/react-bootstrap@${packageVersion}/dist/react-bootstrap${packageSuffix}`,
               };
             default:
               return null;
@@ -154,8 +157,6 @@ const serverConfig = {
   },
   module: {
     rules: [
-      // turned off by default, but uncomment below to run linting during build
-      // eslintConfig,
       {
         test: /\.js$/,
         exclude: /node_modules/,

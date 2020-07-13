@@ -19,7 +19,7 @@ _The included demo React app for Google Sheets shows insertion, deletion and sel
     > cd React-Google-Apps-Script
     > npm install
     ```
-2.  Enable the Google Apps Script API for your account by visiting[(script.google.com/home/usersettings)](https://script.google.com/home/usersettings):
+2.  Enable the Google Apps Script API for your account by visiting [script.google.com/home/usersettings](https://script.google.com/home/usersettings):
 
     <img width="215" height="82" src="https://i.imgur.com/vuwkzMU.png">
 
@@ -68,12 +68,12 @@ Modify the server-side and client-side source code in the `src` folder. [Add any
 
 ## The sample app
 
-Insert/activate/delete sheets through a simple HTML dialog, built with React. Access the dialog through the new menu item that appears. You may need to refresh the spreadsheet and approve the app's permissions the first time you use it.
+The included sample app allows inserting/activating/deleting sheets through a simple HTML dialog, built with React. Two versions of the same app are provided with different styling: the first version uses vanilla React, and the second uses the popular bootstrap library (in this case, it uses [`react-bootstrap`](https://react-bootstrap.github.io/)). Access the dialogs through the new menu item that appears. You may need to refresh the spreadsheet and approve the app's permissions the first time you use it.
 
 ## Features
 
 - Includes popular `eslint` and `prettier` configs for clean, standardized code.
-- `import` CSS from another file:
+- Supports importing CSS from another file:
   ```js
   import './styles.css';
   ```
@@ -89,15 +89,14 @@ Insert/activate/delete sheets through a simple HTML dialog, built with React. Ac
   import server from '../server';
 
   // We now have access to all our server functions, which return promises!
-  const { addSheet } = server;
-  addSheet(sheetTitle)
-  .then(response => doSomething(response))
-  .catch(handleError(err));
+  server.addSheet(sheetTitle)
+    .then(response => doSomething(response))
+    .catch(err => handleError(err));
 
-  // Or we can use async/await:
+  // Or we can use async/await. This is the same thing as above:
   async () => {
     try {
-      const response = await addSheet(sheetTitle);
+      const response = await server.addSheet(sheetTitle);
       doSomething(response);
     } catch (err) {
       handleError(err)
@@ -122,7 +121,7 @@ To add new client-side libraries for your React app:
 
 Longer explanation:
 
-Google Apps Script requires all HTML to be in a single file that is loaded into the dialog. Therefore, webpack has been configured to inline all generated client JS code into a single HTML file (in this case [main.html](./dist/main.html) and [about.html](./dist/about.html)). Inlining all code into a single file can result in large output files, which take longer to load, and can also sometimes cause the Google Apps Script editor to crash when you open it. So to reduce bundle size this project takes advantage of [dynamic-cdn-webpack-plugin](https://github.com/mastilver/dynamic-cdn-webpack-plugin) to automatically load popular libraries found in your app, such as `react` and `react-dom`, from a CDN. It doesn't know about all libraries (only [these](https://github.com/mastilver/module-to-cdn/blob/master/modules.json)), so if you've installed new packages, especially large packages, you should add a CDN url to the [webpack file](./webpack.config.js#L129) to reduce bundle size.
+Google Apps Script requires all HTML to be in a single file that is loaded into the dialog. Therefore, webpack has been configured to inline all generated client JS code into a single HTML file (in this case [main.html](./dist/main.html) and [about.html](./dist/about.html)). Inlining all code into a single file can result in large output files, which take longer to load, and can also sometimes cause the Google Apps Script editor to crash when you open it. So to reduce bundle size this project takes advantage of [dynamic-cdn-webpack-plugin](https://github.com/mastilver/dynamic-cdn-webpack-plugin) to automatically load popular libraries found in your app, such as `react` and `react-dom`, from a CDN. It doesn't know about all libraries (only [these](https://github.com/mastilver/module-to-cdn/blob/master/modules.json)), so if you've installed new packages, especially large packages, you should add a CDN url to the [webpack file](./webpack.config.js#L129) to reduce bundle size. You will need to know your package's global variable. See the examples provided, and also see [here](https://webpack.js.org/configuration/externals/#externals) for more info on how this works.
 
 ### Expose all public functions
 Make sure to expose all public functions, including `onOpen` and any functions you are calling from the client. Example below shows assignment to `global` object:
