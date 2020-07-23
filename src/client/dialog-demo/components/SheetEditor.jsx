@@ -6,26 +6,28 @@ import SheetButton from './SheetButton';
 // This is a wrapper for google.script.run that lets us use promises.
 import server from '../../utils/server';
 
+const { serverFunctions } = server;
+
 const SheetEditor = () => {
   const [names, setNames] = useState([]);
 
   useEffect(() => {
     // Call a server global function here and handle the response with .then() and .catch()
-    server
+    serverFunctions
       .getSheetsData()
       .then(setNames)
       .catch(alert);
   }, []);
 
   const deleteSheet = sheetIndex => {
-    server
+    serverFunctions
       .deleteSheet(sheetIndex)
       .then(setNames)
       .catch(alert);
   };
 
   const setActiveSheet = sheetName => {
-    server
+    serverFunctions
       .setActiveSheet(sheetName)
       .then(setNames)
       .catch(alert);
@@ -35,7 +37,7 @@ const SheetEditor = () => {
   // (This does the same thing as .then().catch() in the above handlers.)
   const submitNewSheet = async newSheetName => {
     try {
-      const response = await server.addSheet(newSheetName);
+      const response = await serverFunctions.addSheet(newSheetName);
       setNames(response);
     } catch (error) {
       alert(error);

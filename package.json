@@ -11,8 +11,12 @@
     "login": "clasp login",
     "setup": "rm -f .clasp.json && clasp create --type sheets --title 'My React Project' --rootDir ./dist",
     "setup:use-id": "clasp setting scriptId",
-    "build": "webpack --mode production",
-    "deploy": "npm run build && npx clasp push"
+    "build:dev": "NODE_ENV=development webpack",
+    "build": "NODE_ENV=production webpack",
+    "deploy:dev": "npm run build:dev && npx clasp push",
+    "deploy": "npm run build && npx clasp push",
+    "serve": "webpack-dev-server --key certs/key.pem --cert certs/cert.pem",
+    "start": "npm run deploy:dev && npm run serve"
   },
   "keywords": [
     "react",
@@ -28,6 +32,7 @@
     "npm": ">=6.0.0"
   },
   "dependencies": {
+    "gas-client": "^0.1.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
     "react-bootstrap": "^1.0.1",
@@ -51,6 +56,7 @@
     "babel-plugin-transform-es3-property-literals": "^6.22.0",
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.4.2",
+    "dotenv": "^8.2.0",
     "dynamic-cdn-webpack-plugin": "^5.0.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
@@ -69,6 +75,7 @@
     "gas-lib": "^2.0.3",
     "gas-types-detailed": "^1.0.0",
     "gas-webpack-plugin": "^1.0.2",
+    "google-apps-script-webpack-dev-server": "^1.0.0",
     "html-webpack-inline-source-plugin": "0.0.10",
     "html-webpack-plugin": "^3.2.0",
     "module-to-cdn": "^3.1.5",
@@ -77,7 +84,7 @@
     "tern": "^0.24.3",
     "terser-webpack-plugin": "^2.3.5",
     "webpack": "^4.42.0",
-    "webpack-clean": "^1.2.3",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
   }
 }

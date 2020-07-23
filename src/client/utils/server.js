@@ -1,32 +1,10 @@
-// Convert google script server calls to more familiar promise-based functions
+import Server from 'gas-client';
 
-const myServerFunctions = {};
+const { PORT } = process.env;
 
-// identify the reserved functions
-const ignoredMethods = new Set([
-  'withFailureHandler',
-  'withLogger',
-  'withSuccessHandler',
-  'withUserObject',
-]);
-
-// get all the public/global function names from the server
-const serverFunctionNames = Object.keys(google.script.run);
-
-// filter out the reserved names
-const myServerFunctionNames = serverFunctionNames.filter(
-  serverFunction => !ignoredMethods.has(serverFunction)
-);
-
-// save each function to our new server object using promises
-myServerFunctionNames.forEach(serverFunctionName => {
-  myServerFunctions[serverFunctionName] = (...args) =>
-    new Promise((resolve, reject) => {
-      google.script.run
-        .withSuccessHandler(resolve)
-        .withFailureHandler(reject)
-        [serverFunctionName](...args);
-    });
+const server = new Server({
+  // this will be ignored in production
+  allowedDevelopmentDomains: `https://localhost:${PORT}`,
 });
 
-export default myServerFunctions;
+export default server;

@@ -5,26 +5,28 @@ import { Form, Button, ListGroup, Col, Row } from 'react-bootstrap';
 // This is a wrapper for google.script.run that lets us use promises.
 import server from '../../utils/server';
 
+const { serverFunctions } = server;
+
 const SheetEditor = () => {
   const [newSheetName, setNewSheetName] = useState('');
   const [names, setNames] = useState([]);
 
   useEffect(() => {
-    server
+    serverFunctions
       .getSheetsData()
       .then(setNames)
       .catch(alert);
   }, []);
 
   const deleteSheet = sheetIndex => {
-    server
+    serverFunctions
       .deleteSheet(sheetIndex)
       .then(setNames)
       .catch(alert);
   };
 
   const setActiveSheet = sheetName => {
-    server
+    serverFunctions
       .setActiveSheet(sheetName)
       .then(setNames)
       .catch(alert);
@@ -32,7 +34,7 @@ const SheetEditor = () => {
 
   const submitNewSheet = async () => {
     try {
-      const response = await server.addSheet(newSheetName);
+      const response = await serverFunctions.addSheet(newSheetName);
       setNames(response);
     } catch (error) {
       alert(error);
