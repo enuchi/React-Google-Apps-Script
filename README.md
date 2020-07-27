@@ -104,7 +104,7 @@ The included sample app allows inserting/activating/deleting sheets through a si
   }
 
   ```
-  Now we can use familiar Promises in our client-side code and have easy access to all server functions. See [the code](./src/client/server.js) for the implementation details.
+  Now we can use familiar Promises in our client-side code and have easy access to all server functions. See [the code](./src/client/utils/server.js) for the implementation details.
 
 - This project includes support for autocompletion and complete type definitions for all Google Apps Script methods.
 
