@@ -10,12 +10,13 @@
     "test": "test",
     "login": "clasp login",
     "setup": "rm -f .clasp.json && clasp create --type sheets --title 'My React Project' --rootDir ./dist",
-    "setup:use-id": "clasp setting scriptId",
+    "setup:use-id": "clasp setting rootDir dist && clasp setting scriptId",
+    "setup:https": "mkdir certs && mkcert -key-file ./certs/key.pem -cert-file ./certs/cert.pem localhost 127.0.0.1",
     "build:dev": "NODE_ENV=development webpack",
     "build": "NODE_ENV=production webpack",
-    "deploy:dev": "npm run build:dev && npx clasp push",
-    "deploy": "npm run build && npx clasp push",
-    "serve": "webpack-dev-server --key certs/key.pem --cert certs/cert.pem",
+    "deploy:dev": "rm -rf dist && npm run build:dev && npx clasp push",
+    "deploy": "rm -rf dist && npm run build && npx clasp push",
+    "serve": "webpack-dev-server",
     "start": "npm run deploy:dev && npm run serve"
   },
   "keywords": [

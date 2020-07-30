@@ -61,6 +61,10 @@ const clientEntrypoints = [
   },
 ];
 
+// define certificate locations
+const keyPath = path.resolve(__dirname, './certs/key.pem');
+const certPath = path.resolve(__dirname, './certs/cert.pem');
+
 /*********************************
  *    Declare settings
  ********************************/
@@ -194,6 +198,13 @@ const devServer = {
     });
   },
 };
+
+if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
+  devServer.https = {
+    key: fs.readFileSync(keyPath),
+    cert: fs.readFileSync(certPath),
+  };
+}
 
 // webpack settings for the development client wrapper
 const devClientConfigs = clientEntrypoints.map(clientEntrypoint => {
