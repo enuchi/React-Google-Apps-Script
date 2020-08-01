@@ -37,7 +37,13 @@ export const openAboutSidebar = () => {
   SpreadsheetApp.getUi().showSidebar(html);
 };
 
-// Functions for opening the development windows need to load the development html files
+/**
+ * DEVELOPMENT settings below.
+ *
+ * Note that functions for opening the development windows need to load
+ * the "development" html files.
+ */
+
 export const openDialogDevelopment = () => {
   const html = HtmlService.createHtmlOutputFromFile('dialog-demo-development')
     .setWidth(600)

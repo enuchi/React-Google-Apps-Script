@@ -16,6 +16,7 @@ const moduleToCdn = require('module-to-cdn');
  *    set up environment variables
  ********************************/
 const dotenv = require('dotenv').config();
+
 const parsed = dotenv.error ? {} : dotenv.parsed;
 const envVars = parsed || {};
 const PORT = envVars.PORT || 3000;
@@ -62,6 +63,7 @@ const clientEntrypoints = [
 ];
 
 // define certificate locations
+// see "npm run setup:https" script in package.json
 const keyPath = path.resolve(__dirname, './certs/key.pem');
 const certPath = path.resolve(__dirname, './certs/cert.pem');
 
@@ -103,10 +105,23 @@ const clientConfig = {
     filename: 'main.js',
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },
   module: {
     rules: [
+      // typescript config
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+          },
+          {
+            loader: 'ts-loader',
+          },
+        ],
+      },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
@@ -114,7 +129,7 @@ const clientConfig = {
           loader: 'babel-loader',
         },
       },
-      // we could add support for scss here if we wanted
+      // we could add support for scss here
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
@@ -135,8 +150,8 @@ const DynamicCdnWebpackPluginConfig = {
     if (moduleDetails) {
       return moduleDetails;
     }
-    // the "name" should match the package being imported
-    // the "var" is important to get right -- see webpack externals for info on "var"
+    // "name" should match the package being imported
+    // "var" is important to get right -- this should be the exposed global. Look up "webpack externals" for info.
     switch (packageName) {
       case 'react-transition-group':
         return {
@@ -190,7 +205,7 @@ const devServer = {
   port: PORT,
   https: true,
   // run our own route to serve the package google-apps-script-webpack-dev-server
-  before: function(app, server, compiler) {
+  before: app => {
     // this '/gas/' path needs to match the path loaded in the iframe in dev/index.js
     app.get('/gas/*', (req, res) => {
       res.setHeader('Content-Type', 'text/html');
@@ -200,6 +215,7 @@ const devServer = {
 };
 
 if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
+  // use key and cert settings only if they are found
   devServer.https = {
     key: fs.readFileSync(keyPath),
     cert: fs.readFileSync(certPath),
@@ -243,8 +259,24 @@ const serverConfig = {
     path: destination,
     libraryTarget: 'this',
   },
+  resolve: {
+    extensions: ['.ts', '.js', '.json'],
+  },
   module: {
     rules: [
+      // typescript config
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+          },
+          {
+            loader: 'ts-loader',
+          },
+        ],
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
