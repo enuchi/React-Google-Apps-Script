@@ -185,7 +185,7 @@ const clientConfigs = clientEntrypoints.map(clientEntrypoint => {
       }),
       new HtmlWebpackPlugin({
         template: clientEntrypoint.template,
-        filename: `${clientEntrypoint.filename}.html`,
+        filename: `${clientEntrypoint.filename}${isProd ? '' : '-impl'}.html`,
         inlineSource: '^[^(//)]+.(js|css)$', // embed all js and css inline, exclude packages with '//' for dynamic cdn insertion
       }),
       // add the generated js code to the html file inline
@@ -237,7 +237,7 @@ const devClientConfigs = clientEntrypoints.map(clientEntrypoint => {
         template: './dev/index.html',
         // we name the development wrapper with a '-development' suffix
         // this should match the html files we load in src/server/ui.js
-        filename: `${clientEntrypoint.filename}-development.html`,
+        filename: `${clientEntrypoint.filename}.html`,
         inlineSource: '^[^(//)]+.(js|css)$', // embed all js and css inline, exclude packages with '//' for dynamic cdn insertion
       }),
       new HtmlWebpackInlineSourcePlugin(),

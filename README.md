@@ -52,13 +52,13 @@ This repo is a boilerplate project that uses React and the same development tool
 
 See below how to get started!
 
-## 🚜 Install
+## 🚜 Install <a name = "install"></a>
 
 These instructions will get you set up with a copy of the React project code on your local machine. It will also get you logged in to `clasp` so you can manage script projects from the command line.
 
 See [deploy](#deploy) for notes on how to deploy the project and see it live in a Google Spreadsheet.
 
-### Prerequisites
+### Prerequisites <a name = "prerequisites"></a>
 
 - Make sure you're running at least [Node.js](https://nodejs.org/en/download/) v10 and `npm` v6.
 
@@ -66,7 +66,7 @@ See [deploy](#deploy) for notes on how to deploy the project and see it live in 
 
 - [New!] To use live reload while developing, you'll need to serve your files locally using HTTPS. See [local development](#local-development) below for how to set up your local environment.
 
-### 🏁 Getting started
+### 🏁 Getting started <a name = "getting-started"></a>
 
 **1.** First, let's clone the repo and install the dependencies.
 
