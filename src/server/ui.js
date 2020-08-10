@@ -26,33 +26,3 @@ export const openAboutSidebar = () => {
   const html = HtmlService.createHtmlOutputFromFile('sidebar-about-page');
   SpreadsheetApp.getUi().showSidebar(html);
 };
-
-/**
- * DEVELOPMENT settings below.
- *
- * Note that functions for opening the development windows need to load
- * the "development" html files.
- */
-
-// export const openDialogDevelopment = () => {
-//   const html = HtmlService.createHtmlOutputFromFile('dialog-demo-development')
-//     .setWidth(600)
-//     .setHeight(600);
-//   SpreadsheetApp.getUi().showModalDialog(html, 'Sheet Editor');
-// };
-
-// export const openDialogBootstrapDevelopment = () => {
-//   const html = HtmlService.createHtmlOutputFromFile(
-//     'dialog-demo-bootstrap-development'
-//   )
-//     .setWidth(600)
-//     .setHeight(600);
-//   SpreadsheetApp.getUi().showModalDialog(html, 'Sheet Editor (Bootstrap)');
-// };
-
-// export const openAboutSidebarDevelopment = () => {
-//   const html = HtmlService.createHtmlOutputFromFile(
-//     'sidebar-about-page-development'
-//   );
-//   SpreadsheetApp.getUi().showSidebar(html);
-// };
