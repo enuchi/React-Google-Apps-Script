@@ -36,6 +36,8 @@
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
 
+<br/>
+
 ## 🔎 About <a name = "about"></a>
 
 [Google Apps Script](https://developers.google.com/apps-script/overview) is Google's Javascript-based development platform for building applications and add-ons for Google Sheets, Docs, Forms and other Google Apps.
@@ -51,6 +53,8 @@ However, using this repo, it's easy to run [React](https://reactjs.org/) apps in
 This repo is a boilerplate project that uses React and the same development tools that you use for building traditional websites, all inside Google Apps Script projects.
 
 See below how to get started!
+
+<br/>
 
 ## 🚜 Install <a name = "install"></a>
 
@@ -115,19 +119,23 @@ Alternatively, you can use an existing Google Spreadsheet and Script file instea
 
 Next, let's deploy the app so we can see it live in Google Spreadsheets.
 
+<br/>
+
 ## 🚀 Deploy <a name = "deploy"></a>
 
-Run the deploy command:
+Run the deploy command. You may be prompted to update your manifest file. Type 'yes'.
 
 ```bash
 npm run deploy
 ```
 
-This will build all necessary files using production settings, including all server code (Google Apps Script code), client code (React bundle), and config files. All bundled files will be outputted to the `dist/` folder, then pushed to the Google Apps Script project.
+The deploy command will build all necessary files using production settings, including all server code (Google Apps Script code), client code (React bundle), and config files. All bundled files will be outputted to the `dist/` folder, then pushed to the Google Apps Script project.
 
-If you now open your Spreadsheet (you may need to refresh the page) you will see a new menu item appear containing your app!
+Now open Google Sheets and navigate to your new spreadsheet (e.g. the file "My React Project"). Make sure to refresh the page if you already had it open. You will now see a new menu item appear containing your app!
 
 <img width="100%" src="https://i.imgur.com/W7UkEpv.gif">
+
+<br/>
 
 ## 🎈 [NEW!] Local Development <a name="local-development"></a>
 
@@ -135,69 +143,48 @@ We can develop our client-side React apps locally, and see our changes directly 
 
 <img width="100%" src="https://i.imgur.com/EsnOEHP.gif">
 
-To get started quickly, run the start command:
+There are two steps to getting started: installing a certificate (first time only), and running the start command.
 
-```bash
-npm run start
-```
+1. Generating a certificate for local development <a name = "generatingcerts"></a>
 
-This will create and deploy a "development" build, and serve your local files.
+    Install the mkcert package:
 
-You should notice three new menu items beginning with "Development:" These will only appear when you have deployed the development version.
+    ```bash
+    # mac:
+    $ brew install mkcert
 
-Next, open one of the "development" menu items while your app is being served.
+    # windows:
+    $ choco install mkcert
+    ```
 
-<img width="100%" src="https://imgur.com/4vluZLR.gif">
+    [More install options here.](https://github.com/FiloSottile/mkcert#installation)
 
-When you first open the development menu item, you may get a security error since your browser does not trust the localhost source.
+    Then run the mkcert install script:
 
-In the short term you can continue with the following workaround, however note this method is not recommended. [Skip to instructions on easily generating your own certificate for local development](#generatingcerts).
+    ```bash
+    $ mkcert -install
+    ```
 
-<img width="100%" src="https://i.imgur.com/J9SUycP.gif">
+    Create the certs in your repo:
 
-- The dialog will show the page it is trying to load, in this case https://localhost:3000/gas/dialog-demo.html. Copy it and open it in a new tab.
-- Select "Advanced" and select proceed to localhost.
-- Return to your spreadsheet. Close your dialog window, and reopen it. You should see the app running within the dialog.
+    ```
+    npm run setup:https
+    ```
 
-[Again, this is a way to get started quickly, but you can easily generate your own cert and avoid this security concern by following the instructions below.](#generatingcerts)
+2. Now you're ready to start:
+    ```bash
+    npm run start
+    ```
 
-Your app should now be running inside your dialog. When you make and save changes to your React app, your app will reload instantly within the Google Spreadsheet, and have access to any server-side functions!
+The start command will create and deploy a development build, and serve your local files.
+
+<img width="100%" src="https://imgur.com/uD4uZZK.gif">
+
+After running the start command, navigate to your spreadsheet and open one of the menu items. It should now be serving your local files. When you make and save changes to your React app, your app will reload instantly within the Google Spreadsheet, and have access to any server-side functions!
 
 <img width="100%" src="https://i.imgur.com/EsnOEHP.gif">
 
-### Generating a certificate for local development <a name = "generatingcerts"></a>
-
-This will install certs locally. After these steps you should not encounter the security message within the dialog window when selecting the "development" menu items.
-
-**1.** Install the mkcert package.
-
-```bash
-# mac:
-$ brew install mkcert
-
-# windows:
-$ choco install mkcert
-```
-
-[More install options here.](https://github.com/FiloSottile/mkcert#installation)
-
-**2.** Then run the mkcert install script for the first time:
-
-```bash
-$ mkcert -install
-```
-
-**3.** Create the certs using the following script:
-
-```
-npm run setup:https
-```
-
-**4.** Now run the app locally:
-
-```bash
-npm run start
-```
+<br/>
 
 ## ⛏️ Usage <a name = "Usage"></a>
 
@@ -297,11 +284,15 @@ This project includes support for autocompletion and complete type definitions f
 
 All available methods from the Google Apps Script API are shown with full definitions and links to the official documentation, plus information on argument, return type and sample code.
 
+<br/>
+
 ## ✍️ Authors <a name = "authors"></a>
 
 - [@enuchi](https://github.com/enuchi) - Creator and maintainer
 
 See the list of [contributors](https://github.com/enuchi/React-Google-Apps-Script/contributors) who participated in this project.
+
+<br/>
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
