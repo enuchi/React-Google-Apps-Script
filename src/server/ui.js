@@ -1,10 +1,11 @@
 export const onOpen = () => {
-  SpreadsheetApp.getUi()
+  const menu = SpreadsheetApp.getUi()
     .createMenu('My Sample React Project') // edit me!
     .addItem('Sheet Editor', 'openDialog')
     .addItem('Sheet Editor (Bootstrap)', 'openDialogBootstrap')
-    .addItem('About me', 'openAboutSidebar')
-    .addToUi();
+    .addItem('About me', 'openAboutSidebar');
+
+  menu.addToUi();
 };
 
 export const openDialog = () => {

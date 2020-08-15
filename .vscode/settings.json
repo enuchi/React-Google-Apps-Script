@@ -1,0 +1,13 @@
+{
+  "json.schemas": [{
+      "fileMatch": [
+          "appsscript.json"
+      ],
+      "url": "http://json.schemastore.org/appsscript"
+  }, {
+      "fileMatch": [
+          ".clasp.json"
+      ],
+      "url": "http://json.schemastore.org/clasp"
+  }]
+}

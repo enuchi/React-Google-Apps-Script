@@ -1,71 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { Form, Button, ListGroup, Col, Row } from 'react-bootstrap';
+import { Button, ListGroup } from 'react-bootstrap';
+import FormInput from './FormInput.tsx';
 
 // This is a wrapper for google.script.run that lets us use promises.
 import server from '../../utils/server';
 
+const { serverFunctions } = server;
+
 const SheetEditor = () => {
-  const [newSheetName, setNewSheetName] = useState('');
   const [names, setNames] = useState([]);
 
   useEffect(() => {
-    server
+    serverFunctions
       .getSheetsData()
       .then(setNames)
       .catch(alert);
   }, []);
 
   const deleteSheet = sheetIndex => {
-    server
+    serverFunctions
       .deleteSheet(sheetIndex)
       .then(setNames)
       .catch(alert);
   };
 
   const setActiveSheet = sheetName => {
-    server
+    serverFunctions
       .setActiveSheet(sheetName)
       .then(setNames)
       .catch(alert);
   };
 
-  const submitNewSheet = async () => {
+  const submitNewSheet = async newSheetName => {
     try {
-      const response = await server.addSheet(newSheetName);
+      const response = await serverFunctions.addSheet(newSheetName);
       setNames(response);
     } catch (error) {
+      // eslint-disable-next-line no-alert
       alert(error);
     }
   };
 
   return (
     <div style={{ padding: '3px', overflowX: 'hidden' }}>
-      <Form onSubmit={submitNewSheet}>
-        <Form.Group controlId="formNewSheet">
-          <Form.Label>Add a new sheet</Form.Label>
-          <Row>
-            <Col xs={10}>
-              <Form.Control
-                type="text"
-                placeholder="Sheet name"
-                value={newSheetName}
-                onChange={e => {
-                  setNewSheetName(e.target.value);
-                }}
-              />
-            </Col>
-            <Col xs={2}>
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
-            </Col>
-          </Row>
-          <Form.Text className="text-muted">
-            Enter the name for your new sheet.
-          </Form.Text>
-        </Form.Group>
-      </Form>
+      <p>
+        <b>☀️ Bootstrap demo! ☀️</b>
+      </p>
+      <p>
+        This is a sample app that uses the <code>react-bootstrap</code> library
+        to help us build a simple React app. Enter a name for a new sheet, hit
+        enter and the new sheet will be created. Click the red{' '}
+        <span className="text-danger">&times;</span> next to the sheet name to
+        delete it.
+      </p>
+      <FormInput submitNewSheet={submitNewSheet} />
       <ListGroup>
         <TransitionGroup className="sheet-list">
           {names.length > 0 &&
