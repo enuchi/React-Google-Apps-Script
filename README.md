@@ -296,4 +296,4 @@ See the list of [contributors](https://github.com/enuchi/React-Google-Apps-Scrip
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
-Part of this project has been adapted from [apps-script-starter](https://github.com/labnol/apps-script-starter), a great starter project for server-side projects.
+Part of this project has been adapted from [apps-script-starter](https://github.com/labnol/apps-script-starter), a great starter project for server-side projects ([license here](https://github.com/labnol/apps-script-starter/blob/master/LICENSE)).
