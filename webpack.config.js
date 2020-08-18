@@ -80,12 +80,14 @@ const copyFilesConfig = {
     path: destination,
   },
   plugins: [
-    new CopyWebpackPlugin([
-      {
-        from: copyAppscriptEntry,
-        to: destination,
-      },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: copyAppscriptEntry,
+          to: destination,
+        },
+      ],
+    }),
   ],
 };
 
@@ -235,7 +237,6 @@ const devClientConfigs = clientEntrypoints.map(clientEntrypoint => {
       }),
       new HtmlWebpackPlugin({
         template: './dev/index.html',
-        // we name the development wrapper with a '-development' suffix
         // this should match the html files we load in src/server/ui.js
         filename: `${clientEntrypoint.filename}.html`,
         inlineSource: '^[^(//)]+.(js|css)$', // embed all js and css inline, exclude packages with '//' for dynamic cdn insertion
