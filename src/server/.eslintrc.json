@@ -13,9 +13,11 @@
     "import/no-extraneous-dependencies": "warn",
     "prefer-object-spread": "warn"
   },
-  "import/resolver": {
-    "node": {
-      "extensions": [".js", ".ts"]
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".ts"]
+      }
     }
   }
 }
