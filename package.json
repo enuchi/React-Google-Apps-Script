@@ -16,7 +16,7 @@
     "build": "cross-env NODE_ENV=production webpack",
     "deploy:dev": "rimraf dist && npm run build:dev && npx clasp push",
     "deploy": "rimraf dist && npm run build && npx clasp push",
-    "serve": "webpack-dev-server",
+    "serve": "cross-env NODE_ENV=development webpack-dev-server",
     "start": "npm run deploy:dev && npm run serve"
   },
   "keywords": [
