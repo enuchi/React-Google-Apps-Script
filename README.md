@@ -185,12 +185,16 @@ After running the start command, navigate to your spreadsheet and open one of th
 
 <img width="100%" src="https://i.imgur.com/EsnOEHP.gif">
 
-### 🔍 Using React Dev Tools <a name="dev-tools"></a>
+<br/>
+
+### 🔍 Using React DevTools <a name="dev-tools"></a>
 
 React DevTools is a tool that lets you inspect the React component hierarchies during development.
 
 <details>
   <summary>Instructions for installing React DevTools</summary>
+
+<br/>
 
 You will need to use the "standalone" version of React DevTools since our React App is running in an iframe ([more details here](https://github.com/facebook/react/tree/master/packages/react-devtools#usage-with-react-dom)).
 
