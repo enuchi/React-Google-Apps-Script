@@ -25,6 +25,7 @@
   - [Getting started](#getting-started)
 - [Deploy](#deploy)
 - [[New!] Local Development](#local-development)
+  - [Using React DevTools](#dev-tools)
 - [Usage](#usage)
   - [The included sample app](#the-included-sample-app)
   - [[New!] Typescript](#new-typescript)
@@ -183,6 +184,37 @@ The start command will create and deploy a development build, and serve your loc
 After running the start command, navigate to your spreadsheet and open one of the menu items. It should now be serving your local files. When you make and save changes to your React app, your app will reload instantly within the Google Spreadsheet, and have access to any server-side functions!
 
 <img width="100%" src="https://i.imgur.com/EsnOEHP.gif">
+
+<br/>
+
+### 🔍 Using React DevTools <a name="dev-tools"></a>
+
+React DevTools is a tool that lets you inspect the React component hierarchies during development.
+
+<details>
+  <summary>Instructions for installing React DevTools</summary>
+
+<br/>
+
+You will need to use the "standalone" version of React DevTools since our React App is running in an iframe ([more details here](https://github.com/facebook/react/tree/master/packages/react-devtools#usage-with-react-dom)).
+
+1. In your repo install the React DevTools package as a dev dependency:
+
+    ```bash
+    npm install -D react-devtools
+    ```
+
+2. In a new terminal window run `npx react-devtools` to launch the DevTools standalone app.
+
+3. Add `<script src="http://localhost:8097"></script>` to the top of your `<head>` in your React app, e.g. in the [index.html](https://github.com/enuchi/React-Google-Apps-Script/blob/e73e51e56e99903885ef8dd5525986f99038d8bf/src/client/dialog-demo-bootstrap/index.html) file in the sample Bootstrap app.
+
+4. Deploy your app (`npm run deploy:dev`) and you should see DevTools tool running and displaying your app hierarchy.
+
+    <img width="100%" src="https://user-images.githubusercontent.com/31550519/110273600-ee9eae80-7f9a-11eb-9796-31353b47dfa8.gif">
+
+5. Don't forget to remove the `<script>` tag before deploying to production.
+
+</details>
 
 <br/>
 
