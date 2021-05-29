@@ -33,7 +33,7 @@
     "npm": ">=6.0.0"
   },
   "dependencies": {
-    "gas-client": "^0.1.0",
+    "gas-client": "^0.2.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-bootstrap": "^1.3.0",

@@ -315,6 +315,7 @@ const serverConfig = {
   },
   plugins: [
     new webpack.DefinePlugin({
+      // replace any env variables in client-side code like PORT and NODE_ENV with actual values
       'process.env': JSON.stringify(envVars),
       'process.env.NODE_ENV': JSON.stringify(
         isProd ? 'production' : 'development'
