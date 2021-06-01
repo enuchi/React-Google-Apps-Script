@@ -54,10 +54,7 @@ const DevServer = () => {
           position: 'absolute',
         }}
         ref={iframe}
-        // The "/gas/" path here must match the path where the custom dev server is being loaded.
-        // See webpack.config.js "devServer" "before" settings.
-        // Filename extension "-impl" must match webpack.config.js clientConfigs filename settings for development.
-        src={`https://localhost:${PORT}/gas/${FILENAME}-impl.html`}
+        src={`https://localhost:${PORT}/${FILENAME}-impl.html`}
       />
     </div>
   );
