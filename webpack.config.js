@@ -11,6 +11,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 const DynamicCdnWebpackPlugin = require('dynamic-cdn-webpack-plugin');
 const moduleToCdn = require('module-to-cdn');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 /*********************************
  *    set up environment variables
@@ -98,7 +99,7 @@ const sharedClientAndServerConfig = {
 };
 
 // webpack settings used by all client entrypoints
-const clientConfig = {
+const clientConfig = ({ isDevClientWrapper }) => ({
   ...sharedClientAndServerConfig,
   mode: isProd ? 'production' : 'development',
   output: {
@@ -119,6 +120,14 @@ const clientConfig = {
         use: [
           {
             loader: 'babel-loader',
+            // only enable react-refresh for dev builds, and not when building the dev client "wrapper"
+            options: {
+              plugins: [
+                !isProd &&
+                  !isDevClientWrapper &&
+                  require.resolve('react-refresh/babel'),
+              ].filter(Boolean),
+            },
           },
           {
             loader: 'ts-loader',
@@ -130,6 +139,14 @@ const clientConfig = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
+          // only enable react-refresh for dev builds, and not when building the dev client "wrapper"
+          options: {
+            plugins: [
+              !isProd &&
+                !isDevClientWrapper &&
+                require.resolve('react-refresh/babel'),
+            ].filter(Boolean),
+          },
         },
       },
       // we could add support for scss here
@@ -139,7 +156,7 @@ const clientConfig = {
       },
     ],
   },
-};
+});
 
 // DynamicCdnWebpackPlugin settings
 // these settings help us load 'react', 'react-dom' and the packages defined below from a CDN
@@ -150,9 +167,19 @@ const DynamicCdnWebpackPluginConfig = {
   resolver: (packageName, packageVersion, options) => {
     const packageSuffix = isProd ? '.min.js' : '.js';
     const moduleDetails = moduleToCdn(packageName, packageVersion, options);
+
+    // don't externalize react during development due to issue with react-refresh
+    // https://github.com/pmmmwh/react-refresh-webpack-plugin/issues/334
+    if (!isProd && packageName === 'react') {
+      return null;
+    }
+
+    // return defaults if Dynamic CDN plugin finds package
     if (moduleDetails) {
       return moduleDetails;
     }
+
+    // define custom CDN configuration for new packages
     // "name" should match the package being imported
     // "var" is important to get right -- this should be the exposed global. Look up "webpack externals" for info.
     switch (packageName) {
@@ -178,11 +205,14 @@ const DynamicCdnWebpackPluginConfig = {
 
 // webpack settings used by each client entrypoint defined at top
 const clientConfigs = clientEntrypoints.map(clientEntrypoint => {
+  const isDevClientWrapper = false;
   return {
-    ...clientConfig,
+    ...clientConfig({ isDevClientWrapper }),
     name: clientEntrypoint.name,
     entry: clientEntrypoint.entry,
     plugins: [
+      !isProd && new webpack.HotModuleReplacementPlugin(),
+      !isProd && new ReactRefreshWebpackPlugin(),
       new webpack.DefinePlugin({
         'process.env': JSON.stringify(envVars),
       }),
@@ -195,26 +225,15 @@ const clientConfigs = clientEntrypoints.map(clientEntrypoint => {
       new HtmlWebpackInlineSourcePlugin(),
       // this plugin allows us to add dynamically load packages from a CDN
       new DynamicCdnWebpackPlugin(DynamicCdnWebpackPluginConfig),
-    ],
+    ].filter(Boolean),
   };
 });
 
-const gasWebpackDevServerPath = require.resolve(
-  'google-apps-script-webpack-dev-server'
-);
-
 // webpack settings for devServer https://webpack.js.org/configuration/dev-server/
 const devServer = {
+  hot: true,
   port: PORT,
   https: true,
-  // run our own route to serve the package google-apps-script-webpack-dev-server
-  before: app => {
-    // this '/gas/' path needs to match the path loaded in the iframe in dev/index.js
-    app.get('/gas/*', (req, res) => {
-      res.setHeader('Content-Type', 'text/html');
-      fs.createReadStream(gasWebpackDevServerPath).pipe(res);
-    });
-  },
 };
 
 if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
@@ -238,8 +257,9 @@ if (fs.existsSync(pfxPath)) {
 // webpack settings for the development client wrapper
 const devClientConfigs = clientEntrypoints.map(clientEntrypoint => {
   envVars.FILENAME = clientEntrypoint.filename;
+  const isDevClientWrapper = true;
   return {
-    ...clientConfig,
+    ...clientConfig({ isDevClientWrapper }),
     name: `DEVELOPMENT: ${clientEntrypoint.name}`,
     entry: devDialogEntry,
     plugins: [
