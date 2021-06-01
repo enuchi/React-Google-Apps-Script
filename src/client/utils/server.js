@@ -1,10 +1,10 @@
 import Server from 'gas-client';
 
-const { PORT } = process.env;
-
 const server = new Server({
   // this is necessary for local development but will be ignored in production
-  allowedDevelopmentDomains: `https://localhost:${PORT}`,
+  allowedDevelopmentDomains: origin =>
+    /https:\/\/.*\.googleusercontent\.com$/.test(origin),
+  parentTargetOrigin: '*',
 });
 
 export default server;
