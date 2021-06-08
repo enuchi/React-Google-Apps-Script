@@ -33,7 +33,7 @@ const isProd = process.env.NODE_ENV === 'production';
 const destination = path.resolve(__dirname, 'dist');
 
 // define server paths
-const serverEntry = './src/server/index.js';
+const serverEntry = './src/server/index.ts';
 
 // define appsscript.json file path
 const copyAppscriptEntry = './appsscript.json';
@@ -341,7 +341,9 @@ const serverConfig = {
         isProd ? 'production' : 'development'
       ),
     }),
-    new GasPlugin(),
+    new GasPlugin({
+      autoGlobalExportsFiles: [serverEntry],
+    }),
   ],
 };
 
