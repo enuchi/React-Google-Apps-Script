@@ -1,7 +1,3 @@
-// import * as uiFunctions from './ui';
-// import * as sheetFunctions from './sheets';
-
-// Public functions must be exported from this file in the format below
 import {
   onOpen,
   openDialog,
@@ -11,6 +7,7 @@ import {
 
 import { getSheetsData, addSheet, deleteSheet, setActiveSheet } from './sheets';
 
+// Public functions must be exported as named exports
 export {
   onOpen,
   openDialog,
