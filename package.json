@@ -34,7 +34,6 @@
     "npm": ">=6.0.0"
   },
   "dependencies": {
-    "gas-client": "^1.0.0-pr.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-bootstrap": "^1.3.0",
@@ -82,6 +81,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.20.5",
     "eslint-plugin-standard": "^4.0.1",
+    "gas-client": "^1.0.0-pr.2",
     "gas-lib": "^2.0.3",
     "gas-types-detailed": "^1.0.0",
     "gas-webpack-plugin": "^1.2.3",
