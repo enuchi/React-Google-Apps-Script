@@ -8,8 +8,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const GasPlugin = require('gas-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
-const DynamicCdnWebpackPlugin = require('dynamic-cdn-webpack-plugin');
+const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
+const DynamicCdnWebpackPlugin = require('@effortlessmotion/dynamic-cdn-webpack-plugin');
 const moduleToCdn = require('module-to-cdn');
 
 /*********************************
@@ -24,6 +24,8 @@ envVars.NODE_ENV = process.env.NODE_ENV;
 envVars.PORT = PORT;
 
 const isProd = process.env.NODE_ENV === 'production';
+const publicPath = process.env.ASSET_PATH || '/';
+const target = isProd ? 'web' : 'web';
 
 /*********************************
  *    define entrypoints
@@ -78,6 +80,7 @@ const copyFilesConfig = {
   entry: copyAppscriptEntry,
   output: {
     path: destination,
+    publicPath,
   },
   plugins: [
     new CopyWebpackPlugin({
@@ -94,17 +97,19 @@ const copyFilesConfig = {
 // webpack settings used by both client and server
 const sharedClientAndServerConfig = {
   context: __dirname,
+  target,
 };
 
 // webpack settings used by all client entrypoints
 const clientConfig = {
   ...sharedClientAndServerConfig,
-  mode: isProd ? 'production' : 'development',
+  mode: isProd ? 'development' : 'development', // TODO: fix production (target minification isn't working)
   output: {
     path: destination,
     // this file will get added to the html template inline
     // and should be put in .claspignore so it is not pushed
     filename: 'main.js',
+    publicPath,
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
@@ -176,7 +181,7 @@ const DynamicCdnWebpackPluginConfig = {
 };
 
 // webpack settings used by each client entrypoint defined at top
-const clientConfigs = clientEntrypoints.map(clientEntrypoint => {
+const clientConfigs = clientEntrypoints.map((clientEntrypoint) => {
   return {
     ...clientConfig,
     name: clientEntrypoint.name,
@@ -189,9 +194,11 @@ const clientConfigs = clientEntrypoints.map(clientEntrypoint => {
         template: clientEntrypoint.template,
         filename: `${clientEntrypoint.filename}${isProd ? '' : '-impl'}.html`,
         inlineSource: '^[^(//)]+.(js|css)$', // embed all js and css inline, exclude packages with '//' for dynamic cdn insertion
+        scriptLoading: 'blocking',
+        inject: 'body',
       }),
       // add the generated js code to the html file inline
-      new HtmlWebpackInlineSourcePlugin(),
+      new HtmlInlineScriptPlugin(),
       // this plugin allows us to add dynamically load packages from a CDN
       new DynamicCdnWebpackPlugin(DynamicCdnWebpackPluginConfig),
     ],
@@ -206,8 +213,14 @@ const gasWebpackDevServerPath = require.resolve(
 const devServer = {
   port: PORT,
   https: true,
+  liveReload: false,
+  hot: true,
+  transportMode: 'sockjs',
+  client: {
+    path: 'sockjs-node',
+  },
   // run our own route to serve the package google-apps-script-webpack-dev-server
-  before: app => {
+  onBeforeSetupMiddleware: ({ app }) => {
     // this '/gas/' path needs to match the path loaded in the iframe in dev/index.js
     app.get('/gas/*', (req, res) => {
       res.setHeader('Content-Type', 'text/html');
@@ -225,7 +238,7 @@ if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
 }
 
 // webpack settings for the development client wrapper
-const devClientConfigs = clientEntrypoints.map(clientEntrypoint => {
+const devClientConfigs = clientEntrypoints.map((clientEntrypoint) => {
   envVars.FILENAME = clientEntrypoint.filename;
   return {
     ...clientConfig,
@@ -240,9 +253,13 @@ const devClientConfigs = clientEntrypoints.map(clientEntrypoint => {
         // this should match the html files we load in src/server/ui.js
         filename: `${clientEntrypoint.filename}.html`,
         inlineSource: '^[^(//)]+.(js|css)$', // embed all js and css inline, exclude packages with '//' for dynamic cdn insertion
+        scriptLoading: 'blocking',
+        inject: 'body',
       }),
-      new HtmlWebpackInlineSourcePlugin(),
-      new DynamicCdnWebpackPlugin({}),
+      // add the generated js code to the html file inline
+      new HtmlInlineScriptPlugin(),
+      // this plugin allows us to add dynamically load packages from a CDN
+      new DynamicCdnWebpackPlugin(DynamicCdnWebpackPluginConfig),
     ],
   };
 });
@@ -259,6 +276,7 @@ const serverConfig = {
     filename: 'code.js',
     path: destination,
     libraryTarget: 'this',
+    publicPath,
   },
   resolve: {
     extensions: ['.ts', '.js', '.json'],
@@ -291,7 +309,6 @@ const serverConfig = {
     minimize: true,
     minimizer: [
       new TerserPlugin({
-        sourceMap: true,
         terserOptions: {
           // ecma 5 is needed to support Rhino "DEPRECATED_ES5" runtime
           // can use ecma 6 if V8 runtime is used
