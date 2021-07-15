@@ -3,7 +3,7 @@ import React from 'react';
 const About = () => (
   <div>
     <p>
-      <b>☀️ React app inside a sidebar!! ☀️</b>
+      <b>☀️ React app inside a sidebar! ☀️</b>
     </p>
     <p>
       This is a very simple page demonstrating how to build a React app inside a

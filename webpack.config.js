@@ -8,7 +8,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const GasPlugin = require('gas-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackInlineScriptPlugin = require('html-inline-script-webpack-plugin');
+const HtmlWebpackInlineSourcePlugin = require('@effortlessmotion/html-webpack-inline-source-plugin');
 const DynamicCdnWebpackPlugin = require('@effortlessmotion/dynamic-cdn-webpack-plugin');
 const moduleToCdn = require('module-to-cdn');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
@@ -34,7 +34,7 @@ const publicPath = process.env.ASSET_PATH || '/';
 const destination = path.resolve(__dirname, 'dist');
 
 // define server paths
-const serverEntry = './src/server/index.ts';
+const serverEntry = './src/server/index.js';
 
 // define appsscript.json file path
 const copyAppscriptEntry = './appsscript.json';
@@ -212,7 +212,7 @@ const DynamicCdnWebpackPluginConfig = {
 };
 
 // webpack settings used by each client entrypoint defined at top
-const clientConfigs = clientEntrypoints.map(clientEntrypoint => {
+const clientConfigs = clientEntrypoints.map((clientEntrypoint) => {
   const isDevClientWrapper = false;
   return {
     ...clientConfig({ isDevClientWrapper }),
@@ -227,12 +227,12 @@ const clientConfigs = clientEntrypoints.map(clientEntrypoint => {
       new HtmlWebpackPlugin({
         template: clientEntrypoint.template,
         filename: `${clientEntrypoint.filename}${isProd ? '' : '-impl'}.html`,
-        inlineSource: '^[^(//)]+.(js|css)$', // embed all js and css inline, exclude packages with '//' for dynamic cdn insertion
+        inlineSource: '^/.*(js|css)$', // embed all js and css inline, exclude packages from dynamic cdn insertion
         scriptLoading: 'blocking',
         inject: 'body',
       }),
       // add the generated js code to the html file inline
-      new HtmlWebpackInlineScriptPlugin(),
+      new HtmlWebpackInlineSourcePlugin(),
       // this plugin allows us to add dynamically load packages from a CDN
       new DynamicCdnWebpackPlugin(DynamicCdnWebpackPluginConfig),
     ].filter(Boolean),
@@ -255,7 +255,7 @@ if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
 }
 
 // webpack settings for the development client wrapper
-const devClientConfigs = clientEntrypoints.map(clientEntrypoint => {
+const devClientConfigs = clientEntrypoints.map((clientEntrypoint) => {
   envVars.FILENAME = clientEntrypoint.filename;
   const isDevClientWrapper = true;
   return {
@@ -270,11 +270,11 @@ const devClientConfigs = clientEntrypoints.map(clientEntrypoint => {
         template: './dev/index.html',
         // this should match the html files we load in src/server/ui.js
         filename: `${clientEntrypoint.filename}.html`,
-        inlineSource: '^[^(//)]+.(js|css)$', // embed all js and css inline, exclude packages with '//' for dynamic cdn insertion
+        inlineSource: '^/.*(js|css)$', // embed all js and css inline, exclude packages from dynamic cdn insertion
         scriptLoading: 'blocking',
         inject: 'body',
       }),
-      new HtmlWebpackInlineScriptPlugin(),
+      new HtmlWebpackInlineSourcePlugin(),
       new DynamicCdnWebpackPlugin({}),
     ],
   };
