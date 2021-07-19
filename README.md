@@ -104,17 +104,21 @@ Alternatively, you can use an existing Google Spreadsheet and Script file instea
 <details>
   <summary>See instructions here for using an existing project.</summary>
 
-1. Copy your existing script project's `scriptId`. You can find it by opening your spreadsheet, selecting **Tools > Script Editor** from the menubar, then **File > Project properties**.
+You will need to update the `.clasp.json` file in the root of this project with the following three key/value pairs:
 
-2. Run the command below using your project's `scriptId`:
+```json
+{
+  "scriptId": "1PY037hPcy................................................",
+  "parentId": ["1Df30......................................."],
+  "rootDir": "./dist"
+}
+```
 
-   ```bash
-   npm run setup:use-id your_script_id_here
-   ```
+- `scriptId`: Your existing script project's `scriptId`. You can find it by opening your spreadsheet, selecting **Tools > Script Editor** from the menubar, then **File > Project properties**, and it will be listed as "Script ID".
 
-   This command will add the existing project's `scriptId` to your`.clasp.json` file. See [here](https://github.com/google/clasp#setting) for working with `clasp`.
+- `parentId`: An array with a single string, the ID of the parent file (spreadsheet, doc, etc.) that the script project is bound to. You can get this ID from the url, where the format is usually `https://docs.google.com/spreadsheets/d/{id}/edit`. This allows you to run `npm run open` and open your file directly from the command line.
 
-<img width="100%" src="https://i.imgur.com/VYl3JHx.gif">
+- `rootDir`: This should always be `"./dist"`, i.e. the local build folder that is used to store project files.
 
 </details>
 
@@ -132,7 +136,7 @@ npm run deploy
 
 The deploy command will build all necessary files using production settings, including all server code (Google Apps Script code), client code (React bundle), and config files. All bundled files will be outputted to the `dist/` folder, then pushed to the Google Apps Script project.
 
-Now open Google Sheets and navigate to your new spreadsheet (e.g. the file "My React Project"). Make sure to refresh the page if you already had it open. You will now see a new menu item appear containing your app!
+Now open Google Sheets and navigate to your new spreadsheet (e.g. the file "My React Project"). You can also run `npm run open`. Make sure to refresh the page if you already had it open. You will now see a new menu item appear containing your app!
 
 <img width="100%" src="https://i.imgur.com/W7UkEpv.gif">
 
@@ -148,34 +152,34 @@ There are two steps to getting started: installing a certificate (first time onl
 
 1. Generating a certificate for local development <a name = "generatingcerts"></a>
 
-    Install the mkcert package:
+   Install the mkcert package:
 
-    ```bash
-    # mac:
-    $ brew install mkcert
+   ```bash
+   # mac:
+   brew install mkcert
 
-    # windows:
-    $ choco install mkcert
-    ```
+   # windows:
+   choco install mkcert
+   ```
 
-    [More install options here.](https://github.com/FiloSottile/mkcert#installation)
+   [More install options here.](https://github.com/FiloSottile/mkcert#installation)
 
-    Then run the mkcert install script:
+   Then run the mkcert install script:
 
-    ```bash
-    $ mkcert -install
-    ```
+   ```bash
+   mkcert -install
+   ```
 
-    Create the certs in your repo:
+   Create the certs in your repo:
 
-    ```
-    npm run setup:https
-    ```
+   ```
+   npm run setup:https
+   ```
 
 2. Now you're ready to start:
-    ```bash
-    npm run start
-    ```
+   ```bash
+   npm run start
+   ```
 
 The start command will create and deploy a development build, and serve your local files.
 
@@ -200,9 +204,9 @@ You will need to use the "standalone" version of React DevTools since our React 
 
 1. In your repo install the React DevTools package as a dev dependency:
 
-    ```bash
-    npm install -D react-devtools
-    ```
+   ```bash
+   npm install -D react-devtools
+   ```
 
 2. In a new terminal window run `npx react-devtools` to launch the DevTools standalone app.
 
@@ -210,7 +214,7 @@ You will need to use the "standalone" version of React DevTools since our React 
 
 4. Deploy your app (`npm run deploy:dev`) and you should see DevTools tool running and displaying your app hierarchy.
 
-    <img width="100%" src="https://user-images.githubusercontent.com/31550519/110273600-ee9eae80-7f9a-11eb-9796-31353b47dfa8.gif">
+   <img width="100%" src="https://user-images.githubusercontent.com/31550519/110273600-ee9eae80-7f9a-11eb-9796-31353b47dfa8.gif">
 
 5. Don't forget to remove the `<script>` tag before deploying to production.
 
