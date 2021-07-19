@@ -156,10 +156,10 @@ There are two steps to getting started: installing a certificate (first time onl
 
    ```bash
    # mac:
-   $ brew install mkcert
+   brew install mkcert
 
    # windows:
-   $ choco install mkcert
+   choco install mkcert
    ```
 
    [More install options here.](https://github.com/FiloSottile/mkcert#installation)
@@ -167,7 +167,7 @@ There are two steps to getting started: installing a certificate (first time onl
    Then run the mkcert install script:
 
    ```bash
-   $ mkcert -install
+   mkcert -install
    ```
 
    Create the certs in your repo:
