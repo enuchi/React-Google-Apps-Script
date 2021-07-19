@@ -7,7 +7,7 @@
     "url": "https://github.com/enuchi/React-Google-Apps-Script.git"
   },
   "scripts": {
-    "test": "test",
+    "test": "jest",
     "login": "clasp login",
     "setup": "rimraf .clasp.json && clasp create --type sheets --title \"My React Project\" --rootDir ./dist",
     "open": "clasp open --addon",
@@ -81,6 +81,8 @@
     "google-apps-script-webpack-dev-server": "^1.0.0",
     "html-webpack-inline-source-plugin": "0.0.10",
     "html-webpack-plugin": "^3.2.0",
+    "jest-image-snapshot": "^4.5.1",
+    "jest-puppeteer": "^5.0.4",
     "mkdirp": "^1.0.4",
     "module-to-cdn": "^3.1.5",
     "prettier": "^1.19.1",
