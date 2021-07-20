@@ -9,7 +9,12 @@
   "plugins": ["babel", "prettier"],
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "jest": true
+  },
+  "globals": {
+    "page": true,
+    "browser": true
   },
   "parserOptions": {
     "ecmaVersion": 9,
