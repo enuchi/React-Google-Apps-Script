@@ -7,20 +7,20 @@ const { FILENAME, PORT } = process.env;
 const DevServer = () => {
   const iframe = React.useRef(null);
   useEffect(() => {
-    const handleRequest = event => {
+    const handleRequest = (event) => {
       const request = event.data;
       const { type, functionName, id, args } = request;
 
       if (type !== 'REQUEST') return;
 
       serverFunctions[functionName](...args)
-        .then(response => {
+        .then((response) => {
           iframe.current.contentWindow.postMessage(
             { type: 'RESPONSE', id, status: 'SUCCESS', response },
             `https://localhost:${PORT}`
           );
         })
-        .catch(err => {
+        .catch((err) => {
           iframe.current.contentWindow.postMessage(
             {
               type: 'RESPONSE',
