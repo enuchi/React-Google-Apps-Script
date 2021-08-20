@@ -43,6 +43,8 @@ jobs:
         run: echo "SHEET_URL=$TEST_SPREADSHEET_URL" >> .env
         env:
           TEST_SPREADSHEET_URL: ${{ secrets.TEST_SPREADSHEET_URL }}
+      - name: Build local
+        run: npm run build:dev
       - name: Run integration tests
         run: npx cross-env PASSWORD=$PASSWORD npm run test:integration
         env:

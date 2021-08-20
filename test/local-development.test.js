@@ -17,12 +17,9 @@ const srcTestFile = path.join(
 describe('Local Mode', () => {
   let process;
 
-  beforeAll(done => {
-    exec('npm run deploy:dev', async () => {
-      process = exec('npm run serve');
-      await openAddon();
-      done();
-    });
+  beforeAll(async () => {
+    process = exec('npm run serve');
+    await openAddon();
   });
 
   afterAll(() => process.kill());
