@@ -48,7 +48,7 @@ const openAddon = async () => {
       new MouseEvent('mouseup', { bubbles: true })
     );
   });
-  await page.waitForTimeout(5000);
+  await page.waitForTimeout(10000);
 };
 
 module.exports = { openAddon };
