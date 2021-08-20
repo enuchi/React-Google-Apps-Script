@@ -7,7 +7,7 @@ const { openAddon } = require('./utils/openAddon');
 require('dotenv').config();
 
 expect.extend({ toMatchImageSnapshot });
-jest.setTimeout(70000);
+jest.setTimeout(120000);
 
 const srcTestFile = path.join(
   __dirname,
@@ -17,10 +17,12 @@ const srcTestFile = path.join(
 describe('Local Mode', () => {
   let process;
 
-  beforeAll(async () => {
-    process = exec('npm run serve');
-    await openAddon();
-    await page.waitForTimeout(12000);
+  beforeAll(done => {
+    exec('npm run deploy:dev', async () => {
+      process = exec('npm run serve');
+      await openAddon();
+      done();
+    });
   });
 
   afterAll(() => process.kill());
@@ -33,10 +35,15 @@ describe('Local Mode', () => {
 
   it('should modify Bootstrap title example', async () => {
     const data = await fs.promises.readFile(srcTestFile, 'utf8');
-    const result = data.replace(
-      '<b>☀️ Bootstrap demo! ☀️</b>',
-      '<b>☀️ This is modified text in local development ☀️</b>'
-    );
+    const result = data
+      .replace(
+        '<b>☀️ Bootstrap demo! ☀️</b>',
+        '<b>☀️ This is modified text in local development ☀️</b>'
+      )
+      .replace(
+        "{ padding: '3px', overflowX: 'hidden' }",
+        "{ padding: '3px', overflowX: 'hidden', backgroundColor: 'pink' }"
+      );
     await fs.promises.writeFile(srcTestFile, result, 'utf8');
     await page.waitForTimeout(4000);
     const scriptModal = await page.$('.script-app-dialog');
@@ -46,10 +53,15 @@ describe('Local Mode', () => {
 
   it('should modify Bootstrap title example back to original', async () => {
     const data = await fs.promises.readFile(srcTestFile, 'utf8');
-    const result = data.replace(
-      '<b>☀️ This is modified text in local development ☀️</b>',
-      '<b>☀️ Bootstrap demo! ☀️</b>'
-    );
+    const result = data
+      .replace(
+        '<b>☀️ This is modified text in local development ☀️</b>',
+        '<b>☀️ Bootstrap demo! ☀️</b>'
+      )
+      .replace(
+        "{ padding: '3px', overflowX: 'hidden', backgroundColor: 'pink' }",
+        "{ padding: '3px', overflowX: 'hidden' }"
+      );
     await fs.promises.writeFile(srcTestFile, result, 'utf8');
     await page.waitForTimeout(4000);
     const scriptModal = await page.$('.script-app-dialog');
