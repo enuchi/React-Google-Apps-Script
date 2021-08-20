@@ -1,20 +1,13 @@
 const fs = require('fs');
 const path = require('path');
-const Webpack = require('webpack');
+const { exec } = require('child_process');
 const { toMatchImageSnapshot } = require('jest-image-snapshot');
-const WebpackDevServer = require('webpack-dev-server/lib/Server');
-const webpackConfig = require('../webpack.config');
 const { openAddon } = require('./utils/openAddon');
 
 require('dotenv').config();
 
 expect.extend({ toMatchImageSnapshot });
-jest.setTimeout(120000);
-
-process.env.NODE_ENV = 'development';
-
-const compiler = Webpack(webpackConfig);
-const devServerOptions = { ...webpackConfig[0].devServer };
+jest.setTimeout(70000);
 
 const srcTestFile = path.join(
   __dirname,
@@ -22,24 +15,15 @@ const srcTestFile = path.join(
 );
 
 describe('Local Mode', () => {
-  let server;
-
-  afterAll(async () => {
-    await page.waitForTimeout(3000);
-    server.close(() => {});
-    await page.waitForTimeout(3000);
-  });
+  let process;
 
   beforeAll(async () => {
-    server = new WebpackDevServer(compiler, devServerOptions);
-    server.listen(3000, '127.0.0.1', () => {
-      console.log('sttarted');
-    });
-    process.env.NODE_ENV = 'test';
-    await page.waitForTimeout(15000);
-
+    process = exec('npm run serve');
     await openAddon();
+    await page.waitForTimeout(12000);
   });
+
+  afterAll(() => process.kill());
 
   it('should load Bootstrap example', async () => {
     const scriptModal = await page.$('.script-app-dialog');

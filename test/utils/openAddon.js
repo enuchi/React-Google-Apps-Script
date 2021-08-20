@@ -9,7 +9,7 @@ const openAddon = async () => {
 
   await page.click('a:nth-child(2)'); // click on signin button
   await page.waitForTimeout(1000);
-  await page.type('input[name="identifier"]', process.env.USERNAME); // type username
+  await page.type('input[name="identifier"]', process.env.EMAIL); // type email
   await page.click('#identifierNext'); // click "next" button
   await page.waitForTimeout(1000);
   await page.type('input[name="password"]', process.env.PASSWORD); // type pass
@@ -48,7 +48,7 @@ const openAddon = async () => {
       new MouseEvent('mouseup', { bubbles: true })
     );
   });
-  await page.waitForTimeout(15000);
+  await page.waitForTimeout(5000);
 };
 
 module.exports = { openAddon };
