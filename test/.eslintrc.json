@@ -24,6 +24,7 @@
     }
   },
   "rules": {
+    "jest/no-done-callback": "off",
     "prettier/prettier": "error",
     "camelcase": "warn",
     "import/prefer-default-export": "warn",
