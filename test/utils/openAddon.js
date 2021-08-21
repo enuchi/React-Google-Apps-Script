@@ -24,14 +24,14 @@ const openAddon = async () => {
   await page.waitForTimeout(3000);
   await page.click('#passwordNext'); // click "next" button
 
+  await page.waitForTimeout(15000); // wait long enough for onopen to be called
   console.log(
     await page.evaluate(() => document.querySelector('body').innerText)
   );
-  
+
   console.log(
     await page.evaluate(() => document.querySelector('body').innerHTML)
   );
-  await page.waitForTimeout(15000); // wait long enough for onopen to be called
 
   // open new addon menubar item
   await page.evaluate(() => {
