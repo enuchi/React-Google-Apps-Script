@@ -9,7 +9,7 @@ on:
     branches: [master]
 
 jobs:
-  build:
+  test:
     runs-on: macos-latest
     strategy:
       matrix:
@@ -45,6 +45,8 @@ jobs:
           TEST_SPREADSHEET_URL: ${{ secrets.TEST_SPREADSHEET_URL }}
       - name: Build local
         run: npm run build:dev
+      - name: Deploy local
+        run: npm run deploy:dev
       - name: Run integration tests
         run: npx cross-env PASSWORD=$PASSWORD npm run test:integration
         env:
