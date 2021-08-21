@@ -4,6 +4,7 @@ const openAddon = async () => {
     height: 1600,
     deviceScaleFactor: 2,
   });
+  // set user agent so doesn't trigger MFA
   await page.setUserAgent(
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3542.0 Safari/537.36'
   );
@@ -15,23 +16,11 @@ const openAddon = async () => {
   await page.type('input[name="identifier"]', process.env.EMAIL); // type email
   await page.click('#identifierNext'); // click "next" button
   await page.waitForTimeout(3000);
-
-  console.log(
-    await page.evaluate(() => document.querySelector('body').innerText)
-  );
-
   await page.type('input[name="password"]', process.env.PASSWORD); // type pass
   await page.waitForTimeout(3000);
   await page.click('#passwordNext'); // click "next" button
 
   await page.waitForTimeout(15000); // wait long enough for onopen to be called
-  console.log(
-    await page.evaluate(() => document.querySelector('body').innerText)
-  );
-
-  console.log(
-    await page.evaluate(() => document.querySelector('body').innerHTML)
-  );
 
   // open new addon menubar item
   await page.evaluate(() => {
@@ -64,7 +53,7 @@ const openAddon = async () => {
       new MouseEvent('mouseup', { bubbles: true })
     );
   });
-  await page.waitForTimeout(10000);
+  await page.waitForTimeout(30000);
 };
 
 module.exports = { openAddon };
