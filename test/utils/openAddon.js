@@ -8,10 +8,10 @@ const openAddon = async () => {
   await page.waitForTimeout(5000);
 
   await page.click('a:nth-child(2)'); // click on signin button
-  await page.waitForTimeout(1000);
+  await page.waitForTimeout(3000);
   await page.type('input[name="identifier"]', process.env.EMAIL); // type email
   await page.click('#identifierNext'); // click "next" button
-  await page.waitForTimeout(1000);
+  await page.waitForTimeout(3000);
   console.log('TEST EMAIL', process.env.EMAIL);
   const bodyInnerHtml = await page.evaluate(() => {
     const body = document.querySelector('body');
@@ -19,7 +19,7 @@ const openAddon = async () => {
   });
   console.log(bodyInnerHtml);
   await page.type('input[name="password"]', process.env.PASSWORD); // type pass
-  await page.waitForTimeout(1000);
+  await page.waitForTimeout(3000);
   await page.click('#passwordNext'); // click "next" button
   await page.waitForTimeout(15000); // wait long enough for onopen to be called
 
@@ -34,7 +34,7 @@ const openAddon = async () => {
     addOnMenuButton.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
   });
 
-  await page.waitForTimeout(1000);
+  await page.waitForTimeout(3000);
 
   // open "bootstrap" menu item
   await page.evaluate(() => {
