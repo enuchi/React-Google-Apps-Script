@@ -26,6 +26,16 @@ describe('Local Mode', () => {
 
   it('should load Bootstrap example', async () => {
     const scriptModal = await page.$('.script-app-dialog');
+    console.log(
+      await page.evaluate(
+        () => document.querySelector('.script-app-dialog').innerHTML
+      )
+    );
+    console.log(
+      await page.evaluate(
+        () => document.querySelector('.script-app-dialog').innerText
+      )
+    );
     const image = await scriptModal.screenshot();
     await expect(image).toMatchImageSnapshot();
   });
