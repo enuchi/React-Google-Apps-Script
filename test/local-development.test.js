@@ -19,12 +19,12 @@ describe('Local Mode', () => {
 
   beforeAll(async () => {
     process = exec('npm run serve');
-    await page.waitForTimeout(15000);
+    await page.waitForTimeout(35000);
 
     await page.goto(
       'https://localhost:3000/gas/dialog-demo-bootstrap-impl.html'
     );
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(15000);
 
     // await openAddon();
   });
@@ -32,12 +32,12 @@ describe('Local Mode', () => {
   afterAll(() => process.kill());
 
   it('should load page in separate window', async () => {
-    expect(await page.$eval('body', el => el.innerText)).toBe(``);
+    expect(await page.$eval('body', el => el.innerText)).toBe(`a`);
   });
   it('should load page in separate window and check body', async () => {
     expect(
       await page.$eval('iframe', el => el.contentWindow.document.body.innerText)
-    ).toBe(``);
+    ).toBe(`a`);
   });
 
   // it('should load Bootstrap example', async () => {
