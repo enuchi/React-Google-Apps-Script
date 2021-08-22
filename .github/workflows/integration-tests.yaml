@@ -36,7 +36,7 @@ jobs:
         run: mkcert -install
       - name: Add certs
         run: npm run setup:https
-       - name: Add test email to .env
+      - name: Add test email to .env
         run: echo "EMAIL=$TEST_ACCOUNT_EMAIL" > .env
         env:
           TEST_ACCOUNT_EMAIL: ${{ secrets.TEST_ACCOUNT_EMAIL }}
