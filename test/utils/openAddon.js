@@ -33,7 +33,7 @@ const openAddon = async () => {
     addOnMenuButton.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
   });
 
-  await page.waitForTimeout(3000);
+  await page.waitForTimeout(6000);
 
   // open "bootstrap" menu item
   await page.evaluate(() => {
