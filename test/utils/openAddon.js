@@ -22,6 +22,10 @@ const openAddon = async () => {
 
   await page.waitForTimeout(15000); // wait long enough for onopen to be called
 
+  console.log(
+    await page.evaluate(() => document.querySelector('body').innerText)
+  );
+
   // open new addon menubar item
   await page.evaluate(() => {
     const addOnMenuButton = document.querySelector(
