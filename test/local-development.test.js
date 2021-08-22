@@ -21,24 +21,23 @@ describe('Local Mode', () => {
     process = exec('npm run serve');
     await page.waitForTimeout(15000);
 
+    await page.goto(
+      'https://localhost:3000/gas/dialog-demo-bootstrap-impl.html'
+    );
+    await page.waitForTimeout(5000);
+
     // await openAddon();
   });
 
   afterAll(() => process.kill());
 
   it('should load page in separate window', async () => {
-    await page.goto(
-      'https://localhost:3000/gas/dialog-demo-bootstrap-impl.html'
-    );
-    await page.waitForTimeout(5000);
-
-    console.log(await page.evaluate(() => document.body.innerText));
-    console.log(
-      await page.evaluate(
-        () =>
-          document.querySelector('iframe').contentWindow.document.body.innerText
-      )
-    );
+    expect(await page.$eval('body', el => el.innerText)).toBe(``);
+  });
+  it('should load page in separate window and check body', async () => {
+    expect(
+      await page.$eval('iframe', el => el.contentWindow.document.body.innerText)
+    ).toBe(``);
   });
 
   // it('should load Bootstrap example', async () => {
