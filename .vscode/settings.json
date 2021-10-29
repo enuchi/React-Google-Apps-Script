@@ -9,5 +9,8 @@
           ".clasp.json"
       ],
       "url": "http://json.schemastore.org/clasp"
-  }]
+  }],
+  "editor.detectIndentation": false,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2
 }
