@@ -14,8 +14,8 @@
     "setup:https": "mkdirp certs && mkcert -key-file ./certs/key.pem -cert-file ./certs/cert.pem localhost 127.0.0.1",
     "build:dev": "cross-env NODE_ENV=development webpack",
     "build": "cross-env NODE_ENV=production webpack",
-    "deploy:dev": "rimraf dist && yarn build:dev && yarn clasp push",
-    "deploy": "rimraf dist && yarn build && yarn clasp push",
+    "deploy:dev": "rimraf dist && yarn build:dev && yarn clasp push && yarn clasp deploy --description \"DEV@$(date)\"",
+    "deploy": "rimraf dist && yarn build && yarn clasp push && yarn clasp deploy --description \"REL@$(date)\"",
     "serve": "cross-env NODE_ENV=development webpack-dev-server",
     "start": "yarn deploy:dev && yarn serve"
   },
