@@ -8,9 +8,9 @@
   },
   "scripts": {
     "test": "test",
-    "login": "clasp login",
-    "setup": "rimraf .clasp.json && mkdir -p dist && clasp create --type sheets --title \"My React Project\" --rootDir ./dist && cp ./dist/.clasp.json ./ && cp ./dist/appsscript.json ./",
-    "open": "clasp open --addon",
+    "login": "yarn clasp login",
+    "setup": "rimraf .clasp.json && mkdir -p dist && yarn clasp create --type webapp --title \"React Webapp\" --rootDir ./dist && cp ./dist/.clasp.json ./ && cp ./dist/appsscript.json ./",
+    "open": "yarn clasp open --webapp",
     "setup:https": "mkdirp certs && mkcert -key-file ./certs/key.pem -cert-file ./certs/cert.pem localhost 127.0.0.1",
     "build:dev": "cross-env NODE_ENV=development webpack",
     "build": "cross-env NODE_ENV=production webpack",
