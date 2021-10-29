@@ -61,11 +61,11 @@ See below how to get started!
 
 These instructions will get you set up with a copy of the React project code on your local machine. It will also get you logged in to `clasp` so you can manage script projects from the command line.
 
-See [deploy](#deploy) for notes on how to deploy the project and see it live in a Google Spreadsheet.
+See [deploy](#deploy) for notes on how to deploy the project.
 
 ### Prerequisites <a name = "prerequisites"></a>
 
-- Make sure you're running at least [Node.js](https://nodejs.org/en/download/) v10 and `npm` v6.
+- Make sure you're running at least [Node.js](https://nodejs.org/en/download/) v16 and `yarn` v1.22.
 
 - You'll need to enable the Google Apps Script API. You can do that by visiting [script.google.com/home/usersettings](https://script.google.com/home/usersettings).
 
@@ -78,7 +78,7 @@ See [deploy](#deploy) for notes on how to deploy the project and see it live in 
 ```bash
 git clone https://github.com/enuchi/React-Google-Apps-Script.git
 cd React-Google-Apps-Script
-npm install
+yarn install
 ```
 
 <img width="100%" src="https://i.imgur.com/EGSsCqO.gif">
@@ -86,20 +86,20 @@ npm install
 **2.** Next, we'll need to log in to [clasp](https://github.com/google/clasp), which lets us manage our Google Apps Script projects locally.
 
 ```bash
-npm run login
+yarn login
 ```
 
 <img width="100%" src="https://i.imgur.com/zKCgkMl.gif">
 
-**3.** Now let's run the setup script to create a New spreadsheet and script project from the command line.
+**3.** Now let's run the setup script to create a New script project for webapp from the command line.
 
 ```bash
-npm run setup
+yarn setup
 ```
 
 <img width="100%" src="https://imgur.com/Zk2eHFV.gif">
 
-Alternatively, you can use an existing Google Spreadsheet and Script file instead of creating a new one.
+Alternatively, you can use an existing Google Script file instead of creating a new one.
 
 <details>
   <summary>See instructions here for using an existing project.</summary>
@@ -109,20 +109,17 @@ You will need to update the `.clasp.json` file in the root of this project with 
 ```json
 {
   "scriptId": "1PY037hPcy................................................",
-  "parentId": ["1Df30......................................."],
   "rootDir": "./dist"
 }
 ```
 
-- `scriptId`: Your existing script project's `scriptId`. You can find it by opening your spreadsheet, selecting **Tools > Script Editor** from the menubar, then **File > Project properties**, and it will be listed as "Script ID".
-
-- `parentId`: An array with a single string, the ID of the parent file (spreadsheet, doc, etc.) that the script project is bound to. You can get this ID from the url, where the format is usually `https://docs.google.com/spreadsheets/d/{id}/edit`. This allows you to run `npm run open` and open your file directly from the command line.
+- `scriptId`: Your existing script project's `scriptId`. You can find it by **File > Project properties**, and it will be listed as "Script ID".
 
 - `rootDir`: This should always be `"./dist"`, i.e. the local build folder that is used to store project files.
 
 </details>
 
-Next, let's deploy the app so we can see it live in Google Spreadsheets.
+Next, let's deploy the app so we can see it live in Internet. For example, `https://script.google.com/macros/s/{deployId}/exec`
 
 <br/>
 
@@ -131,12 +128,12 @@ Next, let's deploy the app so we can see it live in Google Spreadsheets.
 Run the deploy command. You may be prompted to update your manifest file. Type 'yes'.
 
 ```bash
-npm run deploy
+yarn deploy
 ```
 
 The deploy command will build all necessary files using production settings, including all server code (Google Apps Script code), client code (React bundle), and config files. All bundled files will be outputted to the `dist/` folder, then pushed to the Google Apps Script project.
 
-Now open Google Sheets and navigate to your new spreadsheet (e.g. the file "My React Project"). You can also run `npm run open`. Make sure to refresh the page if you already had it open. You will now see a new menu item appear containing your app!
+You can run `yarn open`. Make sure to refresh the page if you already had it open. You will now see a new menu item appear containing your app!
 
 <img width="100%" src="https://i.imgur.com/W7UkEpv.gif">
 
@@ -173,12 +170,12 @@ There are two steps to getting started: installing a certificate (first time onl
    Create the certs in your repo:
 
    ```
-   npm run setup:https
+   yarn setup:https
    ```
 
 2. Now you're ready to start:
    ```bash
-   npm run start
+   yarn start
    ```
 
 The start command will create and deploy a development build, and serve your local files.
@@ -205,14 +202,14 @@ You will need to use the "standalone" version of React DevTools since our React 
 1. In your repo install the React DevTools package as a dev dependency:
 
    ```bash
-   npm install -D react-devtools
+   yarn -D react-devtools
    ```
 
-2. In a new terminal window run `npx react-devtools` to launch the DevTools standalone app.
+2. In a new terminal window run `yarn react-devtools` to launch the DevTools standalone app.
 
 3. Add `<script src="http://localhost:8097"></script>` to the top of your `<head>` in your React app, e.g. in the [index.html](https://github.com/enuchi/React-Google-Apps-Script/blob/e73e51e56e99903885ef8dd5525986f99038d8bf/src/client/dialog-demo-bootstrap/index.html) file in the sample Bootstrap app.
 
-4. Deploy your app (`npm run deploy:dev`) and you should see DevTools tool running and displaying your app hierarchy.
+4. Deploy your app (`yarn deploy:dev`) and you should see DevTools tool running and displaying your app hierarchy.
 
    <img width="100%" src="https://user-images.githubusercontent.com/31550519/110273600-ee9eae80-7f9a-11eb-9796-31353b47dfa8.gif">
 
@@ -226,15 +223,7 @@ You will need to use the "standalone" version of React DevTools since our React 
 
 ### The included sample app
 
-The included sample app allows inserting/activating/deleting sheets through a simple HTML dialog, built with React. This simple app demonstrates how a React app can interact with the underlying Spreadsheet using Google Apps Script functions.
-
-The included sample app has three menu items for loading pages in various dialogs and sidebars.
-
-Two versions of the same app are provided with different styling: the first version uses vanilla React, and the second uses the popular bootstrap library (in this case, it uses [`react-bootstrap`](https://react-bootstrap.github.io/)). The bootstrap example also contains an example of a page built with typescript (see below)
-
-A third app just demonstrates how to load a sidebar dialog.
-
-Access the dialogs through the new menu item that appears. You may need to refresh the spreadsheet and approve the app's permissions the first time you use it.
+The included sample app allows get the server url through a simple HTML dialog, built with React. This simple app demonstrates how a React app can interact with Google Apps Script functions, and uses the popular bootstrap library (in this case, it uses [`react-bootstrap`](https://react-bootstrap.github.io/)).
 
 ### [New!] Typescript
 
@@ -242,7 +231,7 @@ This project now supports typescript!
 
 To use, simply use a typescript extension in either the client code (.ts/.tsx) or the server code (.ts), and your typescript file will compile to the proper format.
 
-For client-side code, see [FormInput.tsx in the Bootstrap demo](./src/client/dialog-demo-bootstrap/components/FormInput.tsx) for an example file. Note that it is okay to have a mix of javascript and typescript, as seen in the Bootstrap demo.
+Note that it is okay to have a mix of javascript and typescript.
 
 To use typescript in server code, just change the file extension to .ts. The server-side code already utilizes type definitions for Google Apps Script APIs.
 
@@ -252,10 +241,10 @@ A basic typescript configuration is used here, because after code is transpiled 
 
 You can add packages to your client-side React app.
 
-For instance, install `react-transition-group` from npm:
+For instance, install `react-transition-group` from yarn:
 
 ```bash
-npm install react-transition-group
+yarn add react-transition-group
 ```
 
 Important: Since Google Apps Scripts projects don't let you easily reference external files, this project will bundle an entire app into one HTML file. This can result in large files if you are importing large packages. To help split up the files, you can grab a CDN url for your package and declare it in the [webpack file, here](./webpack.config.js#L157). If set up properly, this will add a script tag that will load packages from a CDN, reducing your bundle size.
@@ -274,7 +263,7 @@ The webpack.config.js file can also be modified to support scss and other style 
 
 ### Modifying scopes
 
-The included app only requires access to Google Spreadsheets and to loading dialog windows. If you make changes to the app's requirements, for instance, if you modify this project to work with Google Forms or Docs, make sure to edit the oauthScopes in the [appscript.json file](./appsscript.json).
+The included sample app does not require access to any Google services. If you make changes to the app's requirements, for instance, if you modify this project to work with Google Spreadsheets, Forms or Docs, make sure to edit the oauthScopes in the [appscript.json file](./appsscript.json).
 
 See https://developers.google.com/apps-script/manifest for information on the `appsscript.json` structure.
 
