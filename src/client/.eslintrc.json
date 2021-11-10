@@ -6,7 +6,7 @@
     "plugin:prettier/recommended",
     "plugin:react/recommended"
   ],
-  "plugins": ["babel", "react", "prettier"],
+  "plugins": ["babel", "react", "prettier", "react-hooks"],
   "env": {
     "browser": true,
     "es6": true
@@ -29,7 +29,9 @@
     "camelcase": "warn",
     "import/prefer-default-export": "warn",
     "import/no-extraneous-dependencies": "warn",
-    "prefer-object-spread": "warn"
+    "prefer-object-spread": "warn",
+    "react-hooks/rules-of-hooks": "error", // 檢查 Hook 的規則
+    "react-hooks/exhaustive-deps": "warn" // 檢查 effect 的相依性
   },
   "settings": {
     "react": {
