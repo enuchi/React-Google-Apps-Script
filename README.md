@@ -189,6 +189,8 @@ After running the start command, navigate to your spreadsheet and open one of th
 
 <img width="100%" src="https://i.imgur.com/EsnOEHP.gif">
 
+If the iFrame is showing up empty it could be due to an add-blocker or other extention in your browser. In the Brave browser the "shields up" setting will not allow the iFrame to load. Switch these setting off to allow the frame to serve your local files. 
+
 <br/>
 
 ### 🔍 Using React DevTools <a name="dev-tools"></a>
