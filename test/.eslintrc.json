@@ -30,6 +30,7 @@
     "import/prefer-default-export": "warn",
     "import/no-extraneous-dependencies": "warn",
     "jest/expect-expect": "off",
-    "no-new": "off"
+    "no-new": "off",
+    "no-underscore-dangle": "off"
   }
 }

@@ -1,11 +1,15 @@
 const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
-const { toMatchImageSnapshot } = require('jest-image-snapshot');
-const { openAddon } = require('./utils/openAddon');
+const { configureToMatchImageSnapshot } = require('jest-image-snapshot');
+const { openAddon } = require('./utils/open-addon');
 
 require('dotenv').config();
 
+const toMatchImageSnapshot = configureToMatchImageSnapshot({
+  failureThreshold: 0.01,
+  failureThresholdType: 'percent',
+});
 expect.extend({ toMatchImageSnapshot });
 jest.setTimeout(120000);
 
@@ -15,14 +19,18 @@ const srcTestFile = path.join(
 );
 
 describe('Local Mode', () => {
+  let page;
   let process;
 
   beforeAll(async () => {
     process = exec('npm run serve');
-    await openAddon();
+    page = await global.__BROWSER_GLOBAL__.newPage();
+    await openAddon(page);
   });
 
-  afterAll(() => process.kill());
+  afterAll(() => {
+    process.kill();
+  });
 
   it('should load Bootstrap example', async () => {
     const scriptModal = await page.$('.script-app-dialog');

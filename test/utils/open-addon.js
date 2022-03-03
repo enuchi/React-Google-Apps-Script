@@ -1,8 +1,8 @@
-const openAddon = async () => {
+const openAddon = async page => {
   await page.setViewport({
-    width: 1600,
-    height: 1600,
-    deviceScaleFactor: 2,
+    width: 800,
+    height: 800,
+    deviceScaleFactor: 1,
   });
 
   await page.goto(process.env.SHEET_URL);
@@ -18,10 +18,6 @@ const openAddon = async () => {
   await page.click('#passwordNext'); // click "next" button
 
   await page.waitForTimeout(15000); // wait long enough for onopen to be called
-
-  console.log(
-    await page.evaluate(() => document.querySelector('body').innerText)
-  );
 
   // open new addon menubar item
   await page.evaluate(() => {
@@ -54,7 +50,7 @@ const openAddon = async () => {
       new MouseEvent('mouseup', { bubbles: true })
     );
   });
-  await page.waitForTimeout(30000);
+  await page.waitForTimeout(10000);
 };
 
 module.exports = { openAddon };
