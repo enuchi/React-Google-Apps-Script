@@ -9,6 +9,10 @@ require('dotenv').config();
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
   failureThreshold: 0.01,
   failureThresholdType: 'percent',
+  customDiffConfig: {
+    threshold: 0.1,
+  },
+  blur: 1,
 });
 expect.extend({ toMatchImageSnapshot });
 jest.setTimeout(120000);
