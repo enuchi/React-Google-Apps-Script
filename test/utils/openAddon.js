@@ -4,10 +4,7 @@ const openAddon = async () => {
     height: 1600,
     deviceScaleFactor: 2,
   });
-  // set user agent so doesn't trigger MFA
-  await page.setUserAgent(
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3542.0 Safari/537.36'
-  );
+
   await page.goto(process.env.SHEET_URL);
   await page.waitForTimeout(5000);
 
