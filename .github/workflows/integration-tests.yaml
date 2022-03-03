@@ -30,12 +30,11 @@ jobs:
         run: echo "$DOT_CLASP" > .clasp.json
         env:
           DOT_CLASP: ${{ secrets.DOT_CLASP }}
-      - name: Install mkcert
-        run: HOMEBREW_NO_AUTO_UPDATE=1 brew install mkcert
-      - name: Setup mkcert
-        run: mkcert -install
       - name: Add certs
-        run: npm run setup:https
+        run: mkdir certs && echo "$CERT_PEM" > .certs/cert.pem" && echo "$KEY_PEM > .certs/key.pem"
+        env:
+          CERT_PEM: ${{ secrets.CERT_PEM }}
+          KEY_PEM: ${{ secrets.KEY_PEM }}
       - name: Add test email to .env
         run: echo "EMAIL=$TEST_ACCOUNT_EMAIL" > .env
         env:
