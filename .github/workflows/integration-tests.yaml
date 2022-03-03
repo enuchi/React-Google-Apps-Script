@@ -31,7 +31,7 @@ jobs:
         env:
           DOT_CLASP: ${{ secrets.DOT_CLASP }}
       - name: Add certs
-        run: mkdir certs && echo "$CERT_PEM" > .certs/cert.pem" && echo "$KEY_PEM > .certs/key.pem"
+        run: mkdir certs && echo "$CERT_PEM" > certs/cert.pem && echo "$KEY_PEM" > certs/key.pem
         env:
           CERT_PEM: ${{ secrets.CERT_PEM }}
           KEY_PEM: ${{ secrets.KEY_PEM }}
