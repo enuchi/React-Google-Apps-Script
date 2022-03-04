@@ -63,7 +63,7 @@ jobs:
         env:
           TEST_ACCOUNT_EMAIL: ${{ secrets.TEST_ACCOUNT_EMAIL }}
       - name: Add test recovery email to .env
-        run: echo "EMAIL=$TEST_RECOVERY_EMAIL" >> .env
+        run: echo "TEST_RECOVERY_EMAIL=$TEST_RECOVERY_EMAIL" >> .env
         shell: bash
         env:
           TEST_RECOVERY_EMAIL: ${{ secrets.TEST_RECOVERY_EMAIL }}
