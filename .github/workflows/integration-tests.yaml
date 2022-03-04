@@ -61,6 +61,11 @@ jobs:
         shell: bash
         env:
           TEST_ACCOUNT_EMAIL: ${{ secrets.TEST_ACCOUNT_EMAIL }}
+      - name: Add test account password to .env
+        run: echo "PASSWORD=$TEST_ACCOUNT_PASSWORD" > .env
+        shell: bash
+        env:
+          TEST_ACCOUNT_PASSWORD: ${{ secrets.TEST_ACCOUNT_PASSWORD }}
       - name: Add test spreadsheet url to .env
         run: echo "SHEET_URL=$TEST_SPREADSHEET_URL" >> .env
         shell: bash
@@ -69,6 +74,4 @@ jobs:
       - name: Build and deploy dev setup [npm run deploy:dev]
         run: npm run deploy:dev
       - name: Run integration tests
-        run: npx cross-env PASSWORD=$PASSWORD npm run test:integration
-        env:
-          PASSWORD: ${{ secrets.TEST_ACCOUNT_PASSWORD }}
+        run: npm run test:integration
