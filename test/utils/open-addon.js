@@ -13,15 +13,42 @@ const openAddon = async page => {
   await page.type('input[name="identifier"]', process.env.EMAIL); // type email
   await page.click('#identifierNext'); // click "next" button
   await page.waitForTimeout(3000);
+
+  await page.type('input[name="password"]', process.env.PASSWORD); // type pass
+  await page.waitForTimeout(3000);
+  await page.click('#passwordNext'); // click "next" button
+  await page.waitForTimeout(3000);
+
   console.log(
     await page.evaluate(() => document.querySelector('body').innerText)
   );
   console.log(
     await page.evaluate(() => document.querySelector('body').innerHTML)
   );
-  await page.type('input[name="password"]', process.env.PASSWORD); // type pass
-  await page.waitForTimeout(3000);
-  await page.click('#passwordNext'); // click "next" button
+
+  if (
+    (await page.evaluate(
+      () => document.querySelector('h1#headingText')?.innerText
+    )) === 'Verify it’s you'
+  ) {
+    await page.click('div[data-accountrecovery]');
+    await page.waitForTimeout(3000);
+
+    console.log(
+      await page.evaluate(() => document.querySelector('body').innerText)
+    );
+    console.log(
+      await page.evaluate(() => document.querySelector('body').innerHTML)
+    );
+
+    await page.type(
+      'input[name="knowledgePreregisteredEmailResponse"]',
+      process.env.TEST_RECOVERY_EMAIL
+    ); // type recovery email
+    await page.waitForTimeout(3000);
+    await page.click('button'); // click "next" button
+    await page.waitForTimeout(3000);
+  }
 
   await page.waitForTimeout(25000); // wait long enough for onopen to be called
 
