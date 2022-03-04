@@ -12,5 +12,5 @@ module.exports = async function() {
   await global.__BROWSER_GLOBAL__.close();
 
   // clean-up the wsEndpoint file
-  await fs.rm(DIR, { recursive: true, force: true });
+  await fs.rmdir(DIR, { recursive: true, force: true });
 };
