@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [windows-2016]
         node-version: [16]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
