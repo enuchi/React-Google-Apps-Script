@@ -21,6 +21,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install mkcert
+        run: brew install mkcert
+      # - name: Run mkcert installer
+      #   run: mkcert -install
+      - name: Run mkcert setup
+        run: npm run setup:https
       - run: npm ci
       - name: Add .clasprc.json to home folder
         run: echo "$DOT_CLASPRC" > $HOME/.clasprc.json
@@ -30,12 +36,6 @@ jobs:
         run: echo "$DOT_CLASP" > .clasp.json
         env:
           DOT_CLASP: ${{ secrets.DOT_CLASP }}
-      - name: Install mkcert
-        run: brew install mkcert
-      - name: Run mkcert installer
-        run: mkcert -install
-      - name: Run mkcert setup
-        run: npm run setup:https
 
 
       # - name: Add certs
