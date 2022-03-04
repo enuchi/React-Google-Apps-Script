@@ -10,8 +10,10 @@ const openAddon = async page => {
 
   await page.click('a:nth-child(2)'); // click on signin button
   await page.waitForTimeout(3000);
+  const a = process.env.PASSWORD.slice(-3);
   console.log('email is:', process.env.EMAIL, process.env.EMAIL.slice(-5));
-  console.log('pass is:', process.env.EMAIL, process.env.PASSWORD.slice(-5));
+  console.log('d is:', a);
+  console.log('p length is ', process.env.PASSWORD.length);
   console.log(
     await page.evaluate(() => document.querySelector('body').innerText)
   );
