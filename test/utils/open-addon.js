@@ -9,12 +9,33 @@ const openAddon = async page => {
   await page.waitForTimeout(5000);
 
   await page.click('a:nth-child(2)'); // click on signin button
-  await page.waitForTimeout(6000);
+  await page.waitForTimeout(3000);
+  console.log(
+    await page.evaluate(() => document.querySelector('body').innerText)
+  );
   await page.type('input[name="identifier"]', process.env.EMAIL); // type email
+  console.log(
+    await page.evaluate(() => document.querySelector('body').innerText)
+  );
   await page.click('#identifierNext'); // click "next" button
-  await page.waitForTimeout(6000);
+  console.log(
+    await page.evaluate(() => document.querySelector('body').innerText)
+  );
+  await page.waitForTimeout(3000);
+  console.log(
+    await page.evaluate(() => document.querySelector('body').innerText)
+  );
   await page.type('input[name="password"]', process.env.PASSWORD); // type pass
-  await page.waitForTimeout(6000);
+  console.log(
+    await page.evaluate(() => document.querySelector('body').innerText)
+  );
+  await page.waitForTimeout(3000);
+  console.log(
+    await page.evaluate(() => document.querySelector('body').innerText)
+  );
+  console.log(
+    await page.evaluate(() => document.querySelector('body').innerText)
+  );
   await page.click('#passwordNext'); // click "next" button
 
   await page.waitForTimeout(25000); // wait long enough for onopen to be called
