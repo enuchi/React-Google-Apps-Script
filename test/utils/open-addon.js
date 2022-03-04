@@ -17,7 +17,7 @@ const openAddon = async page => {
   await page.waitForTimeout(3000);
   await page.click('#passwordNext'); // click "next" button
 
-  await page.waitForTimeout(15000); // wait long enough for onopen to be called
+  await page.waitForTimeout(25000); // wait long enough for onopen to be called
 
   console.log(
     await page.evaluate(() => document.querySelector('body').innerText)
