@@ -10,42 +10,26 @@ const openAddon = async page => {
 
   await page.click('a:nth-child(2)'); // click on signin button
   await page.waitForTimeout(3000);
-  const a = process.env.PASSWORD.slice(-3);
-  console.log('email is:', process.env.EMAIL, process.env.EMAIL.slice(-5));
-  console.log('d is:', a);
-  console.log('p length is ', process.env.PASSWORD.length);
-  console.log(
-    await page.evaluate(() => document.querySelector('body').innerText)
-  );
   await page.type('input[name="identifier"]', process.env.EMAIL); // type email
-  console.log(
-    await page.evaluate(() => document.querySelector('body').innerText)
-  );
   await page.click('#identifierNext'); // click "next" button
-  console.log(
-    await page.evaluate(() => document.querySelector('body').innerText)
-  );
   await page.waitForTimeout(3000);
   console.log(
     await page.evaluate(() => document.querySelector('body').innerText)
+  );
+  console.log(
+    await page.evaluate(() => document.querySelector('body').innerHTML)
   );
   await page.type('input[name="password"]', process.env.PASSWORD); // type pass
-  console.log(
-    await page.evaluate(() => document.querySelector('body').innerText)
-  );
   await page.waitForTimeout(3000);
-  console.log(
-    await page.evaluate(() => document.querySelector('body').innerText)
-  );
-  console.log(
-    await page.evaluate(() => document.querySelector('body').innerText)
-  );
   await page.click('#passwordNext'); // click "next" button
 
   await page.waitForTimeout(25000); // wait long enough for onopen to be called
 
   console.log(
     await page.evaluate(() => document.querySelector('body').innerText)
+  );
+  console.log(
+    await page.evaluate(() => document.querySelector('body').innerHTML)
   );
 
   // open new addon menubar item

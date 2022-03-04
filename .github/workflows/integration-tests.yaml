@@ -75,3 +75,4 @@ jobs:
         run: npm run deploy:dev
       - name: Run integration tests
         run: npm run test:integration
+        timeout-minutes: 6
