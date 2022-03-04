@@ -26,8 +26,22 @@ jobs:
         run: npm ci
       - name: Allow installing cert in Mac OS Big Sur
         run: sudo security authorizationdb write com.apple.trust-settings.admin allow
-      - name: Install mkcert [brew install mkcert]
+        if: matrix.os == 'macOS-latest'
+      - name: Install mkcert
         run: brew install mkcert
+      - name: Install mkcert
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+                apt install important_linux_software
+          elif [ "$RUNNER_OS" == "Windows" ]; then
+                choco install mkcert
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+                brew install mkcert
+          else
+                echo "$RUNNER_OS not supported"
+                exit 1
+          fi
+        shell: bash
       - name: Run mkcert setup [mkcert -install]
         run: mkcert -install
       - name: Install https cert [npm setup:https]
