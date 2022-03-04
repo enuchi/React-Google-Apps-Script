@@ -42,8 +42,8 @@ jobs:
       #   shell: bash
       - name: Install mkcert
         run: choco install mkcert
-      - name: Run mkcert setup [mkcert -install]
-        run: mkcert -install
+      # - name: Run mkcert setup [mkcert -install]
+      #   run: mkcert -install
       - name: Install https cert [npm setup:https]
         run: npm run setup:https
       - name: Add .clasprc.json to home folder
