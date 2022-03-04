@@ -61,7 +61,7 @@ jobs:
         shell: bash
         env:
           TEST_ACCOUNT_EMAIL: ${{ secrets.TEST_ACCOUNT_EMAIL }}
-      - name: Add test account password to .env
+      - name: Add test password to .env
         run: echo "PASSWORD=$TEST_ACCOUNT_PASSWORD" >> .env
         shell: bash
         env:
