@@ -13,8 +13,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest, macos-latest]
-        node-version: [12, 14, 16]
+        os: [windows-latest]
+        node-version: [16]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
       - uses: actions/checkout@v2
