@@ -41,7 +41,7 @@ jobs:
           fi
         shell: bash
       - name: Run mkcert setup [mkcert -install]
-        run: sudo mkcert -install
+        run: mkcert -install
       - name: Install https cert [npm setup:https]
         run: npm run setup:https
       - name: Add .clasprc.json to home folder
