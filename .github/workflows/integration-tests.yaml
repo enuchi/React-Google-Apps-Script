@@ -85,8 +85,8 @@ jobs:
           # Remove-Item $certFile.FullName
           # $ips = [System.Net.Dns]::GetHostAddresses().IPAddressToString -like ‘*.*’
           # Add-Content C:\Windows\System32\drivers\etc\hosts ” $ips *.TestDomainName.org”
-      # - name: Install packages [npm ci]
-      #   run: npm ci
+      - name: Install packages [npm ci]
+        run: npm ci
       # - name: Allow installing cert in Mac OS Big Sur
       #   run: sudo security authorizationdb write com.apple.trust-settings.admin allow
       #   if: matrix.os == 'macOS-latest'
