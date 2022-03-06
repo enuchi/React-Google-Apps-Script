@@ -18,66 +18,70 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     timeout-minutes: 8
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install packages [npm ci]
-        run: npm ci
-      - name: Allow installing cert in Mac OS Big Sur
-        run: sudo security authorizationdb write com.apple.trust-settings.admin allow
-        if: matrix.os == 'macOS-latest'
+      - run: |
+          $cert = New-SelfSignedCertificate -DnsName localhost,127.0.0.1 -CertStoreLocation cert:\LocalMachine\My
+        shell: powershell
+          # $certFile = Export-Certificate -Cert $cert -FilePath C:\WjhTestCert.cer
+      # - uses: actions/checkout@v2
+      # - name: Use Node.js ${{ matrix.node-version }}
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: ${{ matrix.node-version }}
+      # - name: Install packages [npm ci]
+      #   run: npm ci
+      # - name: Allow installing cert in Mac OS Big Sur
+      #   run: sudo security authorizationdb write com.apple.trust-settings.admin allow
+      #   if: matrix.os == 'macOS-latest'
+      # # - name: Install mkcert
+      # #   run: |
+      # #     if [ "$RUNNER_OS" == "Linux" ]; then
+      # #           apt install important_linux_software
+      # #     elif [ "$RUNNER_OS" == "Windows" ]; then
+      # #           choco install mkcert
+      # #     elif [ "$RUNNER_OS" == "macOS" ]; then
+      # #           brew install mkcert
+      # #     else
+      # #           echo "$RUNNER_OS not supported"
+      # #           exit 1
+      # #     fi
+      # #   shell: bash
       # - name: Install mkcert
-      #   run: |
-      #     if [ "$RUNNER_OS" == "Linux" ]; then
-      #           apt install important_linux_software
-      #     elif [ "$RUNNER_OS" == "Windows" ]; then
-      #           choco install mkcert
-      #     elif [ "$RUNNER_OS" == "macOS" ]; then
-      #           brew install mkcert
-      #     else
-      #           echo "$RUNNER_OS not supported"
-      #           exit 1
-      #     fi
+      #   run: choco install mkcert
+      # # - name: Run mkcert setup [mkcert -install]
+      # #   run: mkcert -install
+      # - name: Install https cert [npm setup:https]
+      #   run: npm run setup:https
+      # - name: Add .clasprc.json to home folder
+      #   run: echo "$DOT_CLASPRC" > $HOME/.clasprc.json
       #   shell: bash
-      - name: Install mkcert
-        run: choco install mkcert
-      # - name: Run mkcert setup [mkcert -install]
-      #   run: mkcert -install
-      - name: Install https cert [npm setup:https]
-        run: npm run setup:https
-      - name: Add .clasprc.json to home folder
-        run: echo "$DOT_CLASPRC" > $HOME/.clasprc.json
-        shell: bash
-        env:
-          DOT_CLASPRC: ${{ secrets.DOT_CLASPRC }}
-      - name: Add .clasp.json to project directory
-        run: echo "$DOT_CLASP" > .clasp.json
-        shell: bash
-        env:
-          DOT_CLASP: ${{ secrets.DOT_CLASP }}
-      - name: Add test email to .env
-        run: echo "EMAIL=$TEST_ACCOUNT_EMAIL" > .env
-        shell: bash
-        env:
-          TEST_ACCOUNT_EMAIL: ${{ secrets.TEST_ACCOUNT_EMAIL }}
-      - name: Add test recovery email to .env
-        run: echo "TEST_RECOVERY_EMAIL=$TEST_RECOVERY_EMAIL" >> .env
-        shell: bash
-        env:
-          TEST_RECOVERY_EMAIL: ${{ secrets.TEST_RECOVERY_EMAIL }}
-      - name: Add test password to .env
-        run: echo "PASSWORD=$TEST_ACCOUNT_PASSWORD" >> .env
-        shell: bash
-        env:
-          TEST_ACCOUNT_PASSWORD: ${{ secrets.TEST_ACCOUNT_PASSWORD }}
-      - name: Add test spreadsheet url to .env
-        run: echo "SHEET_URL=$TEST_SPREADSHEET_URL" >> .env
-        shell: bash
-        env:
-          TEST_SPREADSHEET_URL: ${{ secrets.TEST_SPREADSHEET_URL }}
-      - name: Build and deploy dev setup [npm run deploy:dev]
-        run: npm run deploy:dev
-      - name: Run integration tests
-        run: npm run test:integration
+      #   env:
+      #     DOT_CLASPRC: ${{ secrets.DOT_CLASPRC }}
+      # - name: Add .clasp.json to project directory
+      #   run: echo "$DOT_CLASP" > .clasp.json
+      #   shell: bash
+      #   env:
+      #     DOT_CLASP: ${{ secrets.DOT_CLASP }}
+      # - name: Add test email to .env
+      #   run: echo "EMAIL=$TEST_ACCOUNT_EMAIL" > .env
+      #   shell: bash
+      #   env:
+      #     TEST_ACCOUNT_EMAIL: ${{ secrets.TEST_ACCOUNT_EMAIL }}
+      # - name: Add test recovery email to .env
+      #   run: echo "TEST_RECOVERY_EMAIL=$TEST_RECOVERY_EMAIL" >> .env
+      #   shell: bash
+      #   env:
+      #     TEST_RECOVERY_EMAIL: ${{ secrets.TEST_RECOVERY_EMAIL }}
+      # - name: Add test password to .env
+      #   run: echo "PASSWORD=$TEST_ACCOUNT_PASSWORD" >> .env
+      #   shell: bash
+      #   env:
+      #     TEST_ACCOUNT_PASSWORD: ${{ secrets.TEST_ACCOUNT_PASSWORD }}
+      # - name: Add test spreadsheet url to .env
+      #   run: echo "SHEET_URL=$TEST_SPREADSHEET_URL" >> .env
+      #   shell: bash
+      #   env:
+      #     TEST_SPREADSHEET_URL: ${{ secrets.TEST_SPREADSHEET_URL }}
+      # - name: Build and deploy dev setup [npm run deploy:dev]
+      #   run: npm run deploy:dev
+      # - name: Run integration tests
+      #   run: npm run test:integration
