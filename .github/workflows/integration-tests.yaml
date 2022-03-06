@@ -21,10 +21,14 @@ jobs:
       - run: |
           $cert = New-SelfSignedCertificate -DnsName localhost,127.0.0.1 -CertStoreLocation cert:\LocalMachine\My
           mkdir certs
+          $certFile = Export-Certificate -Cert $cert -FilePath D:\a\React-Google-Apps-Script\React-Google-Apps-Script\certs\cert.pem
           Get-Location
           Get-ChildItem
         shell: powershell
-          # $certFile = Export-Certificate -Cert $cert -FilePath C:\WjhTestCert.cer
+      - name: Install mkcert
+        run: choco install mkcert
+      - name: Run mkcert setup [mkcert -install]
+        run: mkcert -install
       # - uses: actions/checkout@v2
       # - name: Use Node.js ${{ matrix.node-version }}
       #   uses: actions/setup-node@v2
