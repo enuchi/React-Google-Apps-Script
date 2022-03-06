@@ -20,6 +20,9 @@ jobs:
     steps:
       - run: |
           $cert = New-SelfSignedCertificate -DnsName localhost,127.0.0.1 -CertStoreLocation cert:\LocalMachine\My
+          mkdir certs
+          Get-Location
+          Get-ChildItem
         shell: powershell
           # $certFile = Export-Certificate -Cert $cert -FilePath C:\WjhTestCert.cer
       # - uses: actions/checkout@v2
