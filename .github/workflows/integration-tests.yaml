@@ -18,12 +18,22 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     timeout-minutes: 8
     steps:
+      # - run: |
+      #     $cert = New-SelfSignedCertificate -DnsName localhost,127.0.0.1 -CertStoreLocation cert:\LocalMachine\My -KeyExportPolicy Exportable
+      #     mkdir certs
+      #     $certFile = Export-Certificate -Cert $cert -FilePath D:\a\React-Google-Apps-Script\React-Google-Apps-Script\certs\cert.pem
+      #     Get-Location
+      #     Get-ChildItem
+      #   shell: powershell
       - run: |
-          $cert = New-SelfSignedCertificate -DnsName localhost,127.0.0.1 -CertStoreLocation cert:\LocalMachine\My
-          mkdir certs
+          $cert=New-SelfSignedCertificate -DnsName *.TestDomainName.org,$env:COMPUTERNAME -CertStoreLocation Cert:\LocalMachine\My -NotAfter (Get-Date).AddYears(10) -FriendlyName MyCert
+          mkdir D:\a\React-Google-Apps-Script\React-Google-Apps-Script\certs\
           $certFile = Export-Certificate -Cert $cert -FilePath D:\a\React-Google-Apps-Script\React-Google-Apps-Script\certs\cert.pem
-          Get-Location
-          Get-ChildItem
+          Get-ChildItem D:\a\React-Google-Apps-Script\React-Google-Apps-Script\certs\
+          Import-Certificate -CertStoreLocation Cert:\LocalMachine\AuthRoot -FilePath $certFile.FullName
+          Remove-Item $certFile.FullName
+          $ips = [System.Net.Dns]::GetHostAddresses(”).IPAddressToString -like ‘*.*’
+          Add-Content C:\Windows\System32\drivers\etc\hosts ” $ips *.TestDomainName.org”
         shell: powershell
       - name: Install mkcert
         run: choco install mkcert
