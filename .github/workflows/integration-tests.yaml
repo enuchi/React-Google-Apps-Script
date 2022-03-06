@@ -25,13 +25,16 @@ jobs:
       #     Get-Location
       #     Get-ChildItem
       #   shell: powershell
+      # - run: |
+      #     $cert=New-SelfSignedCertificate -DnsName *.TestDomainName.org,$env:COMPUTERNAME -CertStoreLocation Cert:\LocalMachine\My -NotAfter (Get-Date).AddYears(10) -FriendlyName MyCert
+      #     mkdir D:\a\React-Google-Apps-Script\React-Google-Apps-Script\certs\
+      #     $certFile = Export-Certificate -Cert $cert -FilePath D:\a\React-Google-Apps-Script\React-Google-Apps-Script\certs\cert.pem
+      #     Get-ChildItem D:\a\React-Google-Apps-Script\React-Google-Apps-Script\certs\
+      #     Import-Certificate -CertStoreLocation Cert:\LocalMachine\AuthRoot -FilePath $certFile.FullName
+      #   shell: powershell
       - run: |
-          $cert=New-SelfSignedCertificate -DnsName *.TestDomainName.org,$env:COMPUTERNAME -CertStoreLocation Cert:\LocalMachine\My -NotAfter (Get-Date).AddYears(10) -FriendlyName MyCert
-          mkdir D:\a\React-Google-Apps-Script\React-Google-Apps-Script\certs\
-          $certFile = Export-Certificate -Cert $cert -FilePath D:\a\React-Google-Apps-Script\React-Google-Apps-Script\certs\cert.pem
-          Get-ChildItem D:\a\React-Google-Apps-Script\React-Google-Apps-Script\certs\
-          Import-Certificate -CertStoreLocation Cert:\LocalMachine\AuthRoot -FilePath $certFile.FullName
-        shell: powershell
+          which openssl
+        shell: bash
       # - name: Install mkcert
       #   run: choco install mkcert
       # - name: Run mkcert setup [mkcert -install]
