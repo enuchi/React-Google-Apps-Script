@@ -35,8 +35,8 @@ jobs:
       - run: |
           Get-Location
           Get-ChildItem -Recurse
-          
-        shell: powershell
+          ./generatescript.ps1
+        shell: pwsh
       # - name: Install mkcert
       #   run: choco install mkcert
       # - name: Run mkcert setup [mkcert -install]
