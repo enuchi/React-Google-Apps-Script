@@ -34,7 +34,7 @@ jobs:
       #   shell: powershell
       - run: |
           Get-Location
-          Get-ChildItem -Recursive
+          Get-ChildItem -Recurse
           .\generatescript.ps1
         shell: powershell
       # - name: Install mkcert
