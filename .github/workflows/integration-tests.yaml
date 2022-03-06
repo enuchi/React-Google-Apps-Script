@@ -38,7 +38,7 @@ jobs:
           mkdir certs
           pwd
           ls
-          openssl req -x509 -newkey rsa:4096 -keyout certs/key.pem -out certs/cert.pem -days 365 -subj '/CN=localhost' -nodes
+          openssl req -x509 -newkey rsa:4096 -keyout certs/key.pem -out certs/cert.pem -days 365 -subj '//CN=localhost' -nodes
         shell: bash
       # - name: Install mkcert
       #   run: choco install mkcert
