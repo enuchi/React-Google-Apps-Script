@@ -31,14 +31,14 @@ jobs:
           $certFile = Export-Certificate -Cert $cert -FilePath D:\a\React-Google-Apps-Script\React-Google-Apps-Script\certs\cert.pem
           Get-ChildItem D:\a\React-Google-Apps-Script\React-Google-Apps-Script\certs\
           Import-Certificate -CertStoreLocation Cert:\LocalMachine\AuthRoot -FilePath $certFile.FullName
-          Remove-Item $certFile.FullName
-          $ips = [System.Net.Dns]::GetHostAddresses(”).IPAddressToString -like ‘*.*’
-          Add-Content C:\Windows\System32\drivers\etc\hosts ” $ips *.TestDomainName.org”
         shell: powershell
-      - name: Install mkcert
-        run: choco install mkcert
-      - name: Run mkcert setup [mkcert -install]
-        run: mkcert -install
+      # - name: Install mkcert
+      #   run: choco install mkcert
+      # - name: Run mkcert setup [mkcert -install]
+      #   run: mkcert -install
+          # Remove-Item $certFile.FullName
+          # $ips = [System.Net.Dns]::GetHostAddresses().IPAddressToString -like ‘*.*’
+          # Add-Content C:\Windows\System32\drivers\etc\hosts ” $ips *.TestDomainName.org”
       # - uses: actions/checkout@v2
       # - name: Use Node.js ${{ matrix.node-version }}
       #   uses: actions/setup-node@v2
