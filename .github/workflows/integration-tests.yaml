@@ -14,10 +14,10 @@ jobs:
     strategy:
       matrix:
         # os: [macos-10.15, macos-latest, windows-2019, windows-latest]
-        os: [windows-2019]
+        os: [windows-latest]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
         # node-version: [12, 14, 16]
-        node-version: [14]
+        node-version: [14, 16]
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v2
