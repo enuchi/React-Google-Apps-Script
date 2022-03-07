@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: | 
-          .\test.ps1
+          .\generate-cert.ps1
         shell: pwsh
       # - run: |
       #     $cert = New-SelfSignedCertificate -DnsName localhost,127.0.0.1 -CertStoreLocation cert:\LocalMachine\My -KeyExportPolicy Exportable
@@ -84,9 +84,9 @@ jobs:
       # - name: Install mkcert
       #   run: choco install mkcert
       #   shell: pwsh
-      - name: Run mkcert setup [mkcert -install]
-        run: mkcert -install
-        shell: pwsh
+      # - name: Run mkcert setup [mkcert -install]
+      #   run: mkcert -install
+      #   shell: pwsh
           # Remove-Item $certFile.FullName
           # $ips = [System.Net.Dns]::GetHostAddresses().IPAddressToString -like ‘*.*’
           # Add-Content C:\Windows\System32\drivers\etc\hosts ” $ips *.TestDomainName.org”

@@ -14,7 +14,7 @@ $certificate = New-SelfSignedCertificate `
     -DnsName $dnsName `
     -NotAfter $expiry
 
-$certFile = Join-Path $webdir $fileName
+$certFile = $fileName
 
 Write-Host "Exporting certificate to $certFile"
 
