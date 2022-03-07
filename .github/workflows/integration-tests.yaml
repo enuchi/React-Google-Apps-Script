@@ -18,6 +18,9 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     timeout-minutes: 8
     steps:
+      - run: | 
+          .\test.ps1
+        shell: pwsh
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
@@ -78,9 +81,9 @@ jobs:
         shell: bash
       - run: ls
         shell: bash
-      - name: Install mkcert
-        run: choco install mkcert
-        shell: pwsh
+      # - name: Install mkcert
+      #   run: choco install mkcert
+      #   shell: pwsh
       - name: Run mkcert setup [mkcert -install]
         run: mkcert -install
         shell: pwsh
@@ -109,6 +112,7 @@ jobs:
       #   run: choco install mkcert
       # - name: Run mkcert setup [mkcert -install]
       #   run: mkcert -install
+      #   if: matrix.os == 'macOS-latest'
       # - name: Install https cert [npm setup:https]
       #   run: npm run setup:https
       - name: Add .clasprc.json to home folder
