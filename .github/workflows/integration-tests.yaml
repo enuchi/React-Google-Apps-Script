@@ -18,14 +18,14 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     timeout-minutes: 8
     steps:
-      - run: | 
-          .\test.ps1
-        shell: pwsh
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - run: | 
+          .\test.ps1
+        shell: pwsh
       # - run: |
       #     $cert = New-SelfSignedCertificate -DnsName localhost,127.0.0.1 -CertStoreLocation cert:\LocalMachine\My -KeyExportPolicy Exportable
       #     mkdir certs
