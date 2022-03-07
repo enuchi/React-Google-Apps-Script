@@ -73,7 +73,7 @@ jobs:
       #         -FilePath $certFile `
       #         -CertStoreLocation Cert:\LocalMachine\Root `
       #         -Password $password | Out-Null
-        shell: pwsh
+        # shell: pwsh
       - run: pwd
         shell: bash
       - run: ls
