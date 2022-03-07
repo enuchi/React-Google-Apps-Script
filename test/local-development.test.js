@@ -7,7 +7,7 @@ const { openAddon } = require('./utils/open-addon');
 require('dotenv').config();
 
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
-  failureThreshold: 0.01,
+  failureThreshold: 0.04,
   failureThresholdType: 'percent',
   customDiffConfig: {
     threshold: 0.1,

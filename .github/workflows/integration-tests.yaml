@@ -23,101 +23,33 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install packages [npm ci]
+        run: npm ci
+      - name: Allow installing cert in Mac OS Big Sur
+        run: sudo security authorizationdb write com.apple.trust-settings.admin allow
+        if: matrix.os == 'macOS-latest'
+      - name: Install mkcert
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+                apt install important_linux_software
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+                brew install mkcert
+          else
+                echo "Skipping installing mkcert on $RUNNER_OS"
+                exit 1
+          fi
+        shell: bash
+      - name: Run mkcert setup [mkcert -install]
+        run: mkcert -install
+        if: runner.os == 'MacOS'
+      - name: Install https cert [npm setup:https]
+        run: npm run setup:https
+        if: runner.os == 'MacOS'
       - run: | 
           mkdir certs
           .\test\generate-cert.ps1
         shell: pwsh
-      # - run: |
-      #     $cert = New-SelfSignedCertificate -DnsName localhost,127.0.0.1 -CertStoreLocation cert:\LocalMachine\My -KeyExportPolicy Exportable
-      #     mkdir certs
-      #     $certFile = Export-Certificate -Cert $cert -FilePath D:\a\React-Google-Apps-Script\React-Google-Apps-Script\certs\cert.pem
-      #     Get-Location
-      #     Get-ChildItem
-      #   shell: powershell
-      # - run: |
-      #     $cert=New-SelfSignedCertificate -DnsName *.TestDomainName.org,$env:COMPUTERNAME -CertStoreLocation Cert:\LocalMachine\My -NotAfter (Get-Date).AddYears(10) -FriendlyName MyCert
-      #     mkdir D:\a\React-Google-Apps-Script\React-Google-Apps-Script\certs\
-      #     $certFile = Export-Certificate -Cert $cert -FilePath D:\a\React-Google-Apps-Script\React-Google-Apps-Script\certs\cert.pem
-      #     Get-ChildItem D:\a\React-Google-Apps-Script\React-Google-Apps-Script\certs\
-      #     Import-Certificate -CertStoreLocation Cert:\LocalMachine\AuthRoot -FilePath $certFile.FullName
-      #   shell: powershell
-      # - run: |
-      #     $dnsName = "localhost"
-      #     $expiry = [DateTime]::Now.AddYears(1);
-      #     $webDir = "$PSScriptRoot";
-      #     $fileName = "localhost.pfx";
-      #     $passwordText = "abc123";
-      #     $name = "ReactApp";
-
-      #     Write-Host "Creating cert directly into CurrentUser\My store"
-
-      #     $certificate = New-SelfSignedCertificate `
-      #         -CertStoreLocation Cert:\CurrentUser\My `
-      #         -Subject $name `
-      #         -FriendlyName $name `
-      #         -DnsName $dnsName `
-      #         -NotAfter $expiry
-
-      #     $certFile = $fileName
-
-      #     Write-Host "Exporting certificate to $certFile"
-
-      #     $password = ConvertTo-SecureString `
-      #         -String $passwordText `
-      #         -Force -AsPlainText
-
-      #     Export-PfxCertificate `
-      #         -Cert $certificate `
-      #         -FilePath $certFile `
-      #         -Password $password | Out-Null
-
-      #     Write-Host "Importing $certFile to CurrentUser\Root store for immediate system wide trust"
-
-      #     Import-PfxCertificate `
-      #         -FilePath $certFile `
-      #         -CertStoreLocation Cert:\LocalMachine\Root `
-      #         -Password $password | Out-Null
-        # shell: pwsh
-      - run: pwd
-        shell: bash
-      - run: ls
-        shell: bash
-      - run: cd certs && ls
-        shell: bash
-      # - name: Install mkcert
-      #   run: choco install mkcert
-      #   shell: pwsh
-      # - name: Run mkcert setup [mkcert -install]
-      #   run: mkcert -install
-      #   shell: pwsh
-          # Remove-Item $certFile.FullName
-          # $ips = [System.Net.Dns]::GetHostAddresses().IPAddressToString -like ‘*.*’
-          # Add-Content C:\Windows\System32\drivers\etc\hosts ” $ips *.TestDomainName.org”
-      - name: Install packages [npm ci]
-        run: npm ci
-      # - name: Allow installing cert in Mac OS Big Sur
-      #   run: sudo security authorizationdb write com.apple.trust-settings.admin allow
-      #   if: matrix.os == 'macOS-latest'
-      # - name: Install mkcert
-      #   run: |
-      #     if [ "$RUNNER_OS" == "Linux" ]; then
-      #           apt install important_linux_software
-      #     elif [ "$RUNNER_OS" == "Windows" ]; then
-      #           choco install mkcert
-      #     elif [ "$RUNNER_OS" == "macOS" ]; then
-      #           brew install mkcert
-      #     else
-      #           echo "$RUNNER_OS not supported"
-      #           exit 1
-      #     fi
-      #   shell: bash
-      # - name: Install mkcert
-      #   run: choco install mkcert
-      # - name: Run mkcert setup [mkcert -install]
-      #   run: mkcert -install
-      #   if: matrix.os == 'macOS-latest'
-      # - name: Install https cert [npm setup:https]
-      #   run: npm run setup:https
+        if: runner.os == 'Windows'
       - name: Add .clasprc.json to home folder
         run: echo "$DOT_CLASPRC" > $HOME/.clasprc.json
         shell: bash
