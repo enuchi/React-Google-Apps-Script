@@ -12,7 +12,7 @@ $name = "ReactApp";
 Write-Host "Creating cert directly into CurrentUser\My store"
 
 $certificate = New-SelfSignedCertificate `
-    -KeyExportPolicy Exportable `
+    -KeyExportPolicy 'Exportable' `
     -CertStoreLocation Cert:\CurrentUser\My `
     -Subject $name `
     -FriendlyName $name `

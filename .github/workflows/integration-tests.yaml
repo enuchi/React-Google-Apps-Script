@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         # os: [macos-10.15, macos-latest, windows-2019, windows-latest]
-        os: [windows-2019, windows-2022]
+        os: [windows-2019]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
         # node-version: [12, 14, 16]
         node-version: [14, 16]
