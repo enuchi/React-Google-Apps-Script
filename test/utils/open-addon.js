@@ -20,8 +20,10 @@ const openAddon = async page => {
   await page.waitForTimeout(3000);
 
   if (
-    await page.evaluate(() =>
-      document.querySelector('h1#headingText')?.innerText.includes('erify')
+    await page.evaluate(
+      () =>
+        document.querySelector('h1#headingText') &&
+        document.querySelector('h1#headingText').innerText.includes('erify')
     )
   ) {
     try {
