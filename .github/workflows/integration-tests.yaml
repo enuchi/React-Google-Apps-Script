@@ -30,7 +30,6 @@ jobs:
         if: matrix.os == 'macOS-latest'
       - name: Install mkcert
         run: brew install mkcert
-        shell: bash
         if: runner.os == 'MacOS'
       - name: Run mkcert setup [mkcert -install]
         run: mkcert -install
@@ -77,3 +76,4 @@ jobs:
         run: npm run deploy:dev
       - name: Run integration tests
         run: npm run test:integration
+        shell: bash
