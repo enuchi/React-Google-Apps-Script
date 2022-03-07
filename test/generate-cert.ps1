@@ -1,7 +1,8 @@
 $dnsName = "localhost"
 $expiry = [DateTime]::Now.AddYears(1);
-$webDir = "$PSScriptRoot";
-$fileName = "localhost.pfx";
+$repoRoot = Split-Path $PSScriptRoot
+$certsDir = "$repoRoot\certs";
+$fileName = "cert.pfx";
 $passwordText = "abc123";
 $name = "ReactApp";
 
@@ -14,7 +15,7 @@ $certificate = New-SelfSignedCertificate `
     -DnsName $dnsName `
     -NotAfter $expiry
 
-$certFile = $fileName
+$certFile = Join-Path $certsDir $fileName
 
 Write-Host "Exporting certificate to $certFile"
 
