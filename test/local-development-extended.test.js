@@ -24,17 +24,17 @@ const srcTestFile = path.join(
 
 describe('Local Mode', () => {
   let page;
-  // let process;
+  let process;
 
   beforeAll(async () => {
-    // process = exec('npm run serve');
+    process = exec('npm run serve');
     page = await global.__BROWSER_GLOBAL__.newPage();
     await openAddon(page);
   });
 
-  // afterAll(() => {
-    // process.kill();
-  // });
+  afterAll(() => {
+    process.kill();
+  });
 
   it('should load Bootstrap example', async () => {
     const scriptModal = await page.$('.script-app-dialog');
@@ -51,7 +51,7 @@ describe('Local Mode', () => {
       )
       .replace(
         "{ padding: '3px', overflowX: 'hidden' }",
-        "{ padding: '3px', overflowX: 'hidden', backgroundColor: 'pink' }"
+        "{ padding: '3px', overflowX: 'hidden', backgroundColor: 'black' }"
       );
     await fs.promises.writeFile(srcTestFile, result, 'utf8');
     await page.waitForTimeout(4000);
@@ -68,7 +68,7 @@ describe('Local Mode', () => {
         '<b>☀️ Bootstrap demo! ☀️</b>'
       )
       .replace(
-        "{ padding: '3px', overflowX: 'hidden', backgroundColor: 'pink' }",
+        "{ padding: '3px', overflowX: 'hidden', backgroundColor: 'black' }",
         "{ padding: '3px', overflowX: 'hidden' }"
       );
     await fs.promises.writeFile(srcTestFile, result, 'utf8');

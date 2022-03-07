@@ -3,7 +3,6 @@
 // This allows using stealth mode.
 
 const { mkdir, writeFile } = require('fs').promises;
-const { exec } = require('child_process');
 const os = require('os');
 const path = require('path');
 const puppeteer = require('puppeteer-extra');
@@ -20,7 +19,6 @@ module.exports = async function() {
   // store the browser instance so we can teardown it later
   // this global is only available in the teardown but not in TestEnvironments
   global.__BROWSER_GLOBAL__ = browser;
-  global.__SERVE_PROCESS__ = exec('npm run serve');
 
   // use the file system to expose the wsEndpoint for TestEnvironments
   await mkdir(DIR, { recursive: true });

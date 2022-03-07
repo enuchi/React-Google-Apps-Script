@@ -75,5 +75,5 @@ jobs:
       - name: Build and deploy dev setup [npm run deploy:dev]
         run: npm run deploy:dev
       - name: Run integration tests
-        run: npm run test:integration
+        run: npm run test:integration:extended
         shell: bash
