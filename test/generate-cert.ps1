@@ -1,3 +1,6 @@
+# reference code: https://stackoverflow.com/questions/70226493/webpack-dev-server-and-https-this-site-can-t-be-reached
+# reference issue: https://github.com/FiloSottile/mkcert/issues/286
+
 $dnsName = "localhost"
 $expiry = [DateTime]::Now.AddYears(1);
 $repoRoot = Split-Path $PSScriptRoot

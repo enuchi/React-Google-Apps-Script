@@ -29,16 +29,9 @@ jobs:
         run: sudo security authorizationdb write com.apple.trust-settings.admin allow
         if: matrix.os == 'macOS-latest'
       - name: Install mkcert
-        run: |
-          if [ "$RUNNER_OS" == "Linux" ]; then
-                apt install important_linux_software
-          elif [ "$RUNNER_OS" == "macOS" ]; then
-                brew install mkcert
-          else
-                echo "Skipping installing mkcert on $RUNNER_OS"
-                exit 1
-          fi
+        run: brew install mkcert
         shell: bash
+        if: runner.os == 'MacOS'
       - name: Run mkcert setup [mkcert -install]
         run: mkcert -install
         if: runner.os == 'MacOS'
