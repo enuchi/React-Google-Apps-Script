@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "jest",
-    "test:integration": "npx jest --forceExit",
+    "test:integration": "jest",
     "login": "clasp login",
     "setup": "rimraf .clasp.json && clasp create --type sheets --title \"My React Project\" --rootDir ./dist",
     "open": "clasp open --addon",

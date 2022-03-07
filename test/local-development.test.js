@@ -24,17 +24,17 @@ const srcTestFile = path.join(
 
 describe('Local Mode', () => {
   let page;
-  let process;
+  // let process;
 
   beforeAll(async () => {
-    process = exec('npm run serve');
+    // process = exec('npm run serve');
     page = await global.__BROWSER_GLOBAL__.newPage();
     await openAddon(page);
   });
 
-  afterAll(() => {
-    process.kill();
-  });
+  // afterAll(() => {
+    // process.kill();
+  // });
 
   it('should load Bootstrap example', async () => {
     const scriptModal = await page.$('.script-app-dialog');
