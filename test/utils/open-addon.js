@@ -19,43 +19,17 @@ const openAddon = async page => {
   await page.click('#passwordNext'); // click "next" button
   await page.waitForTimeout(3000);
 
-  console.log(
-    await page.evaluate(() => document.querySelector('body').innerText)
-  );
-  console.log(
-    await page.evaluate(() => document.querySelector('body').innerHTML)
-  );
-
-  console.log(
-    'heading text',
-    await page.evaluate(
-      () => document.querySelector('h1#headingText')?.innerText
-    ),
-    'has erify:',
-    await page.evaluate(() =>
-      document.querySelector('h1#headingText')?.innerText.includes('erify')
-    )
-  );
-
   if (
     await page.evaluate(() =>
       document.querySelector('h1#headingText')?.innerText.includes('erify')
     )
   ) {
-    console.log('now verifying');
     try {
       await page.click('div[data-accountrecovery]');
       await page.waitForTimeout(6000);
     } catch {
       console.log('The "choose account recovery method" page isn\'t shown');
     }
-
-    console.log(
-      await page.evaluate(() => document.querySelector('body').innerText)
-    );
-    console.log(
-      await page.evaluate(() => document.querySelector('body').innerHTML)
-    );
 
     await page.type(
       'input[name="knowledgePreregisteredEmailResponse"]',
@@ -67,13 +41,6 @@ const openAddon = async page => {
   }
 
   await page.waitForTimeout(25000); // wait long enough for onopen to be called
-
-  console.log(
-    await page.evaluate(() => document.querySelector('body').innerText)
-  );
-  console.log(
-    await page.evaluate(() => document.querySelector('body').innerHTML)
-  );
 
   // open new addon menubar item
   await page.evaluate(() => {
