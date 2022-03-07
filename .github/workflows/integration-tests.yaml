@@ -24,7 +24,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: | 
-          .\generate-cert.ps1
+          mkdir certs
+          .\test\generate-cert.ps1
         shell: pwsh
       # - run: |
       #     $cert = New-SelfSignedCertificate -DnsName localhost,127.0.0.1 -CertStoreLocation cert:\LocalMachine\My -KeyExportPolicy Exportable
@@ -80,6 +81,8 @@ jobs:
       - run: pwd
         shell: bash
       - run: ls
+        shell: bash
+      - run: cd certs && ls
         shell: bash
       # - name: Install mkcert
       #   run: choco install mkcert

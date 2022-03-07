@@ -66,7 +66,7 @@ const clientEntrypoints = [
 // see "npm run setup:https" script in package.json
 const keyPath = path.resolve(__dirname, './certs/key.pem');
 const certPath = path.resolve(__dirname, './certs/cert.pem');
-const pfxPath = path.resolve(__dirname, './localhost.pfx');
+const pfxPath = path.resolve(__dirname, './certs/cert.pfx');
 
 /*********************************
  *    Declare settings
