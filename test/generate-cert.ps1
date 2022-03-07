@@ -16,7 +16,7 @@ $certificate = New-SelfSignedCertificate `
     -Subject $name `
     -FriendlyName $name `
     -DnsName $dnsName `
-    -NotAfter $expiry
+    -NotAfter $expiry `
     -Keyexportpolicy Exportable
 
 $certFile = Join-Path $certsDir $fileName
