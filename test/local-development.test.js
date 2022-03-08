@@ -14,7 +14,7 @@ const toMatchImageSnapshot = configureToMatchImageSnapshot({
   customDiffConfig: {
     threshold: 0.1,
   },
-  blur: 1,
+  blur: 2,
 });
 expect.extend({ toMatchImageSnapshot });
 jest.setTimeout(120000);
@@ -42,7 +42,7 @@ describe(`Local setup ${isExtended ? '*extended*' : ''}`, () => {
     if (isExtended) {
       await openAddon(page);
     } else {
-      await page.waitForTimeout(25000);
+      await page.waitForTimeout(35000);
       await page.goto('https://localhost:3000/dist/dialog-demo-bootstrap.html');
       await page.waitForTimeout(3000);
     }
