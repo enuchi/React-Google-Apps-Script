@@ -6,8 +6,10 @@ const { openAddon } = require('./utils/open-addon');
 
 require('dotenv').config();
 
+const isExtended = process.env.IS_EXTENDED;
+
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
-  failureThreshold: 0.04,
+  failureThreshold: 0.01,
   failureThresholdType: 'percent',
   customDiffConfig: {
     threshold: 0.1,
@@ -22,14 +24,28 @@ const srcTestFile = path.join(
   '../src/client/dialog-demo-bootstrap/components/SheetEditor.jsx'
 );
 
-describe('Local Mode', () => {
+describe(`Local setup ${isExtended ? '*extended*' : ''}`, () => {
   let page;
   let process;
+  const containerSelector = isExtended ? '.script-app-dialog' : 'body';
 
   beforeAll(async () => {
     process = exec('npm run serve');
     page = await global.__BROWSER_GLOBAL__.newPage();
-    await openAddon(page);
+
+    await page.setViewport({
+      width: 800,
+      height: 800,
+      deviceScaleFactor: 1,
+    });
+
+    if (isExtended) {
+      await openAddon(page);
+    } else {
+      await page.waitForTimeout(25000);
+      await page.goto('https://localhost:3000/dist/dialog-demo-bootstrap.html');
+      await page.waitForTimeout(3000);
+    }
   });
 
   afterAll(() => {
@@ -37,7 +53,7 @@ describe('Local Mode', () => {
   });
 
   it('should load Bootstrap example', async () => {
-    const scriptModal = await page.$('.script-app-dialog');
+    const scriptModal = await page.$(containerSelector);
     const image = await scriptModal.screenshot();
     await expect(image).toMatchImageSnapshot();
   });
@@ -51,11 +67,11 @@ describe('Local Mode', () => {
       )
       .replace(
         "{ padding: '3px', overflowX: 'hidden' }",
-        "{ padding: '3px', overflowX: 'hidden', backgroundColor: 'black' }"
+        "{ padding: '3px', overflowX: 'hidden', backgroundColor: 'black', color: 'white' }"
       );
     await fs.promises.writeFile(srcTestFile, result, 'utf8');
     await page.waitForTimeout(4000);
-    const scriptModal = await page.$('.script-app-dialog');
+    const scriptModal = await page.$(containerSelector);
     const image = await scriptModal.screenshot();
     await expect(image).toMatchImageSnapshot();
   });
@@ -68,12 +84,12 @@ describe('Local Mode', () => {
         '<b>☀️ Bootstrap demo! ☀️</b>'
       )
       .replace(
-        "{ padding: '3px', overflowX: 'hidden', backgroundColor: 'black' }",
+        "{ padding: '3px', overflowX: 'hidden', backgroundColor: 'black', color: 'white' }",
         "{ padding: '3px', overflowX: 'hidden' }"
       );
     await fs.promises.writeFile(srcTestFile, result, 'utf8');
     await page.waitForTimeout(4000);
-    const scriptModal = await page.$('.script-app-dialog');
+    const scriptModal = await page.$(containerSelector);
     const image = await scriptModal.screenshot();
     await expect(image).toMatchImageSnapshot();
   });

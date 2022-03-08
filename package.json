@@ -7,6 +7,7 @@
     "url": "https://github.com/enuchi/React-Google-Apps-Script.git"
   },
   "scripts": {
+    "test:integration": "jest --forceExit ",
     "test:integration:extended": "jest --forceExit",
     "login": "clasp login",
     "setup": "rimraf .clasp.json && clasp create --type sheets --title \"My React Project\" --rootDir ./dist",

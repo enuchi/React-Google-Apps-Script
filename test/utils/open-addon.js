@@ -1,10 +1,4 @@
 const openAddon = async page => {
-  await page.setViewport({
-    width: 800,
-    height: 800,
-    deviceScaleFactor: 1,
-  });
-
   await page.goto(process.env.SHEET_URL);
   await page.waitForTimeout(5000);
 
