@@ -2,8 +2,6 @@ name: Local integration tests - Extended Version
 
 on:
   push:
-  pull_request:
-    branches: [master]
 
 jobs:
   test:
