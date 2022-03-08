@@ -6,7 +6,7 @@ const { openAddon } = require('./utils/open-addon');
 
 require('dotenv').config();
 
-const isExtended = process.env.IS_EXTENDED;
+const isExtended = process.env.IS_EXTENDED == true;
 
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
   failureThreshold: 0.01,

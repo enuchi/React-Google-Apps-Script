@@ -7,14 +7,6 @@ const openAddon = async page => {
   await page.type('input[name="identifier"]', process.env.EMAIL); // type email
   await page.click('#identifierNext'); // click "next" button
   await page.waitForTimeout(3000);
-
-  console.log(
-    await page.evaluate(() => document.querySelector('body').innerText)
-  );
-  console.log(
-    await page.evaluate(() => document.querySelector('body').innerHTML)
-  );
-
   await page.type('input[name="password"]', process.env.PASSWORD); // type pass
   await page.waitForTimeout(3000);
   await page.click('#passwordNext'); // click "next" button
