@@ -3,8 +3,11 @@ module.exports = {
     headless: false,
     product: 'chrome',
     args: [
-      '--force-color-profile=srgb|generic-rgb|color-spin-gamma24',
-      '--font-render-hinting=medium',
+      '--force-color-profile=generic-rgb',
+      '--font-render-hinting=none',
+      '--disable-font-subpixel-positioning',
+      '--enable-font-antialiasing',
+      '--disable-gpu',
     ],
   },
   browserContext: 'default',
