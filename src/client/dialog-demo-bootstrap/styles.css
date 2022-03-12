@@ -1,6 +1,10 @@
 /*
 CSSTransitionGroup styling
  */
+body {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
 .sheetNames-enter {
   opacity: 0;
 }
