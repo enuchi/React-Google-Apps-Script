@@ -15,6 +15,7 @@ SHEET_URL = https://docs.google.com/spreadsheets/d/****************/edit#gid=0
 EMAIL = myisolatedtestaccount@gmail.com
 PASSWORD = testaccountpassword
 TEST_RECOVERY_EMAIL = myisolatedtestaccountsrecoveryemail@gmail.com
+RUNNER_OS = macOS # GitHub actions value to simulate locally, either Linux, Windows, or macOS
 
 # For image reporting only
 S3_BUCKET_NAME = my-bucket-name

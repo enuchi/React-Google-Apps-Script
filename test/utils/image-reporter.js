@@ -42,7 +42,6 @@ class ImageReporter {
         './test/__image_snapshots__/__diff_output__/'
       );
       files.forEach(value => {
-        console.log('value', value);
         const path = `diff_output/${value}`;
         const params = {
           Body: fs.readFileSync(
