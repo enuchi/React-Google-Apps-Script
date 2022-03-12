@@ -17,7 +17,14 @@ jobs:
         node-version: [16]
     timeout-minutes: 6
     steps:
-      - name: default screen resolution
+      - name: Print default screen resolution
+        run: system_profiler SPDisplaysDataType | grep Resolution
+        if: runner.os == 'MacOS'
+      - name: Change screen resolution
+        run: |
+          "/Library/Application Support/VMware Tools/vmware-resolutionSet" 2560 1600
+        if: runner.os == 'MacOS'
+      - name: Print new screen resolution
         run: system_profiler SPDisplaysDataType | grep Resolution
         if: runner.os == 'MacOS'
       - uses: actions/checkout@v2
