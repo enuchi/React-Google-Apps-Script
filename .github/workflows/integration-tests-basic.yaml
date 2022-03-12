@@ -44,7 +44,6 @@ jobs:
           echo "S3_BUCKET_NAME=$S3_BUCKET_NAME" > .env
           echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> .env
           echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> .env
-          echo "RUNNER_OS=$RUNNER_OS" >> .env
         shell: bash
         env:
           S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}

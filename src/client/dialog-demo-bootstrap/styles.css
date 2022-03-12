@@ -1,10 +1,11 @@
-/*
-CSSTransitionGroup styling
- */
+/* needed to make consistent test snapshots across OSs */
 body {
   font-family: Arial, Helvetica, sans-serif !important;
 }
 
+/*
+CSSTransitionGroup styling
+ */
 .sheetNames-enter {
   opacity: 0;
 }
