@@ -52,5 +52,5 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       - name: Run integration tests
-        run: npm run test:integration
+        run: npm run test:integration && node test/utils/image-reporter.js
         shell: bash

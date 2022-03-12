@@ -16,17 +16,17 @@ const UPLOAD_BUCKET = process.env.S3_BUCKET_NAME;
 
 const s3 = new AWS.S3({ apiVersion: '2006-03-01' });
 
-class ImageReporter {
-  constructor(globalConfig, options) {
-    this._globalConfig = globalConfig;
-    this._options = options;
-  }
+// class ImageReporter {
+//   constructor(globalConfig, options) {
+//     this._globalConfig = globalConfig;
+//     this._options = options;
+//   }
 
-  onTestResult(test, testResult, aggregateResults) {
-    if (
-      testResult.numFailingTests &&
-      testResult.failureMessage.match(/different from snapshot/)
-    ) {
+//   onTestResult(test, testResult, aggregateResults) {
+//     if (
+//       testResult.numFailingTests &&
+//       testResult.failureMessage.match(/different from snapshot/)
+//     ) {
       if (
         !process.env.S3_BUCKET_NAME ||
         !process.env.AWS_SECRET_ACCESS_KEY ||
@@ -65,8 +65,8 @@ class ImageReporter {
           }
         );
       });
-    }
-  }
-}
+//     }
+//   }
+// }
 
-module.exports = ImageReporter;
+// module.exports = ImageReporter;
