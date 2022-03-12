@@ -38,28 +38,32 @@ class ImageReporter {
         return;
       }
 
-      const files = fs.readdirSync(
-        './test/__image_snapshots__/__diff_output__/'
-      );
-      files.forEach(value => {
-        const path = `diff_output/${value}`;
-        const params = {
-          Body: fs.readFileSync(
-            `./test/__image_snapshots__/__diff_output__/${value}`
-          ),
-          Bucket: UPLOAD_BUCKET,
-          Key: path,
-          ContentType: 'image/png',
-        };
-        s3.putObject(params, err => {
-          if (err) {
-            console.log(err, err.stack);
-          } else {
-            console.log(
-              `Uploaded image diff file to https://${UPLOAD_BUCKET}.s3.amazonaws.com/${path}`
-            );
+      const targetDirectories = [
+        './test/__image_snapshots__/',
+        './test/__image_snapshots__/__diff_output__/',
+      ];
+      targetDirectories.forEach(targetDirectory => {
+        fs.readdirSync(targetDirectory, { withFileTypes: true }).forEach(
+          dirent => {
+            if (!dirent.isFile()) return;
+            const path = `images/${dirent.name}`;
+            const params = {
+              Body: fs.readFileSync(`${targetDirectory}/${dirent.name}`),
+              Bucket: UPLOAD_BUCKET,
+              Key: path,
+              ContentType: 'image/png',
+            };
+            s3.putObject(params, err => {
+              if (err) {
+                console.log(err, err.stack);
+              } else {
+                console.log(
+                  `Uploaded file to https://${UPLOAD_BUCKET}.s3.amazonaws.com/${path}`
+                );
+              }
+            });
           }
-        });
+        );
       });
     }
   }
