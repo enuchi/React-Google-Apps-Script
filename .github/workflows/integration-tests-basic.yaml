@@ -22,7 +22,7 @@ jobs:
         if: runner.os == 'MacOS'
       - name: Change screen resolution
         run: |
-          "/Library/Application Support/VMware Tools/vmware-resolutionSet" 2560 1600
+          "/Library/Application Support/VMware Tools/vmware-resolutionSet" 2560 1440
         if: runner.os == 'MacOS'
       - name: Print new screen resolution
         run: system_profiler SPDisplaysDataType | grep Resolution
