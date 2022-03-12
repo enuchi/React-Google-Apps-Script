@@ -44,7 +44,7 @@ describe(`Local setup ${isExtended ? '*extended*' : ''}`, () => {
       await openAddon(page);
     } else {
       await page.waitForTimeout(35000);
-      await page.goto('https://localhost:3000/dist/dialog-demo-bootstrap.html');
+      await page.goto('https://localhost:3000/dialog-demo-bootstrap.html');
       await page.waitForTimeout(3000);
     }
   });
