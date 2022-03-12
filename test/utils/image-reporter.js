@@ -27,6 +27,17 @@ class ImageReporter {
       testResult.numFailingTests &&
       testResult.failureMessage.match(/different from snapshot/)
     ) {
+      if (
+        !process.env.S3_BUCKET_NAME ||
+        !process.env.AWS_SECRET_ACCESS_KEY ||
+        !process.env.AWS_ACCESS_KEY_ID
+      ) {
+        console.log(
+          'Missing env variables. Skipping upload of image diff files.'
+        );
+        return;
+      }
+
       const files = fs.readdirSync(
         './test/__image_snapshots__/__diff_output__/'
       );
