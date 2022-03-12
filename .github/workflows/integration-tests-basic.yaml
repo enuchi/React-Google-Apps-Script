@@ -17,6 +17,9 @@ jobs:
         node-version: [16]
     timeout-minutes: 6
     steps:
+      - name: default screen resolution
+        run: system_profiler SPDisplaysDataType | grep Resolution
+        if: runner.os == 'MacOS'
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
