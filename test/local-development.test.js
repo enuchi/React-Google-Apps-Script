@@ -62,8 +62,8 @@ describe(`Local setup ${isExtended ? '*extended*' : ''}`, () => {
   });
 
   it('should load Bootstrap example', async () => {
-    const scriptModal = await page.$(containerSelector);
-    const image = await scriptModal.screenshot();
+    const container = await page.$(containerSelector);
+    const image = await container.screenshot();
     await expect(image).toMatchImageSnapshot();
   });
 
@@ -80,8 +80,8 @@ describe(`Local setup ${isExtended ? '*extended*' : ''}`, () => {
       );
     await fs.promises.writeFile(srcTestFile, result, 'utf8');
     await page.waitForTimeout(4000);
-    const scriptModal = await page.$(containerSelector);
-    const image = await scriptModal.screenshot();
+    const container = await page.$(containerSelector);
+    const image = await container.screenshot();
     await expect(image).toMatchImageSnapshot();
   });
 
@@ -98,8 +98,8 @@ describe(`Local setup ${isExtended ? '*extended*' : ''}`, () => {
       );
     await fs.promises.writeFile(srcTestFile, result, 'utf8');
     await page.waitForTimeout(4000);
-    const scriptModal = await page.$(containerSelector);
-    const image = await scriptModal.screenshot();
+    const container = await page.$(containerSelector);
+    const image = await container.screenshot();
     await expect(image).toMatchImageSnapshot();
   });
 });
