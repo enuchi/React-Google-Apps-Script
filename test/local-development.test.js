@@ -25,6 +25,14 @@ const srcTestFile = path.join(
   '../src/client/dialog-demo-bootstrap/components/SheetEditor.jsx'
 );
 
+const webpackDevServerReady = async process => {
+  return new Promise(resolve => {
+    process.stdout.on('data', data => {
+      if (data.includes('Compiled successfully.')) resolve();
+    });
+  });
+};
+
 describe(`Local setup ${isExtended ? '*extended*' : ''}`, () => {
   let page;
   let process;
@@ -43,7 +51,7 @@ describe(`Local setup ${isExtended ? '*extended*' : ''}`, () => {
     if (isExtended) {
       await openAddon(page);
     } else {
-      await page.waitForTimeout(35000);
+      await webpackDevServerReady(process);
       await page.goto('https://localhost:3000/dialog-demo-bootstrap.html');
       await page.waitForTimeout(3000);
     }
