@@ -43,8 +43,8 @@ describe(`Local setup ${isExtended ? '*extended*' : ''}`, () => {
     page = await global.__BROWSER_GLOBAL__.newPage();
 
     await page.setViewport({
-      width: 800,
-      height: 800,
+      width: 790,
+      height: 790,
       deviceScaleFactor: 1,
     });
 
