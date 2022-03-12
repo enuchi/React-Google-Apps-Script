@@ -15,6 +15,7 @@ const toMatchImageSnapshot = configureToMatchImageSnapshot({
     threshold: 0.1,
   },
   blur: 2,
+  allowSizeMismatch: true,
 });
 expect.extend({ toMatchImageSnapshot });
 jest.setTimeout(120000);
