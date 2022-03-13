@@ -4,7 +4,7 @@ Integration tests here are used to ensure the existing local development setup w
 
 The "extended" local development integration test builds and deploys the local development setup needed to use hot reload functionality. It deploys the local setup to a spreadsheet inside a test Google account, runs a local development server, and checks that changes to the local files are reflected inside the spreadsheet's add-on, similar to how local development is intended to be used.
 
-Jest is used to run the tests and compare images of the changes, and Puppeteer is used to control the browser. A test account and test spreadsheet need to be created and credentials need to be passed in through environment variables in order for this "extended" version to work. Example `.env` file variables are listed below. Since secret values cannot be used in PRs opened from forks, a shorter integration test will soon be made available that doesn't deploy the app to a spreadsheet, but just loads it locally. This will be a faster way to check small PRs from forks don't break the hot reload functionality.
+Jest is used to run the tests and compare images of the changes, and Puppeteer is used to control the browser. A test account and test spreadsheet need to be created and credentials need to be passed in through environment variables in order for this "extended" version to work. Example `.env` file variables are listed below. Since secret values cannot be used in PRs opened from forks, a "basic" integration test just loads the local development setup locally, instead of deploying to Google Sheets.
 
 ## Extended integration test
 
@@ -35,8 +35,7 @@ TEST_ACCOUNT_EMAIL, TEST_RECOVERY_EMAIL, TEST_ACCOUNT_PASSWORD, TEST_SPREADSHEET
 # Additional notes
 
 ### Stealth login
-`puppeteer-extra` and `puppeteer-extra-plugin-stealth` are used to help log in to a Google account in the pipeline. They are not easily compatible with the `jest-puppeteer` package, so a custom integration is used that is documented on `jest`'s site [here](jestjs.io/docs/puppeteer#custom-example-without-jest-puppeteer-preset).
-
+`puppeteer-extra` and `puppeteer-extra-plugin-stealth` are used to help log in to a Google account in the pipeline for the "extended" integration test. They are not easily compatible with the `jest-puppeteer` package, so a custom integration is used that is documented on `jest`'s site [here](jestjs.io/docs/puppeteer#custom-example-without-jest-puppeteer-preset).
 
 ### Generating certs in the pipeline
 There are permissions issues running `mkcert -install` in Windows runners, so a powershell script in `./generate-cert.ps1` is used to generate the certs and enable https.
