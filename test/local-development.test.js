@@ -48,10 +48,11 @@ describe(`Local setup ${isExtended ? '*extended*' : ''}`, () => {
       deviceScaleFactor: 1,
     });
 
+    await webpackDevServerReady(process);
+
     if (isExtended) {
       await openAddon(page);
     } else {
-      await webpackDevServerReady(process);
       await page.goto('https://localhost:3000/dialog-demo-bootstrap.html');
       await page.waitForTimeout(3000);
     }
