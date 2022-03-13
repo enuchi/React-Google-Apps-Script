@@ -9,7 +9,7 @@ require('dotenv').config();
 const isExtended = process.env.IS_EXTENDED == true;
 
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
-  failureThreshold: 0.01,
+  failureThreshold: 0.04,
   failureThresholdType: 'percent',
   customDiffConfig: {
     threshold: 0.1,
