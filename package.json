@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test:integration": "jest --forceExit test/local-development.test",
-    "test:integration:extended": "cross-env IS_EXTENDED=1 jest test/local-development.test",
+    "test:integration:extended": "cross-env IS_EXTENDED=1 jest --forceExit test/local-development.test",
     "login": "clasp login",
     "setup": "rimraf .clasp.json && clasp create --type sheets --title \"My React Project\" --rootDir ./dist",
     "open": "clasp open --addon",
