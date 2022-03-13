@@ -6,7 +6,7 @@ on:
     branches: [master]
 
 jobs:
-  local setup basic integration test:
+  basic-integration-test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
