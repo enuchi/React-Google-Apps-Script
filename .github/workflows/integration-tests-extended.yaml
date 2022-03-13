@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  test:
+  local setup extended integration test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -47,26 +47,24 @@ jobs:
         shell: bash
         env:
           DOT_CLASP: ${{ secrets.DOT_CLASP }}
-      - name: Add test email to .env
-        run: echo "EMAIL=$TEST_ACCOUNT_EMAIL" > .env
+      - name: Add environment variables to .env file
+        run: |
+          echo "EMAIL=$TEST_ACCOUNT_EMAIL" > .env
+          echo "TEST_RECOVERY_EMAIL=$TEST_RECOVERY_EMAIL" >> .env
+          echo "PASSWORD=$TEST_ACCOUNT_PASSWORD" >> .env
+          echo "SHEET_URL=$TEST_SPREADSHEET_URL" >> .env
+          echo "S3_BUCKET_NAME=$S3_BUCKET_NAME" >> .env
+          echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> .env
+          echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> .env
         shell: bash
         env:
           TEST_ACCOUNT_EMAIL: ${{ secrets.TEST_ACCOUNT_EMAIL }}
-      - name: Add test recovery email to .env
-        run: echo "TEST_RECOVERY_EMAIL=$TEST_RECOVERY_EMAIL" >> .env
-        shell: bash
-        env:
           TEST_RECOVERY_EMAIL: ${{ secrets.TEST_RECOVERY_EMAIL }}
-      - name: Add test password to .env
-        run: echo "PASSWORD=$TEST_ACCOUNT_PASSWORD" >> .env
-        shell: bash
-        env:
           TEST_ACCOUNT_PASSWORD: ${{ secrets.TEST_ACCOUNT_PASSWORD }}
-      - name: Add test spreadsheet url to .env
-        run: echo "SHEET_URL=$TEST_SPREADSHEET_URL" >> .env
-        shell: bash
-        env:
           TEST_SPREADSHEET_URL: ${{ secrets.TEST_SPREADSHEET_URL }}
+          S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       - name: Build and deploy dev setup [npm run deploy:dev]
         run: npm run deploy:dev
       - name: Run integration tests
