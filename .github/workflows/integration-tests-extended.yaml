@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  local setup extended integration test:
+  extended-integration-test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
