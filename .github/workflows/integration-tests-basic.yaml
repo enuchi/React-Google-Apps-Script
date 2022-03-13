@@ -1,7 +1,6 @@
 name: Local integration tests - Basic Version
 
 on:
-  push:
   pull_request:
     branches: [master]
 
