@@ -66,6 +66,7 @@ const clientEntrypoints = [
 // see "npm run setup:https" script in package.json
 const keyPath = path.resolve(__dirname, './certs/key.pem');
 const certPath = path.resolve(__dirname, './certs/cert.pem');
+const pfxPath = path.resolve(__dirname, './certs/cert.pfx'); // if needed for Windows
 
 /*********************************
  *    Declare settings
@@ -221,6 +222,16 @@ if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
   devServer.https = {
     key: fs.readFileSync(keyPath),
     cert: fs.readFileSync(certPath),
+  };
+}
+
+// If mkcert -install cannot be used on Windows machines (in pipeline, for example), the
+// script at test/generate-cert.ps1 can be used to create a .pfx cert
+if (fs.existsSync(pfxPath)) {
+  // use pfx file if it's found
+  devServer.https = {
+    pfx: fs.readFileSync(pfxPath),
+    passphrase: 'abc123',
   };
 }
 

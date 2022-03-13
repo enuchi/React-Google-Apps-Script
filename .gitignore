@@ -14,3 +14,6 @@ dist/
 
 # mac
 .DS_Store
+
+#secret
+.env
