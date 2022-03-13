@@ -4,7 +4,9 @@
  * Reference: https://github.com/americanexpress/jest-image-snapshot/blob/main/examples/image-reporter.js
  * 
  * To enable this image reporter, add it to your `jest.config.js` "reporters" definition:
-    "reporters": [ "default", "<rootDir>/image-reporter.js" ]
+ * "reporters": [ "default", "<rootDir>/image-reporter.js" ]
+ * 
+ * Image Reporter may not work with jest's --forceExit flag
  */
 
 const fs = require('fs');
