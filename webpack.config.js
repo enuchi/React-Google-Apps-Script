@@ -353,6 +353,7 @@ const serverConfig = {
       ),
     }),
     new GasPlugin({
+      // removes need for assigning public server functions to "global"
       autoGlobalExportsFiles: [serverEntry],
     }),
   ],
