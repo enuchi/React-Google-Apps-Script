@@ -1,14 +1,16 @@
 const openAddon = async page => {
   await page.goto(process.env.SHEET_URL);
-  await page.waitForTimeout(5000);
 
   await page.click('a:nth-child(2)'); // click on signin button
-  await page.waitForTimeout(3000);
+
+  await page.waitForSelector('input[name="identifier"]', { visible: true });
   await page.type('input[name="identifier"]', process.env.EMAIL); // type email
   await page.click('#identifierNext'); // click "next" button
-  await page.waitForTimeout(3000);
+
+  await page.waitForSelector('input[name="password"]', { visible: true });
   await page.type('input[name="password"]', process.env.PASSWORD); // type pass
-  await page.waitForTimeout(3000);
+  await page.waitForTimeout(500);
+
   await page.click('#passwordNext'); // click "next" button
   await page.waitForTimeout(3000);
 
@@ -35,7 +37,10 @@ const openAddon = async page => {
     await page.waitForTimeout(5000);
   }
 
-  await page.waitForTimeout(25000); // wait long enough for onopen to be called
+  await page.waitForSelector(
+    'div.menu-button.goog-control.goog-inline-block:nth-child(11)',
+    { visible: true }
+  );
 
   // open new addon menubar item
   await page.evaluate(() => {
@@ -48,7 +53,10 @@ const openAddon = async page => {
     addOnMenuButton.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
   });
 
-  await page.waitForTimeout(6000);
+  await page.waitForSelector(
+    'div.goog-menu.goog-menu-vertical.apps-menu-hide-mnemonics:last-child > div:nth-child(2) > div',
+    { visible: true }
+  );
 
   // open "bootstrap" menu item
   await page.evaluate(() => {
@@ -68,7 +76,12 @@ const openAddon = async page => {
       new MouseEvent('mouseup', { bubbles: true })
     );
   });
-  await page.waitForTimeout(10000);
+  await page.waitForSelector('.script-app-dialog', {
+    visible: true,
+    timeout: 10000,
+  });
+
+  await page.waitForTimeout(3000);
 };
 
 module.exports = { openAddon };

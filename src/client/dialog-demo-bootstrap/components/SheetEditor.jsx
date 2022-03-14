@@ -4,9 +4,7 @@ import { Button, ListGroup } from 'react-bootstrap';
 import FormInput from './FormInput.tsx';
 
 // This is a wrapper for google.script.run that lets us use promises.
-import server from '../../utils/server';
-
-const { serverFunctions } = server;
+import { serverFunctions } from '../../utils/serverFunctions';
 
 const SheetEditor = () => {
   const [names, setNames] = useState([]);

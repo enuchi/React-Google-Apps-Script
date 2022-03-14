@@ -2,6 +2,9 @@
   <a href="" rel="noopener">
  <img width="400" src="https://i.imgur.com/83Y7bWN.png" alt="React & Google Apps Script logos"></a>
 </p>
+<p align="center"><i>
+  Update 2022: Now with support for React v17 and React Fast Refresh
+</i></p>
 
 <div align="center">
 
@@ -12,7 +15,7 @@
 
 </div>
 
-<p align="center"> This is your boilerplate project for developing React apps inside Google Sheets, Docs, Forms and Slides projects. It's perfect for personal projects and for publishing complex add-ons in the G Suite Marketplace.
+<p align="center"> 🚀 This is your boilerplate project for developing React apps inside Google Sheets, Docs, Forms and Slides projects. It's perfect for personal projects and for publishing complex add-ons in the G Suite Marketplace.
 </p>
 
 ---
@@ -188,6 +191,8 @@ The start command will create and deploy a development build, and serve your loc
 After running the start command, navigate to your spreadsheet and open one of the menu items. It should now be serving your local files. When you make and save changes to your React app, your app will reload instantly within the Google Spreadsheet, and have access to any server-side functions!
 
 <img width="100%" src="https://i.imgur.com/EsnOEHP.gif">
+
+Support for [Fast Refresh](https://github.com/pmmmwh/react-refresh-webpack-plugin) now means that only modified components are refreshed when files are changed, and state is not lost.
 
 <br/>
 
