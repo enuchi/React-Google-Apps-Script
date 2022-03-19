@@ -5,10 +5,11 @@ import {
   openAboutSidebar,
 } from './ui';
 
-import { getSheetsData, addSheet, deleteSheet, setActiveSheet } from './sheets';
+import { doGet, getSheetsData, addSheet, deleteSheet, setActiveSheet } from './sheets';
 
 // Public functions must be exported as named exports
 export {
+  doGet,
   onOpen,
   openDialog,
   openDialogBootstrap,

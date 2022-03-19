@@ -1,3 +1,7 @@
+export const doGet = () => {
+  const html = HtmlService.createTemplateFromFile('dialog-demo-bootstrap.html');
+  return html.evaluate().addMetaTag('viewport', 'width=device-width, initial-scale=1').setTitle('Web App').setFaviconUrl('https://img.icons8.com/windows/452/mandalorian.png');
+}
 const getSheets = () => SpreadsheetApp.getActive().getSheets();
 
 const getActiveSheetName = () => SpreadsheetApp.getActive().getSheetName();
