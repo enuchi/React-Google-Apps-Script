@@ -9,9 +9,6 @@ creds.json
 *.pem
 certs/
 
-# build
-dist/
-
 # mac
 .DS_Store
 
