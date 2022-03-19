@@ -21,18 +21,18 @@ export const getSheetsData = () => {
 };
 
 export const addSheet = sheetTitle => {
-  SpreadsheetApp.openById(ssId).getActiveSheet().insertSheet(sheetTitle);
+  SpreadsheetApp.openById(ssId).insertSheet(sheetTitle);
   return getSheetsData();
 };
 
 export const deleteSheet = sheetIndex => {
   const sheets = getSheets();
-  SpreadsheetApp.openById(ssId).getActiveSheet().deleteSheet(sheets[sheetIndex]);
+  SpreadsheetApp.openById(ssId).deleteSheet(sheets[sheetIndex]);
   return getSheetsData();
 };
 
 export const setActiveSheet = sheetName => {
-  SpreadsheetApp.openById(ssId).getActiveSheet()
+  SpreadsheetApp.openById(ssId)
     .getSheetByName(sheetName)
     .activate();
   return getSheetsData();

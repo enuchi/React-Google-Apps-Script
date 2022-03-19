@@ -10,8 +10,8 @@ creds.json
 certs/
 
 #dist
-dist/.*.js
-dist/.*.html
+dist/
+
 # mac
 .DS_Store
 
