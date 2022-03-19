@@ -118,12 +118,12 @@ function deleteSheet() {}
     })), __webpack_require__.d(__webpack_exports__, "setActiveSheet", (function() {
         return setActiveSheet;
     }));
-    var doGet = function() {
+    var ssId = "1XQN2QB4Sww9jCEUfSwZOKFBs-yExMl6QAGOKzErY078", doGet = function() {
         return HtmlService.createTemplateFromFile("dialog-demo-bootstrap.html").evaluate().addMetaTag("viewport", "width=device-width, initial-scale=1").setTitle("React App");
     }, getSheets = function() {
-        return SpreadsheetApp.getActive().getSheets();
+        return SpreadsheetApp.openById(ssId).getSheets();
     }, getSheetsData = function() {
-        var activeSheetName = SpreadsheetApp.getActive().getSheetName();
+        var activeSheetName = SpreadsheetApp.openById(ssId).getActiveSheet().getSheetName();
         return getSheets().map((function(sheet, index) {
             var name = sheet.getName();
             return {
@@ -133,11 +133,13 @@ function deleteSheet() {}
             };
         }));
     }, addSheet = function(sheetTitle) {
-        return SpreadsheetApp.getActive().insertSheet(sheetTitle), getSheetsData();
+        return SpreadsheetApp.openById(ssId).getActiveSheet().insertSheet(sheetTitle), getSheetsData();
     }, deleteSheet = function(sheetIndex) {
         var sheets = getSheets();
-        return SpreadsheetApp.getActive().deleteSheet(sheets[sheetIndex]), getSheetsData();
+        return SpreadsheetApp.openById(ssId).getActiveSheet().deleteSheet(sheets[sheetIndex]), 
+        getSheetsData();
     }, setActiveSheet = function(sheetName) {
-        return SpreadsheetApp.getActive().getSheetByName(sheetName).activate(), getSheetsData();
+        return SpreadsheetApp.openById(ssId).getActiveSheet().getSheetByName(sheetName).activate(), 
+        getSheetsData();
     };
 } ]));
