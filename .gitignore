@@ -9,6 +9,9 @@ creds.json
 *.pem
 certs/
 
+#dist
+dist/.*.js
+dist/.*.html
 # mac
 .DS_Store
 
