@@ -119,7 +119,7 @@ function deleteSheet() {}
         return setActiveSheet;
     }));
     var doGet = function() {
-        return HtmlService.createTemplateFromFile("dialog-demo-bootstrap.html").evaluate().addMetaTag("viewport", "width=device-width, initial-scale=1").setTitle("Web App").setFaviconUrl("https://img.icons8.com/windows/452/mandalorian.png");
+        return HtmlService.createTemplateFromFile("dialog-demo-bootstrap.html").evaluate().addMetaTag("viewport", "width=device-width, initial-scale=1").setTitle("React App");
     }, getSheets = function() {
         return SpreadsheetApp.getActive().getSheets();
     }, getSheetsData = function() {
