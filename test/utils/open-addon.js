@@ -25,6 +25,7 @@ const openAddon = async page => {
       await page.click('div[data-accountrecovery]');
       await page.waitForTimeout(6000);
     } catch {
+      // eslint-disable-next-line no-console
       console.log('The "choose account recovery method" page isn\'t shown');
     }
 

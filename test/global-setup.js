@@ -13,7 +13,7 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const DIR = path.join(os.tmpdir(), 'jest_puppeteer_global_setup');
 const jestPuppeteerConfig = require('./jest-puppeteer.config');
 
-module.exports = async function() {
+module.exports = async function globalSetup() {
   puppeteer.use(StealthPlugin());
   const browser = await puppeteer.launch(jestPuppeteerConfig.launch);
   // store the browser instance so we can teardown it later
