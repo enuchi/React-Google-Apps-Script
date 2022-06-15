@@ -213,14 +213,13 @@ const DynamicCdnWebpackPluginConfig = {
 };
 
 // webpack settings used by each client entrypoint defined at top
-const clientConfigs = clientEntrypoints.map(clientEntrypoint => {
+const clientConfigs = clientEntrypoints.map((clientEntrypoint) => {
   const isDevClientWrapper = false;
   return {
     ...clientConfig({ isDevClientWrapper }),
     name: clientEntrypoint.name,
     entry: clientEntrypoint.entry,
     plugins: [
-      !isProd && new webpack.HotModuleReplacementPlugin(),
       !isProd && new ReactRefreshWebpackPlugin(),
       new webpack.DefinePlugin({
         'process.env': JSON.stringify(envVars),
@@ -244,14 +243,14 @@ const clientConfigs = clientEntrypoints.map(clientEntrypoint => {
 const devServer = {
   hot: true,
   port: PORT,
-  https: true,
+  server: 'https',
 };
 
 if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
   // use key and cert settings only if they are found
-  devServer.https = {
-    key: fs.readFileSync(keyPath),
-    cert: fs.readFileSync(certPath),
+  devServer.server = {
+    type: 'https',
+    options: { key: fs.readFileSync(keyPath), cert: fs.readFileSync(certPath) },
   };
 }
 
@@ -259,9 +258,9 @@ if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
 // script at test/generate-cert.ps1 can be used to create a .pfx cert
 if (fs.existsSync(pfxPath)) {
   // use pfx file if it's found
-  devServer.https = {
-    pfx: fs.readFileSync(pfxPath),
-    passphrase: 'abc123',
+  devServer.server = {
+    type: 'https',
+    options: { pfx: fs.readFileSync(pfxPath), passphrase: 'abc123' },
   };
 }
 
