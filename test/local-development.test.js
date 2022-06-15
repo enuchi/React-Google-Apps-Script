@@ -25,10 +25,11 @@ const srcTestFile = path.join(
   '../src/client/dialog-demo-bootstrap/components/SheetEditor.jsx'
 );
 
-const webpackDevServerReady = async process => {
-  return new Promise(resolve => {
-    process.stdout.on('data', data => {
-      if (data.includes('Compiled successfully.')) resolve();
+const webpackDevServerReady = async (process) => {
+  return new Promise((resolve) => {
+    process.stdout.on('data', (data) => {
+      if (data.includes('DEVELOPMENT: CLIENT - Dialog Demo Bootstrap'))
+        resolve();
     });
   });
 };
