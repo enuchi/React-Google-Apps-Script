@@ -113,7 +113,7 @@ You will need to update the `.clasp.json` file in the root of this project with 
 {
   "scriptId": "1PY037hPcy................................................",
   "parentId": ["1Df30......................................."],
-  "rootDir": "./dist"
+  "rootDir": "dist"
 }
 ```
 
