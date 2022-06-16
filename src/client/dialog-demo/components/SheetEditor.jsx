@@ -11,29 +11,20 @@ const SheetEditor = () => {
 
   useEffect(() => {
     // Call a server global function here and handle the response with .then() and .catch()
-    serverFunctions
-      .getSheetsData()
-      .then(setNames)
-      .catch(alert);
+    serverFunctions.getSheetsData().then(setNames).catch(alert);
   }, []);
 
-  const deleteSheet = sheetIndex => {
-    serverFunctions
-      .deleteSheet(sheetIndex)
-      .then(setNames)
-      .catch(alert);
+  const deleteSheet = (sheetIndex) => {
+    serverFunctions.deleteSheet(sheetIndex).then(setNames).catch(alert);
   };
 
-  const setActiveSheet = sheetName => {
-    serverFunctions
-      .setActiveSheet(sheetName)
-      .then(setNames)
-      .catch(alert);
+  const setActiveSheet = (sheetName) => {
+    serverFunctions.setActiveSheet(sheetName).then(setNames).catch(alert);
   };
 
   // You can also use async/await notation for server calls with our server wrapper.
   // (This does the same thing as .then().catch() in the above handlers.)
-  const submitNewSheet = async newSheetName => {
+  const submitNewSheet = async (newSheetName) => {
     try {
       const response = await serverFunctions.addSheet(newSheetName);
       setNames(response);
@@ -56,7 +47,7 @@ const SheetEditor = () => {
       <FormInput submitNewSheet={submitNewSheet} />
       <TransitionGroup className="sheet-list">
         {names.length > 0 &&
-          names.map(name => (
+          names.map((name) => (
             <CSSTransition
               classNames="sheetNames"
               timeout={500}

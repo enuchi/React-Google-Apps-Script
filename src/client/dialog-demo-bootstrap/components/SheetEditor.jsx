@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Button, ListGroup } from 'react-bootstrap';
-import FormInput from './FormInput.tsx';
+import FormInput from './FormInput';
 
 // This is a wrapper for google.script.run that lets us use promises.
 import { serverFunctions } from '../../utils/serverFunctions';
@@ -10,27 +10,18 @@ const SheetEditor = () => {
   const [names, setNames] = useState([]);
 
   useEffect(() => {
-    serverFunctions
-      .getSheetsData()
-      .then(setNames)
-      .catch(alert);
+    serverFunctions.getSheetsData().then(setNames).catch(alert);
   }, []);
 
-  const deleteSheet = sheetIndex => {
-    serverFunctions
-      .deleteSheet(sheetIndex)
-      .then(setNames)
-      .catch(alert);
+  const deleteSheet = (sheetIndex) => {
+    serverFunctions.deleteSheet(sheetIndex).then(setNames).catch(alert);
   };
 
-  const setActiveSheet = sheetName => {
-    serverFunctions
-      .setActiveSheet(sheetName)
-      .then(setNames)
-      .catch(alert);
+  const setActiveSheet = (sheetName) => {
+    serverFunctions.setActiveSheet(sheetName).then(setNames).catch(alert);
   };
 
-  const submitNewSheet = async newSheetName => {
+  const submitNewSheet = async (newSheetName) => {
     try {
       const response = await serverFunctions.addSheet(newSheetName);
       setNames(response);
@@ -56,7 +47,7 @@ const SheetEditor = () => {
       <ListGroup>
         <TransitionGroup className="sheet-list">
           {names.length > 0 &&
-            names.map(name => (
+            names.map((name) => (
               <CSSTransition
                 classNames="sheetNames"
                 timeout={500}
