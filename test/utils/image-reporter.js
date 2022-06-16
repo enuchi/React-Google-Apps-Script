@@ -6,7 +6,11 @@
  * To enable this image reporter, add it to your `jest.config.js` "reporters" definition:
  * "reporters": [ "default", "<rootDir>/image-reporter.js" ]
  * 
- * Image Reporter may not work with jest's --forceExit flag
+ * Note: Image Reporter may not work with jest's --forceExit flag
+ * 
+ * Note: If image reporter doesn't work in pipeline can try running as standalone script
+ * by creating a separate script file and running like this:
+ * "test:integration": "jest test/local-development.test || node test/utils/image-reporter-standalone.js"
  */
 
 const fs = require('fs');
