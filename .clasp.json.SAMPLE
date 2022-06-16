@@ -1,4 +1,7 @@
 {
   "rootDir": "dist",
-  "scriptId": "...add scriptId here..."
+  "scriptId": "...add scriptId here...",
+  "parentId": [
+    "...spreadsheet/doc url ID here..."
+  ]
 }
