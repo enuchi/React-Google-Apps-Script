@@ -85,7 +85,7 @@
     "gas-client": "^1.0.0",
     "gas-lib": "^2.0.4",
     "gas-types-detailed": "^1.0.0",
-    "gas-webpack-plugin": "2.2.2-beta.0",
+    "gas-webpack-plugin": "^2.2.2",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^28.1.1",
     "jest-environment-node": "^28.1.1",
