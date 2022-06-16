@@ -93,7 +93,7 @@
     "mkdirp": "^1.0.4",
     "module-to-cdn": "^3.1.5",
     "prettier": "^2.7.0",
-    "puppeteer": "^14.4.0",
+    "puppeteer": "^14.3.0",
     "puppeteer-extra": "^3.2.3",
     "puppeteer-extra-plugin-stealth": "^2.9.0",
     "react-refresh": "^0.14.0",
