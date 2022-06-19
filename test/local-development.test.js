@@ -26,10 +26,12 @@ const srcTestFile = path.join(
 );
 
 const webpackDevServerReady = async (process) => {
+  console.log('Waiting for Webpack Dev Server to finish loading...');
   return new Promise((resolve) => {
     process.stdout.on('data', (data) => {
-      if (data.includes('DEVELOPMENT: CLIENT - Dialog Demo Bootstrap'))
+      if (data.includes('DEVELOPMENT: CLIENT - Dialog Demo Bootstrap')) {
         resolve();
+      }
     });
   });
 };

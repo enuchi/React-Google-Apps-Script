@@ -335,7 +335,6 @@ const serverConfig = {
     minimize: true,
     minimizer: [
       new TerserPlugin({
-        // sourceMap: true,
         terserOptions: {
           // ecma 5 is needed to support Rhino "DEPRECATED_ES5" runtime
           // can use ecma 6 if V8 runtime is used
