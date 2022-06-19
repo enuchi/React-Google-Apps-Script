@@ -22,7 +22,7 @@ const openAddon = async page => {
     )
   ) {
     try {
-      await page.click('div[data-accountrecovery]');
+      await page.click('li:nth-child(3)');
       await page.waitForTimeout(6000);
     } catch {
       // eslint-disable-next-line no-console
