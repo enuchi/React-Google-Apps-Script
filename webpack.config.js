@@ -8,8 +8,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const GasPlugin = require('gas-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
-const DynamicCdnWebpackPlugin = require('dynamic-cdn-webpack-plugin');
+const HtmlWebpackInlineSourcePlugin = require('@effortlessmotion/html-webpack-inline-source-plugin');
+const DynamicCdnWebpackPlugin = require('@effortlessmotion/dynamic-cdn-webpack-plugin');
 const moduleToCdn = require('module-to-cdn');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
@@ -25,6 +25,7 @@ envVars.NODE_ENV = process.env.NODE_ENV;
 envVars.PORT = PORT;
 
 const isProd = process.env.NODE_ENV === 'production';
+const publicPath = process.env.ASSET_PATH || '/';
 
 /*********************************
  *    define entrypoints
@@ -80,6 +81,7 @@ const copyFilesConfig = {
   entry: copyAppscriptEntry,
   output: {
     path: destination,
+    publicPath,
   },
   plugins: [
     new CopyWebpackPlugin({
@@ -107,12 +109,19 @@ const clientConfig = ({ isDevClientWrapper }) => ({
     // this file will get added to the html template inline
     // and should be put in .claspignore so it is not pushed
     filename: 'main.js',
+    publicPath,
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },
   module: {
     rules: [
+      {
+        test: /\.m?js/,
+        resolve: {
+          fullySpecified: false,
+        },
+      },
       // typescript config
       {
         test: /\.tsx?$/,
@@ -174,11 +183,6 @@ const DynamicCdnWebpackPluginConfig = {
       return null;
     }
 
-    // return defaults if Dynamic CDN plugin finds package
-    if (moduleDetails) {
-      return moduleDetails;
-    }
-
     // define custom CDN configuration for new packages
     // "name" should match the package being imported
     // "var" is important to get right -- this should be the exposed global. Look up "webpack externals" for info.
@@ -197,21 +201,29 @@ const DynamicCdnWebpackPluginConfig = {
           version: packageVersion,
           url: `https://unpkg.com/react-bootstrap@${packageVersion}/dist/react-bootstrap${packageSuffix}`,
         };
+      // must include peer dependencies for any custom imports
+      case '@types/react':
+        return {
+          name: packageName,
+          var: '@types/react',
+          version: packageVersion,
+          url: `https://unpkg.com/@types/react@${packageVersion}/index.d.ts`,
+        };
+      // return defaults/null depending if Dynamic CDN plugin finds package
       default:
-        return null;
+        return moduleDetails;
     }
   },
 };
 
 // webpack settings used by each client entrypoint defined at top
-const clientConfigs = clientEntrypoints.map(clientEntrypoint => {
+const clientConfigs = clientEntrypoints.map((clientEntrypoint) => {
   const isDevClientWrapper = false;
   return {
     ...clientConfig({ isDevClientWrapper }),
     name: clientEntrypoint.name,
     entry: clientEntrypoint.entry,
     plugins: [
-      !isProd && new webpack.HotModuleReplacementPlugin(),
       !isProd && new ReactRefreshWebpackPlugin(),
       new webpack.DefinePlugin({
         'process.env': JSON.stringify(envVars),
@@ -219,7 +231,9 @@ const clientConfigs = clientEntrypoints.map(clientEntrypoint => {
       new HtmlWebpackPlugin({
         template: clientEntrypoint.template,
         filename: `${clientEntrypoint.filename}${isProd ? '' : '-impl'}.html`,
-        inlineSource: '^[^(//)]+.(js|css)$', // embed all js and css inline, exclude packages with '//' for dynamic cdn insertion
+        inlineSource: '^/.*(js|css)$', // embed all js and css inline, exclude packages from dynamic cdn insertion
+        scriptLoading: 'blocking',
+        inject: 'body',
       }),
       // add the generated js code to the html file inline
       new HtmlWebpackInlineSourcePlugin(),
@@ -233,14 +247,14 @@ const clientConfigs = clientEntrypoints.map(clientEntrypoint => {
 const devServer = {
   hot: true,
   port: PORT,
-  https: true,
+  server: 'https',
 };
 
 if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
   // use key and cert settings only if they are found
-  devServer.https = {
-    key: fs.readFileSync(keyPath),
-    cert: fs.readFileSync(certPath),
+  devServer.server = {
+    type: 'https',
+    options: { key: fs.readFileSync(keyPath), cert: fs.readFileSync(certPath) },
   };
 }
 
@@ -248,14 +262,14 @@ if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
 // script at test/generate-cert.ps1 can be used to create a .pfx cert
 if (fs.existsSync(pfxPath)) {
   // use pfx file if it's found
-  devServer.https = {
-    pfx: fs.readFileSync(pfxPath),
-    passphrase: 'abc123',
+  devServer.server = {
+    type: 'https',
+    options: { pfx: fs.readFileSync(pfxPath), passphrase: 'abc123' },
   };
 }
 
 // webpack settings for the development client wrapper
-const devClientConfigs = clientEntrypoints.map(clientEntrypoint => {
+const devClientConfigs = clientEntrypoints.map((clientEntrypoint) => {
   envVars.FILENAME = clientEntrypoint.filename;
   const isDevClientWrapper = true;
   return {
@@ -270,7 +284,9 @@ const devClientConfigs = clientEntrypoints.map(clientEntrypoint => {
         template: './dev/index.html',
         // this should match the html files we load in src/server/ui.js
         filename: `${clientEntrypoint.filename}.html`,
-        inlineSource: '^[^(//)]+.(js|css)$', // embed all js and css inline, exclude packages with '//' for dynamic cdn insertion
+        inlineSource: '^/.*(js|css)$', // embed all js and css inline, exclude packages from dynamic cdn insertion
+        scriptLoading: 'blocking',
+        inject: 'body',
       }),
       new HtmlWebpackInlineSourcePlugin(),
       new DynamicCdnWebpackPlugin({}),
@@ -290,6 +306,7 @@ const serverConfig = {
     filename: 'code.js',
     path: destination,
     libraryTarget: 'this',
+    publicPath,
   },
   resolve: {
     extensions: ['.ts', '.js', '.json'],
@@ -322,7 +339,6 @@ const serverConfig = {
     minimize: true,
     minimizer: [
       new TerserPlugin({
-        sourceMap: true,
         terserOptions: {
           // ecma 5 is needed to support Rhino "DEPRECATED_ES5" runtime
           // can use ecma 6 if V8 runtime is used
@@ -345,13 +361,6 @@ const serverConfig = {
     ],
   },
   plugins: [
-    new webpack.DefinePlugin({
-      // replace any env variables in client-side code like PORT and NODE_ENV with actual values
-      'process.env': JSON.stringify(envVars),
-      'process.env.NODE_ENV': JSON.stringify(
-        isProd ? 'production' : 'development'
-      ),
-    }),
     new GasPlugin({
       // removes need for assigning public server functions to "global"
       autoGlobalExportsFiles: [serverEntry],

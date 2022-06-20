@@ -10,5 +10,10 @@
     "import/no-extraneous-dependencies": "warn",
     "prefer-object-spread": "warn",
     "spaced-comment":"off"
+  },
+  "parserOptions": {
+    "babelOptions": {
+      "configFile": "./dev/.babelrc"
+    }
   }
 }

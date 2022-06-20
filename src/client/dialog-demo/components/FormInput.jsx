@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 const FormInput = ({ submitNewSheet }) => {
   const [inputValue, setInputValue] = useState('');
 
-  const handleChange = event => setInputValue(event.target.value);
+  const handleChange = (event) => setInputValue(event.target.value);
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     if (inputValue.length === 0) return;
 
