@@ -58,6 +58,7 @@
     "@types/expect-puppeteer": "^5.0.0",
     "@types/jest-environment-puppeteer": "^5.0.2",
     "@types/puppeteer": "^5.4.6",
+    "@types/react": "^18.0.14",
     "aws-sdk": "^2.1106.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.5",

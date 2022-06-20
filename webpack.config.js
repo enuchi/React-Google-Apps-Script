@@ -183,11 +183,6 @@ const DynamicCdnWebpackPluginConfig = {
       return null;
     }
 
-    // return defaults if Dynamic CDN plugin finds package
-    if (moduleDetails) {
-      return moduleDetails;
-    }
-
     // define custom CDN configuration for new packages
     // "name" should match the package being imported
     // "var" is important to get right -- this should be the exposed global. Look up "webpack externals" for info.
@@ -206,8 +201,17 @@ const DynamicCdnWebpackPluginConfig = {
           version: packageVersion,
           url: `https://unpkg.com/react-bootstrap@${packageVersion}/dist/react-bootstrap${packageSuffix}`,
         };
+      // must include peer dependencies for any custom imports
+      case '@types/react':
+        return {
+          name: packageName,
+          var: '@types/react',
+          version: packageVersion,
+          url: `https://unpkg.com/@types/react@${packageVersion}/index.d.ts`,
+        };
+      // return defaults/null depending if Dynamic CDN plugin finds package
       default:
-        return null;
+        return moduleDetails;
     }
   },
 };
