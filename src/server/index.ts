@@ -2,6 +2,7 @@ import {
   onOpen,
   openDialog,
   openDialogBootstrap,
+  openDialogTailwindCSS,
   openAboutSidebar,
 } from './ui';
 
@@ -12,6 +13,7 @@ export {
   onOpen,
   openDialog,
   openDialogBootstrap,
+  openDialogTailwindCSS,
   openAboutSidebar,
   getSheetsData,
   addSheet,
