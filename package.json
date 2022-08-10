@@ -10,7 +10,7 @@
     "test:integration": "jest --forceExit test/local-development.test",
     "test:integration:extended": "cross-env IS_EXTENDED=true jest --forceExit test/local-development.test",
     "login": "clasp login",
-    "setup": "rimraf .clasp.json && clasp create --type sheets --title \"My React Project\" --rootDir ./dist",
+    "setup": "npm run build; rimraf .clasp.json && clasp create --type sheets --title \"My React Project\" --rootDir ./dist",
     "open": "clasp open --addon",
     "setup:https": "mkdirp certs && mkcert -key-file ./certs/key.pem -cert-file ./certs/cert.pem localhost 127.0.0.1",
     "build:dev": "cross-env NODE_ENV=development webpack",
