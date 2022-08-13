@@ -107,13 +107,13 @@ Alternatively, you can use an existing Google Spreadsheet and Script file instea
 <details>
   <summary>See instructions here for using an existing project.</summary>
 
-You will need to update the `.clasp.json` file in the root of this project with the following three key/value pairs:
+You will need to update the `.clasp.json` file in the root of this project with the following three key/value pairs (see .clasp.json.SAMPLE for reference):
 
 ```json
 {
   "scriptId": "1PY037hPcy................................................",
   "parentId": ["1Df30......................................."],
-  "rootDir": "dist"
+  "rootDir": "./dist"
 }
 ```
 
