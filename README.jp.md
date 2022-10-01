@@ -46,7 +46,7 @@
 
 [Google Apps Script](https://developers.google.com/apps-script/overview)は、Google が開発した JavaScript ベースの開発プラットフォームです。Google Sheets、Docs、Forms、およびその他の Google Apps 用のアプリケーションとアドオンを開発することができます。
 
-[ダイアグラムWindow](https://developers.google.com/apps-script/guides/html)にカスタムユーザーインタフェースを追加することができますが、Google Apps Script は、シンプルな HTML ページ用に設計されています。AppsScript テンプレートと jQuery を使います。
+[ダイアグラムウィンドウ](https://developers.google.com/apps-script/guides/html)にカスタムユーザーインタフェースを追加することができますが、Google Apps Script は、シンプルな HTML ページ用に設計されています。AppsScript テンプレートと jQuery を使います。
 
 しかし、このリポジトリを使うことで、[React](https://reactjs.org/)アプリをダイアグラム Window で実行することができますし、Google Apps 用のアプリケーションとアドオンを公開することができます。
 
@@ -54,7 +54,7 @@
  <img width="75%" src="https://i.imgur.com/BZvQ5ua.png" alt="React & Google Apps Script">
 </p>
 
-このリポジトリは React と今までのウェブサイト構築に使用するのと同じ開発ツールをすべて Google Apps Scriptプロジェクト内で使用できるボイラープレートプロジェクトです。
+このリポジトリは React と今までのウェブサイト構築に使用するのと同じ開発ツールをすべて Google Apps Script プロジェクト内で使用できるボイラープレートプロジェクトです。
 
 開始方法は以下を参照してください。
 
@@ -68,8 +68,8 @@
 
 ### 前提条件 <a name = "prerequisites"></a>
 
-- [Node.js](https://nodejs.org/en/download/) v10以上がインストールされていること
-- `npm` v6以上がインストールされていること。
+- [Node.js](https://nodejs.org/en/download/) v10 以上がインストールされていること
+- `npm` v6 以上がインストールされていること。
 - [script.google.com/home/usersettings](https://script.google.com/home/usersettings)を確認して「Google Apps Script API」がオンになっていること。
 - [New!] 開発中にライブリロードを使う場合は、ローカル環境で HTTPS を使えるようにする必要があります。どのように設定するかは、[ローカル開発](#local-development)をご覧ください。
 
