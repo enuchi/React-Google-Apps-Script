@@ -34,8 +34,16 @@ const SheetEditor = () => {
     }
   };
 
+  const getActiveUserEmail = () => {
+    serverFunctions
+      .getActiveUserEmail()
+      .then((response) => alert(`Session email is: ${response}`));
+  };
+
   return (
     <div>
+      <button onClick={getActiveUserEmail}>Show session email</button>
+      <br />
       <p>
         <b>☀️ React demo! ☀️</b>
       </p>
