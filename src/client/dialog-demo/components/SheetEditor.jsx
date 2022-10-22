@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import FormInput from './FormInput';
 import SheetButton from './SheetButton';
 
 // This is a wrapper for google.script.run that lets us use promises.
 import { serverFunctions } from '../../utils/serverFunctions';
+import { ThemeContext } from '../themes';
 
 const SheetEditor = () => {
   const [names, setNames] = useState([]);
@@ -34,10 +35,12 @@ const SheetEditor = () => {
     }
   };
 
+  const theme = useContext(ThemeContext);
+
   return (
     <div>
       <p>
-        <b>☀️ React demo! ☀️</b>
+        <b style={{ background: theme.background }}>☀️ React demo! ☀️</b>
       </p>
       <p>
         This is a sample page that demonstrates a simple React app. Enter a name

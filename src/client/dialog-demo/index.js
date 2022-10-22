@@ -1,7 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import SheetEditor from './components/SheetEditor';
+import { ThemeContext, themes } from './themes';
 
 import './styles.css';
 
-ReactDOM.render(<SheetEditor />, document.getElementById('index'));
+const container = document.getElementById('index');
+const root = createRoot(container);
+root.render(
+  <ThemeContext.Provider value={themes.dark}>
+    <SheetEditor />
+  </ThemeContext.Provider>
+);
