@@ -1,0 +1,17 @@
+{
+  "rules": {
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "extends",
+          "apply",
+          "tailwind",
+          "components",
+          "utilities",
+          "screen"
+        ]
+      }
+    ]
+  }
+}

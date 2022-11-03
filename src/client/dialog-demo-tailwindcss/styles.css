@@ -2,9 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-/* needed to make consistent test snapshots across OSs */
-body {
-  font-family: Arial !important;
+/*
+CSSTransitionGroup styling
+ */
+.sheetNames-enter {
+  opacity: 0;
 }
 
+.sheetNames-enter.sheetNames-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
 
+.sheetNames-exit {
+  opacity: 1;
+}
+
+.sheetNames-exit.sheetNames-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in;
+}
+
+.sheetNames-appear {
+  opacity: 0;
+}
+
+.sheetNames-appear.sheetNames-appear-active {
+  opacity: 1;
+  transition: opacity 0.5ms ease-in;
+}

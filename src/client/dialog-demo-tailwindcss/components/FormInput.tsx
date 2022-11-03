@@ -1,64 +1,39 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-// import { Form, Button, Col, Row } from 'react-bootstrap';
-import { ListGroup, Button, Table, Label, TextInput } from 'flowbite-react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-interface FormInputProps {
-  submitNewSheet: (sheetName: string) => {
-    name: string;
-    index: number;
-    isActive: boolean;
-  };
-}
+const FormInput = ({ submitNewSheet }) => {
+  const [inputValue, setInputValue] = useState('');
 
-const FormInput = ({ submitNewSheet }: FormInputProps) => {
-  const [newSheetName, setNewSheetName] = useState('');
+  const handleChange = (event) => setInputValue(event.target.value);
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
-    setNewSheetName(event.target.value);
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    if (newSheetName.length === 0) return;
-    submitNewSheet(newSheetName);
-    setNewSheetName('');
+    if (inputValue.length === 0) return;
+
+    submitNewSheet(inputValue);
+    setInputValue('');
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <ListGroup>
-        <ListGroup.Item>
-          <Label>Add a new sheet</Label>
-        </ListGroup.Item>
-        <ListGroup.Item>
-          <div className="mt-4 flex space-x-3 lg:mt-6">
-            <div className="inline-flex items-center">
-              <TextInput
-                type="text"
-                placeholder="Sheet name"
-                value={newSheetName}
-                onChange={handleChange}
-                />
-            </div>
-            <div className="inline-flex items-center">
-              <Button type="submit">
-                Submit
-              </Button>
-            </div>
-          </div>
-        </ListGroup.Item>
-        <ListGroup.Item>
-          <div className="text-gray-300 dark:text-gray-200">
-            Enter the name for your new sheet.
-          </div>
-        </ListGroup.Item>
-        <ListGroup.Item>
-            <div className="italic text-gray-300 dark:text-gray-200">
-              <i>This component is written in typescript!</i>
-            </div>
-        </ListGroup.Item>
-      </ListGroup>
+    <form className="flex w-full mx-auto items-center" onSubmit={handleSubmit}>
+      <div className="grow pr-2 py-1">
+        <input
+            className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 transition-colors duration-200 ease-in-out"
+            onChange={handleChange}
+            value={inputValue}
+            placeholder="New sheet name"
+        />
+      </div>
+      <button
+        className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded" 
+        type="submit"
+      >Add Sheet</button>
     </form>
   );
 };
 
 export default FormInput;
+
+FormInput.propTypes = {
+  submitNewSheet: PropTypes.func,
+};
