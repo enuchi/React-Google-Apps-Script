@@ -38,7 +38,8 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.4.0",
     "react-dom": "^18.2.0",
-    "react-transition-group": "^4.4.2"
+    "react-transition-group": "^4.4.2",
+    "tailwindcss": "^3.1.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.6",
@@ -59,6 +60,7 @@
     "@types/jest-environment-puppeteer": "^5.0.2",
     "@types/puppeteer": "^5.4.6",
     "@types/react": "^18.0.14",
+    "autoprefixer": "10.4.5",
     "aws-sdk": "^2.1106.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.5",
@@ -93,6 +95,8 @@
     "jest-image-snapshot": "^5.1.0",
     "mkdirp": "^1.0.4",
     "module-to-cdn": "^3.1.5",
+    "postcss-loader": "^7.0.1",
+    "postcss-preset-env": "^7.7.2",
     "prettier": "^2.7.0",
     "puppeteer": "^14.3.0",
     "puppeteer-extra": "^3.2.3",

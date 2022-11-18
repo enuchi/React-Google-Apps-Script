@@ -3,6 +3,7 @@ export const onOpen = () => {
     .createMenu('My Sample React Project') // edit me!
     .addItem('Sheet Editor', 'openDialog')
     .addItem('Sheet Editor (Bootstrap)', 'openDialogBootstrap')
+    .addItem('Sheet Editor (Tailwind CSS)', 'openDialogTailwindCSS')
     .addItem('About me', 'openAboutSidebar');
 
   menu.addToUi();
@@ -20,6 +21,13 @@ export const openDialogBootstrap = () => {
     .setWidth(600)
     .setHeight(600);
   SpreadsheetApp.getUi().showModalDialog(html, 'Sheet Editor (Bootstrap)');
+};
+
+export const openDialogTailwindCSS = () => {
+  const html = HtmlService.createHtmlOutputFromFile('dialog-demo-tailwindcss')
+    .setWidth(600)
+    .setHeight(600);
+  SpreadsheetApp.getUi().showModalDialog(html, 'Sheet Editor (Tailwind CSS)');
 };
 
 export const openAboutSidebar = () => {
