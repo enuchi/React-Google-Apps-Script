@@ -135,6 +135,21 @@ const clientConfig = ({ isDevClientWrapper }) => ({
         resolve: {
           fullySpecified: false,
         },
+        use: [
+          {
+            // Fix #157 Issue with template literals in firebase module
+            loader: 'babel-loader',
+            options: {
+              compact: false,
+              plugins: [
+                '@babel/plugin-transform-template-literals',
+                !isProd &&
+                  !isDevClientWrapper &&
+                  require.resolve('react-refresh/babel'),
+              ].filter(Boolean),
+            },
+          },
+        ],
       },
       // typescript config
       {
