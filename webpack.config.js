@@ -207,6 +207,14 @@ const DynamicCdnWebpackPluginConfig = {
           version: packageVersion,
           url: `https://unpkg.com/react-bootstrap@${packageVersion}/dist/react-bootstrap${packageSuffix}`,
         };
+      // externalize gas-client to keep bundle size even smaller
+      case 'gas-client':
+        return {
+          name: packageName,
+          var: 'GASClient',
+          version: packageVersion,
+          url: `https://unpkg.com/gas-client@${packageVersion}/dist/index.js`,
+        };
       // must include peer dependencies for any custom imports
       case '@types/react':
         return {
