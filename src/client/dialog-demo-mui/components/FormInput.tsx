@@ -67,32 +67,3 @@ const FormInput = ({ submitNewSheet }: FormInputProps) => {
 };
 
 export default FormInput;
-
-{
-  /* <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="formNewSheet">
-        <Form.Label>Add a new sheet</Form.Label>
-        <Row>
-          <Col xs={10}>
-            <Form.Control
-              type="text"
-              placeholder="Sheet name"
-              value={newSheetName}
-              onChange={handleChange}
-            />
-          </Col>
-          <Col xs={2}>
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-          </Col>
-        </Row>
-        <Form.Text className="text-muted">
-          Enter the name for your new sheet.
-        </Form.Text>
-        <Form.Text className="text-muted">
-          <i>This component is written in typescript!</i>
-        </Form.Text>
-      </Form.Group>
-    </Form> */
-}
