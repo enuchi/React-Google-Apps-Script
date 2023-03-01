@@ -57,6 +57,12 @@ const clientEntrypoints = [
     template: './src/client/dialog-demo-bootstrap/index.html',
   },
   {
+    name: 'CLIENT - Dialog Demo MUI',
+    entry: './src/client/dialog-demo-mui/index.js',
+    filename: 'dialog-demo-mui',
+    template: './src/client/dialog-demo-mui/index.html',
+  },
+  {
     name: 'CLIENT - Dialog Demo Tailwind CSS',
     entry: './src/client/dialog-demo-tailwindcss/index.js',
     filename: 'dialog-demo-tailwindcss',
@@ -356,7 +362,7 @@ const serverConfig = {
         terserOptions: {
           // ecma 5 is needed to support Rhino "DEPRECATED_ES5" runtime
           // can use ecma 6 if V8 runtime is used
-          ecma: 5,
+          ecma: 6,
           warnings: false,
           parse: {},
           compress: {

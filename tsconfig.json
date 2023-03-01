@@ -1,7 +1,13 @@
 {
   "compilerOptions": {
-    "types": ["gas-types-detailed"],
+    "types": ["gas-types-detailed", "jest", "node"],
     "jsx": "react",
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "lib": ["esnext", "DOM"],
+    "importHelpers": true,
+    "target": "ES2019"
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
 }
