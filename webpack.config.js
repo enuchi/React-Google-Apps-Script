@@ -213,13 +213,6 @@ const DynamicCdnWebpackPluginConfig = {
           version: packageVersion,
           url: `https://unpkg.com/react-bootstrap@${packageVersion}/dist/react-bootstrap${packageSuffix}`,
         };
-      case 'formik':
-        return {
-          name: packageName,
-          var: 'Formik',
-          version: packageVersion,
-          url: `https://unpkg.com/formik@${packageVersion}/dist/formik.umd.production${packageSuffix}`,
-        };
       // externalize gas-client to keep bundle size even smaller
       case 'gas-client':
         return {
