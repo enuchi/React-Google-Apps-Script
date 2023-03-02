@@ -184,7 +184,7 @@ const clientConfig = ({ isDevClientWrapper }) => ({
 // see https://github.com/enuchi/React-Google-Apps-Script#adding-new-libraries-and-packages
 const DynamicCdnWebpackPluginConfig = {
   // set "verbose" to true to print console logs on CDN usage while webpack builds
-  verbose: false,
+  verbose: true,
   resolver: (packageName, packageVersion, options) => {
     const packageSuffix = isProd ? '.min.js' : '.js';
     const moduleDetails = moduleToCdn(packageName, packageVersion, options);
@@ -199,6 +199,27 @@ const DynamicCdnWebpackPluginConfig = {
     // "name" should match the package being imported
     // "var" is important to get right -- this should be the exposed global. Look up "webpack externals" for info.
     switch (packageName) {
+      case '@mui/material':
+        return {
+          name: packageName,
+          var: 'MaterialUI',
+          version: packageVersion,
+          url: `https://unpkg.com/@mui/material@5.11.11/umd/material-ui.production.min.js`,
+        };
+      case '@emotion/react':
+        return {
+          name: packageName,
+          var: 'emotionReact',
+          version: packageVersion,
+          url: `https://unpkg.com/@emotion/react@11.10.6/dist/emotion-react.umd.min.js`,
+        };
+      case '@emotion/styled':
+        return {
+          name: packageName,
+          var: 'emotionStyled',
+          version: packageVersion,
+          url: `https://unpkg.com/@emotion/styled@11.10.6/dist/emotion-styled.umd.min.js`,
+        };
       case 'react-transition-group':
         return {
           name: packageName,
