@@ -383,7 +383,7 @@ const serverConfig = {
         terserOptions: {
           // ecma 5 is needed to support Rhino "DEPRECATED_ES5" runtime
           // can use ecma 6 if V8 runtime is used
-          ecma: 6,
+          ecma: 5,
           warnings: false,
           parse: {},
           compress: {
