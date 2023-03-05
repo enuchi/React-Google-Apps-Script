@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Button, Typography } from '@mui/material';
 
 import FormInput from './FormInput';
 import SheetTable from './SheetTable';
