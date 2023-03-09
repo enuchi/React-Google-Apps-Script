@@ -220,21 +220,23 @@ const DynamicCdnWebpackPluginConfig = {
           name: packageName,
           var: 'MaterialUI',
           version: packageVersion,
-          url: `https://unpkg.com/@mui/material@${packageVersion}/umd/material-ui.production${packageSuffix}`,
+          url: `https://unpkg.com/@mui/material@${packageVersion}/umd/material-ui.${
+            isProd ? 'production.min.js' : 'development.js'
+          }`,
         };
       case '@emotion/react':
         return {
           name: packageName,
           var: 'emotionReact',
           version: packageVersion,
-          url: `https://unpkg.com/@emotion/react@${packageVersion}/dist/emotion-react.umd${packageSuffix}`,
+          url: `https://unpkg.com/@emotion/react@${packageVersion}/dist/emotion-react.umd.min.js`,
         };
       case '@emotion/styled':
         return {
           name: packageName,
           var: 'emotionStyled',
           version: packageVersion,
-          url: `https://unpkg.com/@emotion/styled@${packageVersion}/dist/emotion-styled.umd${packageSuffix}`,
+          url: `https://unpkg.com/@emotion/styled@${packageVersion}/dist/emotion-styled.umd.min.js`,
         };
       // externalize gas-client to keep bundle size even smaller
       case 'gas-client':
