@@ -1,6 +1,6 @@
 /* needed to make consistent test snapshots across OSs */
 body {
-  font-family: Helvetica !important;
+  font-family: Roboto !important;
   height: 100%;
 }
 
