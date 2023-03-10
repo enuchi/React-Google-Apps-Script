@@ -59,6 +59,12 @@ const clientEntrypoints = [
     template: './src/client/dialog-demo-bootstrap/index.html',
   },
   {
+    name: 'CLIENT - Dialog Demo MUI',
+    entry: './src/client/dialog-demo-mui/index.js',
+    filename: 'dialog-demo-mui',
+    template: './src/client/dialog-demo-mui/index.html',
+  },
+  {
     name: 'CLIENT - Dialog Demo Tailwind CSS',
     entry: './src/client/dialog-demo-tailwindcss/index.js',
     filename: 'dialog-demo-tailwindcss',
@@ -208,6 +214,29 @@ const DynamicCdnWebpackPluginConfig = {
           var: 'ReactBootstrap',
           version: packageVersion,
           url: `https://unpkg.com/react-bootstrap@${packageVersion}/dist/react-bootstrap${packageSuffix}`,
+        };
+      case '@mui/material':
+        return {
+          name: packageName,
+          var: 'MaterialUI',
+          version: packageVersion,
+          url: `https://unpkg.com/@mui/material@${packageVersion}/umd/material-ui.${
+            isProd ? 'production.min.js' : 'development.js'
+          }`,
+        };
+      case '@emotion/react':
+        return {
+          name: packageName,
+          var: 'emotionReact',
+          version: packageVersion,
+          url: `https://unpkg.com/@emotion/react@${packageVersion}/dist/emotion-react.umd.min.js`,
+        };
+      case '@emotion/styled':
+        return {
+          name: packageName,
+          var: 'emotionStyled',
+          version: packageVersion,
+          url: `https://unpkg.com/@emotion/styled@${packageVersion}/dist/emotion-styled.umd.min.js`,
         };
       // externalize gas-client to keep bundle size even smaller
       case 'gas-client':

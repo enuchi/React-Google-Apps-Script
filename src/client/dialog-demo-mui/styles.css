@@ -1,0 +1,4 @@
+/* needed to make consistent test snapshots across OSs */
+body {
+  font-family: Arial !important;
+}
