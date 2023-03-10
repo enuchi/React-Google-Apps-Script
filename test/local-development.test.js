@@ -29,7 +29,7 @@ const webpackDevServerReady = async (process) => {
   console.log('Waiting for Webpack Dev Server to finish loading...');
   return new Promise((resolve) => {
     process.stdout.on('data', (data) => {
-      if (data.includes('DEVELOPMENT: CLIENT - Dialog Demo Bootstrap')) {
+      if (data.includes('CLIENT - Dialog Demo Bootstrap')) {
         resolve();
       }
     });
@@ -56,12 +56,13 @@ describe(`Local setup ${isExtended ? '*extended*' : ''}`, () => {
     if (isExtended) {
       await openAddon(page);
     } else {
-      await page.goto('https://localhost:3000/dialog-demo-bootstrap.html');
+      await page.goto('https://localhost:3000/dialog-demo-bootstrap-impl.html');
       await page.waitForTimeout(3000);
     }
   });
 
   afterAll(() => {
+    console.log('Closing process.');
     process.kill();
   });
 
