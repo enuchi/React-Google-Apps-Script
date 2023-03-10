@@ -1,4 +1,7 @@
 /* needed to make consistent test snapshots across OSs */
+html {
+  height: 100%;
+}
 body {
   font-family: Roboto !important;
   height: 100%;
