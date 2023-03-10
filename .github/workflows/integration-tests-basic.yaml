@@ -42,3 +42,6 @@ jobs:
       - name: Run integration tests
         run: npm run test:integration
         shell: bash
+      - name: Store diffs
+        run: npm run store-images
+        shell: bash
