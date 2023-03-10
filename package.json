@@ -7,7 +7,7 @@
     "url": "https://github.com/enuchi/React-Google-Apps-Script.git"
   },
   "scripts": {
-    "test:integration": "jest test/local-development.test || node test/utils/image-reporter-standalone.js",
+    "test:integration": "jest --forceExit test/local-development.test",
     "store-images": "node test/utils/image-reporter-standalone.js",
     "test:integration:extended": "cross-env IS_EXTENDED=true jest --forceExit test/local-development.test",
     "login": "clasp login",
