@@ -23,35 +23,47 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
-      - name: Get npm cache directory
-        id: npm-cache
-        run: |
-          # echo "::set-output name=dir::$(npm config get cache)"
-          echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
-
-      - name: Cache node modules
-        id: cache-npm
+      - name: Cache dependencies
+        id: cache-node-modules
         uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS but elsewhere on Windows. Use output from above step.
-          path: ~/.npm
-          # path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-build-${{ matrix.node-version }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ matrix.node-version }}-${{ env.cache-name }}-
-            ${{ runner.os }}-build-${{ matrix.node-version }}-
-            ${{ runner.os }}-
+          path: ./node_modules
+          key: node-modules-${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
 
-      - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
-        name: List the state of node modules
-        continue-on-error: true
-        run: npm list
+      - name: Install dependencies if no cache found
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: npm ci
 
-      - name: Install packages [npm install]
-        run: npm install
+      # - name: Get npm cache directory
+      #   id: npm-cache
+      #   run: |
+      #     # echo "::set-output name=dir::$(npm config get cache)"
+      #     echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
+
+      # - name: Cache node modules
+      #   id: cache-npm
+      #   uses: actions/cache@v3
+      #   env:
+      #     cache-name: cache-node-modules
+      #   with:
+      #     # npm cache files are stored in `~/.npm` on Linux/macOS but elsewhere on Windows. Use output from above step.
+      #     path: ~/.npm
+      #     # path: ${{ steps.npm-cache.outputs.dir }}
+      #     key: ${{ runner.os }}-build-${{ matrix.node-version }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-build-${{ matrix.node-version }}-${{ env.cache-name }}-
+      #       ${{ runner.os }}-build-${{ matrix.node-version }}-
+      #       ${{ runner.os }}-
+
+      # - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+      #   name: List the state of node modules
+      #   continue-on-error: true
+      #   run: npm list
+
+      # - name: Install packages [npm install]
+      #   run: npm install
 
       - name: Allow installing cert in Mac OS Big Sur
         run: sudo security authorizationdb write com.apple.trust-settings.admin allow
