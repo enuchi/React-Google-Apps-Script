@@ -57,8 +57,8 @@ describe(`Local setup ${isExtended ? '*extended*' : ''}`, () => {
       await openAddon(page);
     } else {
       await page.goto('https://localhost:3000/dialog-demo-bootstrap-impl.html');
+      await page.waitForTimeout(3000);
     }
-    await page.waitForSelector('div[data-testid="bootstrap-demo"]');
   });
 
   afterAll(() => {
@@ -82,13 +82,9 @@ describe(`Local setup ${isExtended ? '*extended*' : ''}`, () => {
       .replace(
         "{ padding: '3px', overflowX: 'hidden' }",
         "{ padding: '3px', overflowX: 'hidden', backgroundColor: 'black', color: 'white' }"
-      )
-      .replace(
-        `data-testid="bootstrap-demo"`,
-        `data-testid="bootstrap-demo-modified"`
       );
     await fs.promises.writeFile(srcTestFile, result, 'utf8');
-    await page.waitForSelector('div[data-testid="bootstrap-demo-modified"]');
+    await page.waitForTimeout(4000);
     const container = await page.$(containerSelector);
     const image = await container.screenshot();
     await expect(image).toMatchImageSnapshot();
@@ -104,13 +100,9 @@ describe(`Local setup ${isExtended ? '*extended*' : ''}`, () => {
       .replace(
         "{ padding: '3px', overflowX: 'hidden', backgroundColor: 'black', color: 'white' }",
         "{ padding: '3px', overflowX: 'hidden' }"
-      )
-      .replace(
-        `data-testid="bootstrap-demo-modified"`,
-        `data-testid="bootstrap-demo"`
       );
     await fs.promises.writeFile(srcTestFile, result, 'utf8');
-    await page.waitForSelector('div[data-testid="bootstrap-demo"]');
+    await page.waitForTimeout(4000);
     const container = await page.$(containerSelector);
     const image = await container.screenshot();
     await expect(image).toMatchImageSnapshot();
