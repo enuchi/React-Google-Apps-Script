@@ -1,7 +1,7 @@
 name: Local integration tests - Extended Version
 
-on:
-  push:
+# on:
+#   push:
 
 jobs:
   extended-integration-test:
