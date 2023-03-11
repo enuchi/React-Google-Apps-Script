@@ -1,0 +1,22 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Basic integration test",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+      "args": [
+        "--config=${workspaceFolder}/jest.config.js",
+        "--forceExit",
+        "--colors",
+        "test/local-development.test"
+      ],
+      "internalConsoleOptions": "openOnSessionStart",
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
+}
