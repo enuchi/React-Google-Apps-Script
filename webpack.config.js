@@ -193,9 +193,9 @@ const DynamicCdnWebpackPluginConfig = {
 
     // don't externalize react during development due to issue with react-refresh
     // https://github.com/pmmmwh/react-refresh-webpack-plugin/issues/334
-    if (!isProd && packageName === 'react') {
-      return null;
-    }
+    // if (!isProd && packageName === 'react') {
+    //   return null;
+    // }
 
     // define custom CDN configuration for new packages
     // "name" should match the package being imported
