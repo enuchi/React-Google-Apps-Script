@@ -1,8 +1,9 @@
 name: Local integration tests - Basic Version
 
 on:
-  pull_request:
-    branches: [main]
+  # pull_request:
+  #   branches: [main]
+  push:
 
 jobs:
   basic-integration-test:
