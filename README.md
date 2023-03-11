@@ -3,7 +3,7 @@
  <img width="400" src="https://i.imgur.com/83Y7bWN.png" alt="React & Google Apps Script logos"></a>
 </p>
 <p align="center"><i>
-  Update 2022: Now with support for React v17 and React Fast Refresh
+  Update 2023: Now with support for React v18 and React Fast Refresh
 </i></p>
 
 <div align="center">
@@ -15,7 +15,7 @@
 
 </div>
 
-<p align="center"> 🚀 This is your boilerplate project for developing React apps inside Google Sheets, Docs, Forms and Slides projects. It's perfect for personal projects and for publishing complex add-ons in the G Suite Marketplace.
+<p align="center"> 🚀 This is your boilerplate project for developing React apps inside Google Sheets, Docs, Forms and Slides projects. It's perfect for personal projects and for publishing complex add-ons in the Google Workspace Marketplace.
 </p>
 
 ---
@@ -27,11 +27,11 @@
   - [Prerequisites](#prerequisites)
   - [Getting started](#getting-started)
 - [Deploy](#deploy)
-- [[New!] Local Development](#local-development)
+- [Local Development](#local-development)
   - [Using React DevTools](#dev-tools)
 - [Usage](#usage)
   - [The included sample app](#the-included-sample-app)
-  - [[New!] Typescript](#new-typescript)
+  - [Typescript](#new-typescript)
   - [Adding packages](#adding-packages)
   - [Styles](#styles)
   - [Modifying scopes](#modifying-scopes)
@@ -68,11 +68,11 @@ See [deploy](#deploy) for notes on how to deploy the project and see it live in 
 
 ### Prerequisites <a name = "prerequisites"></a>
 
-- Make sure you're running at least [Node.js](https://nodejs.org/en/download/) v10 and `npm` v6.
+- Make sure you're running at least [Node.js](https://nodejs.org/en/download/) v14 and `npm` v6.
 
 - You'll need to enable the Google Apps Script API. You can do that by visiting [script.google.com/home/usersettings](https://script.google.com/home/usersettings).
 
-- [New!] To use live reload while developing, you'll need to serve your files locally using HTTPS. See [local development](#local-development) below for how to set up your local environment.
+- To use live reload while developing, you'll need to serve your files locally using HTTPS. See [local development](#local-development) below for how to set up your local environment.
 
 ### 🏁 Getting started <a name = "getting-started"></a>
 
@@ -145,7 +145,7 @@ Now open Google Sheets and navigate to your new spreadsheet (e.g. the file "My R
 
 <br/>
 
-## 🎈 [NEW!] Local Development <a name="local-development"></a>
+## 🎈 Local Development <a name="local-development"></a>
 
 We can develop our client-side React apps locally, and see our changes directly inside our Google Spreadsheet dialog window.
 
@@ -233,13 +233,34 @@ You will need to use the "standalone" version of React DevTools since our React 
 
 The included sample app allows inserting/activating/deleting sheets through a simple HTML dialog, built with React. This simple app demonstrates how a React app can interact with the underlying Spreadsheet using Google Apps Script functions.
 
-The included sample app has three menu items for loading pages in various dialogs and sidebars.
+The included sample app has five menu items that demonstrate how to load pages in various dialogs and sidebars. Sample implementations using different component libraries are included.
 
-Two versions of the same app are provided with different styling: the first version uses vanilla React, and the second uses the popular bootstrap library (in this case, it uses [`react-bootstrap`](https://react-bootstrap.github.io/)). The bootstrap example also contains an example of a page built with typescript (see below)
-
-A third app just demonstrates how to load a sidebar dialog.
+- `Sheet Editor` - This is a basic app that opens in a dialog window that demonstrates how to select, create and delete sheets in a Google Sheets documents through server calls. It uses vanilla React with no component library.
+- `Sheet Editor (Boostrap)` - The same basic app is included but styled with the Bootstrap library using [`react-bootstrap`](https://react-bootstrap.github.io/). The bootstrap example also contains an example of a page built with typescript (see below).
+- `Sheet Editor (MUI)` - A similar example using [`Material UI`](https://mui.com/).
+- `Sheet Editor (Tailwind CSS)` - Another example, using [`Tailwind`](https://tailwindcss.com/)
+- `About me` - This is just a simple page that demonstrates the use of a sidebar dialog.
 
 Access the dialogs through the new menu item that appears. You may need to refresh the spreadsheet and approve the app's permissions the first time you use it.
+
+Note that if you are choosing to use one framework, for example `Tailwind`, for your project, it is advisable to remove the dependencies for the other component libraries.
+
+<details>
+  <summary>Here are some steps to take to clean up the repo if you are only using a single library</summary>
+
+1. Uninstall unneeded dependencies (`npm uninstall react-bootstrap ...` etc.)
+
+2. Remove the unneeded menu bar items from the server code.
+
+3. Remove the unneeded client code.
+
+4. Update the `clientEntrypoints` in the [webpack config file](./webpack.config.js) to only target the relevant apps.
+
+<br/>
+
+</details>
+
+</br>
 
 ### [New!] Typescript
 
@@ -263,7 +284,7 @@ For instance, install `react-transition-group` from npm:
 npm install react-transition-group
 ```
 
-Important: Since Google Apps Scripts projects don't let you easily reference external files, this project will bundle an entire app into one HTML file. This can result in large files if you are importing large packages. To help split up the files, you can grab a CDN url for your package and declare it in the [webpack file, here](./webpack.config.js#L157). If set up properly, this will add a script tag that will load packages from a CDN, reducing your bundle size.
+Important: Since Google Apps Scripts projects don't let you easily reference external files, this project will bundle an entire app into one HTML file. This can result in large files if you are importing large packages. To help reduce the size of these large HTML files, you can try to externalize packages by using a CDN to load packages. For packages that can be loaded through a CDN (usually they will have a UMD build), you can configure the CDN details here in the [webpack config file](./webpack.config.js#L187). If set up properly, this will add a script tag that will load packages from a CDN, reducing your overall bundle size.
 
 ### Styles
 
@@ -290,8 +311,8 @@ This project uses the [gas-client](https://github.com/enuchi/gas-client) package
 ```js
 // Google's documentation wants you to do this. Boo.
 google.script.run
-  .withSuccessHandler(response => doSomething(response))
-  .withFailureHandler(err => handleError(err))
+  .withSuccessHandler((response) => doSomething(response))
+  .withFailureHandler((err) => handleError(err))
   .addSheet(sheetTitle);
 
 // Poof! With a little magic we can now do this:
@@ -301,8 +322,8 @@ const { serverFunctions } = new Server();
 // We now have access to all our server functions, which return promises!
 serverFunctions
   .addSheet(sheetTitle)
-  .then(response => doSomething(response))
-  .catch(err => handleError(err));
+  .then((response) => doSomething(response))
+  .catch((err) => handleError(err));
 
 // Or we can equally use async/await style:
 async () => {
