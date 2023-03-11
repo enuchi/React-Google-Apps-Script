@@ -236,7 +236,7 @@ The included sample app allows inserting/activating/deleting sheets through a si
 The included sample app has five menu items that demonstrate how to load pages in various dialogs and sidebars. Sample implementations using different component libraries are included.
 
 - `Sheet Editor` - This is a basic app that opens in a dialog window that demonstrates how to select, create and delete sheets in a Google Sheets documents through server calls. It uses vanilla React with no component library.
-- `Sheet Editor (Boostrap)` - The same basic app is included but styled with the Bootstrap library using [`react-bootstrap`](https://react-bootstrap.github.io/). The bootstrap example also contains an example of a page built with typescript (see below).
+- `Sheet Editor (Bootstrap)` - The same basic app is included but styled with the Bootstrap library using [`react-bootstrap`](https://react-bootstrap.github.io/). The bootstrap example also contains an example of a page built with typescript (see below).
 - `Sheet Editor (MUI)` - A similar example using [`Material UI`](https://mui.com/).
 - `Sheet Editor (Tailwind CSS)` - Another example, using [`Tailwind`](https://tailwindcss.com/)
 - `About me` - This is just a simple page that demonstrates the use of a sidebar dialog.
