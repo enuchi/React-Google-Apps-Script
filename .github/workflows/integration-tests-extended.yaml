@@ -10,7 +10,7 @@ jobs:
       matrix:
         os: [macos-10.15, macos-latest, windows-latest]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        node-version: [14, 16]
+        node-version: [18]
     timeout-minutes: 11
     steps:
       - uses: actions/checkout@v3
