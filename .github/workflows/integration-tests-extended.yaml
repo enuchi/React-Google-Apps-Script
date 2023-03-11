@@ -1,7 +1,7 @@
 name: Local integration tests - Extended Version
 
-# on:
-#   push:
+on:
+  push:
 
 jobs:
   extended-integration-test:
@@ -14,40 +14,58 @@ jobs:
     timeout-minutes: 11
     steps:
       - uses: actions/checkout@v3
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - name: Install packages [npm ci]
+
+      - name: Cache dependencies
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: ./node_modules
+          key: node-modules-${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies if no cache found
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
+
       - name: Allow installing cert in Mac OS Big Sur
         run: sudo security authorizationdb write com.apple.trust-settings.admin allow
         if: matrix.os == 'macOS-latest'
+
       - name: Install mkcert
         run: brew install mkcert
         if: runner.os == 'MacOS'
+
       - name: Run mkcert setup [mkcert -install]
         run: mkcert -install
         if: runner.os == 'MacOS'
+
       - name: Install https cert [npm setup:https]
         run: npm run setup:https
         if: runner.os == 'MacOS'
+
       - run: | 
           mkdir certs
           .\test\generate-cert.ps1
         shell: pwsh
         if: runner.os == 'Windows'
+
       - name: Add .clasprc.json to home folder
         run: echo "$DOT_CLASPRC" > $HOME/.clasprc.json
         shell: bash
         env:
           DOT_CLASPRC: ${{ secrets.DOT_CLASPRC }}
+
       - name: Add .clasp.json to project directory
         run: echo "$DOT_CLASP" > .clasp.json
         shell: bash
         env:
           DOT_CLASP: ${{ secrets.DOT_CLASP }}
+
       - name: Add environment variables to .env file
         run: |
           echo "EMAIL=$TEST_ACCOUNT_EMAIL" > .env
@@ -66,8 +84,10 @@ jobs:
           S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+
       - name: Build and deploy dev setup [npm run deploy:dev]
         run: npm run deploy:dev
+
       - name: Run integration tests
         run: npm run test:integration:extended
         shell: bash

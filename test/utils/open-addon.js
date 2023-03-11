@@ -82,7 +82,7 @@ const openAddon = async (page) => {
     timeout: 10000,
   });
 
-  await page.waitForTimeout(3000);
+  // await page.waitForTimeout(3000);
 };
 
 module.exports = { openAddon };

@@ -32,7 +32,10 @@ const SheetEditor = () => {
   };
 
   return (
-    <div style={{ padding: '3px', overflowX: 'hidden' }}>
+    <div
+      data-testid="bootstrap-demo"
+      style={{ padding: '3px', overflowX: 'hidden' }}
+    >
       <p>
         <b>☀️ Bootstrap demo! ☀️</b>
       </p>
