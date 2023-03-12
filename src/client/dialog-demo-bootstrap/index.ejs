@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top" />
+    <!-- Add any external scripts and stylesheets here -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <section id="index">
+      <!-- bundled js and css will get inlined here during build-->
+    </section>
+    
+    <%=
+      htmlWebpackPlugin.tags.headTags.filter((tag) => (
+        tag.attributes.src.includes("reactRefreshSetup.js")
+      ))
+    %>
+    <%=
+      htmlWebpackPlugin.tags.headTags.filter((tag) => (
+        tag.attributes.src.includes("runtime.js")
+      ))
+    %>
+    <%=
+      htmlWebpackPlugin.tags.headTags.filter((tag) => (
+        tag.attributes.src.includes("defaultVendors.js")
+      ))
+    %>
+    <%=
+      htmlWebpackPlugin.tags.headTags.filter((tag) => (
+        tag.tagName === 'script' &&
+        tag.attributes.src.includes("https")
+      ))
+    %>
+
+    <%=
+      webpackConfig.mode === 'development' ? htmlWebpackPlugin.tags.headTags.filter((tag) => (
+        tag.tagName !== 'script' ||
+        tag.attributes.src.includes("main")
+      )) : `<script>${compilation.assets['main.js'].source()}</script>`
+    %>
+
+
+  </body>
+</html>

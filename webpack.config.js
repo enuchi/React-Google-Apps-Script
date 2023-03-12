@@ -46,36 +46,36 @@ const devDialogEntry = './dev/index.js';
 
 // define client entry points and output names
 const clientEntrypoints = [
-  {
-    name: 'CLIENT - Dialog Demo',
-    entry: './src/client/dialog-demo/index.js',
-    filename: 'dialog-demo', // we'll add the .html suffix to these
-    template: './src/client/dialog-demo/index.html',
-  },
+  // {
+  //   name: 'CLIENT - Dialog Demo',
+  //   entry: './src/client/dialog-demo/index.js',
+  //   filename: 'dialog-demo', // we'll add the .html suffix to these
+  //   template: './src/client/dialog-demo/index.html',
+  // },
   {
     name: 'CLIENT - Dialog Demo Bootstrap',
     entry: './src/client/dialog-demo-bootstrap/index.js',
     filename: 'dialog-demo-bootstrap',
-    template: './src/client/dialog-demo-bootstrap/index.html',
+    template: './src/client/dialog-demo-bootstrap/index.ejs',
   },
-  {
-    name: 'CLIENT - Dialog Demo MUI',
-    entry: './src/client/dialog-demo-mui/index.js',
-    filename: 'dialog-demo-mui',
-    template: './src/client/dialog-demo-mui/index.html',
-  },
-  {
-    name: 'CLIENT - Dialog Demo Tailwind CSS',
-    entry: './src/client/dialog-demo-tailwindcss/index.js',
-    filename: 'dialog-demo-tailwindcss',
-    template: './src/client/dialog-demo-tailwindcss/index.html',
-  },
-  {
-    name: 'CLIENT - Sidebar About Page',
-    entry: './src/client/sidebar-about-page/index.js',
-    filename: 'sidebar-about-page',
-    template: './src/client/sidebar-about-page/index.html',
-  },
+  // {
+  //   name: 'CLIENT - Dialog Demo MUI',
+  //   entry: './src/client/dialog-demo-mui/index.js',
+  //   filename: 'dialog-demo-mui',
+  //   template: './src/client/dialog-demo-mui/index.html',
+  // },
+  // {
+  //   name: 'CLIENT - Dialog Demo Tailwind CSS',
+  //   entry: './src/client/dialog-demo-tailwindcss/index.js',
+  //   filename: 'dialog-demo-tailwindcss',
+  //   template: './src/client/dialog-demo-tailwindcss/index.html',
+  // },
+  // {
+  //   name: 'CLIENT - Sidebar About Page',
+  //   entry: './src/client/sidebar-about-page/index.js',
+  //   filename: 'sidebar-about-page',
+  //   template: './src/client/sidebar-about-page/index.html',
+  // },
 ];
 
 // define certificate locations
@@ -122,12 +122,28 @@ const clientConfig = ({ isDevClientWrapper }) => ({
     path: destination,
     // this file will get added to the html template inline
     // and should be put in .claspignore so it is not pushed
-    filename: 'main.js',
+    // filename: 'main.js',
+    filename: '[name].js',
     publicPath,
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },
+  // in development split vendors and react-refresh/runtime into separate chunks
+  // in production we only want one bundle (main.js), which will get inlined
+  ...(!isProd && {
+    optimization: {
+      runtimeChunk: 'single',
+      // Ensure `react-refresh/runtime` is hoisted and shared
+      // Could be replicated via a vendors chunk
+      splitChunks: {
+        chunks: 'all',
+        name(_, __, cacheGroupKey) {
+          return cacheGroupKey;
+        },
+      },
+    },
+  }),
   module: {
     rules: [
       {
@@ -193,6 +209,7 @@ const DynamicCdnWebpackPluginConfig = {
 
     // don't externalize react during development due to issue with react-refresh
     // https://github.com/pmmmwh/react-refresh-webpack-plugin/issues/334
+    // https://github.com/pmmmwh/react-refresh-webpack-plugin/blob/main/docs/TROUBLESHOOTING.md#externalising-react
     // if (!isProd && packageName === 'react') {
     //   return null;
     // }
@@ -213,7 +230,7 @@ const DynamicCdnWebpackPluginConfig = {
           name: packageName,
           var: 'ReactBootstrap',
           version: packageVersion,
-          url: `https://unpkg.com/react-bootstrap@${packageVersion}/dist/react-bootstrap${packageSuffix}`,
+          url: `https://unpkg.com/react-bootstrap@${packageVersion}/dist/react-bootstrap.min.js`,
         };
       case '@mui/material':
         return {
@@ -267,7 +284,16 @@ const clientConfigs = clientEntrypoints.map((clientEntrypoint) => {
   return {
     ...clientConfig({ isDevClientWrapper }),
     name: clientEntrypoint.name,
-    entry: clientEntrypoint.entry,
+    entry: {
+      main: clientEntrypoint.entry,
+      // in development we create a separate entry point for react-refresh
+      // see demo codesandbox linked here:
+      // https://github.com/pmmmwh/react-refresh-webpack-plugin/blob/main/docs/TROUBLESHOOTING.md#externalising-react
+      ...(!isProd && {
+        reactRefreshSetup:
+          '@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js',
+      }),
+    },
     plugins: [
       !isProd && new ReactRefreshWebpackPlugin(),
       new webpack.DefinePlugin({
@@ -276,12 +302,12 @@ const clientConfigs = clientEntrypoints.map((clientEntrypoint) => {
       new HtmlWebpackPlugin({
         template: clientEntrypoint.template,
         filename: `${clientEntrypoint.filename}${isProd ? '' : '-impl'}.html`,
-        inlineSource: '^/.*(js|css)$', // embed all js and css inline, exclude packages from dynamic cdn insertion
-        scriptLoading: 'blocking',
-        inject: 'body',
+        // inlineSource: '^/.*(js|css)$', // embed all js and css inline, exclude packages from dynamic cdn insertion
+        // scriptLoading: 'module',
+        inject: false,
       }),
       // add the generated js code to the html file inline
-      new HtmlWebpackInlineSourcePlugin(),
+      // new HtmlWebpackInlineSourcePlugin(),
       // this plugin allows us to add dynamically load packages from a CDN
       new DynamicCdnWebpackPlugin(DynamicCdnWebpackPluginConfig),
     ].filter(Boolean),
