@@ -1,19 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'antd';
 
 const SheetButton = ({ sheetDetails, deleteSheet, setActiveSheet }) => {
   const { index, name, isActive } = sheetDetails;
 
   return (
     <div className="sheetLine">
-      <button className="delete" onClick={() => deleteSheet(index)}>
+      <Button type="ghost" onClick={() => deleteSheet(index)}>
         &times;
-      </button>
-      <button className="basicButton" onClick={() => setActiveSheet(name)}>
+      </Button>
+      <Button type="primary" onClick={() => setActiveSheet(name)}>
         <span className={`sheetNameText ${isActive ? 'active-sheet' : ''}`}>
           {name}
         </span>
-      </button>
+      </Button>
     </div>
   );
 };

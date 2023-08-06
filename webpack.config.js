@@ -238,6 +238,13 @@ const DynamicCdnWebpackPluginConfig = {
           version: packageVersion,
           url: `https://unpkg.com/@emotion/styled@${packageVersion}/dist/emotion-styled.umd.min.js`,
         };
+      case 'antd':
+        return {
+          name: packageName,
+          var: 'antd',
+          version: packageVersion,
+          url: `https://unpkg.com/antd@${packageVersion}/dist/antd${packageSuffix}`,
+        };
       // externalize gas-client to keep bundle size even smaller
       case 'gas-client':
         return {
