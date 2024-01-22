@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { serverFunctions } from '../src/client/utils/serverFunctions.ts';
 
 const { FILENAME, PORT } = process.env;
@@ -58,4 +58,6 @@ const DevServer = () => {
   );
 };
 
-ReactDOM.render(<DevServer />, document.getElementById('index'));
+const container = document.getElementById('index');
+const root = createRoot(container);
+root.render(<DevServer />);
