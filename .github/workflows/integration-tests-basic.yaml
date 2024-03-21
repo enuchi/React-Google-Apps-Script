@@ -24,6 +24,9 @@ jobs:
       - name: Allow installing cert in Mac OS Big Sur
         run: sudo security authorizationdb write com.apple.trust-settings.admin allow
         if: matrix.os == 'macOS-latest'
+      - name: Allow running mkcert on Mac
+        run: sudo security authorizationdb write com.apple.trust-settings.admin allow
+        if: runner.os == 'MacOS'
       - name: Install mkcert
         run: brew install mkcert
         if: runner.os == 'MacOS'
