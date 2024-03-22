@@ -39,14 +39,14 @@ const openAddon = async (page) => {
   }
 
   await page.waitForSelector(
-    'div.menu-button.goog-control.goog-inline-block:nth-child(11)',
+    'div.menu-button.goog-control.goog-inline-block:nth-child(10)',
     { visible: true }
   );
 
   // open new addon menubar item
   await page.evaluate(() => {
     const addOnMenuButton = document.querySelector(
-      'div.menu-button.goog-control.goog-inline-block:nth-child(11)'
+      'div.menu-button.goog-control.goog-inline-block:nth-child(10)'
     );
     addOnMenuButton.dispatchEvent(
       new MouseEvent('mousedown', { bubbles: true })
