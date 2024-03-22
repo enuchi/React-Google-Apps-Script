@@ -34,7 +34,7 @@ const openAddon = async (page) => {
       process.env.TEST_RECOVERY_EMAIL
     ); // type recovery email
     await page.waitForTimeout(6000);
-    await page.click('button'); // click "next" button
+    await page.click('#identifierNext'); // click "next" button
     await page.waitForTimeout(5000);
   }
 
@@ -58,9 +58,10 @@ const openAddon = async (page) => {
     }
   }
 
-  // take snapshot and store in __diff_output__ folder
+  // take snapshot and store in __diff_output__ folder and name with date time stamp
+  const currentTime = new Date().toISOString().replace(/[:.]/g, '-');
   await page.screenshot({
-    path: './test/__image_snapshots__/errors/nth-child.png',
+    path: `./test/__image_snapshots__/errors/${currentTime}.png`,
   });
 
   await page.waitForSelector(
