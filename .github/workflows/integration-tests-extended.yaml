@@ -20,9 +20,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install packages [npm ci]
         run: npm ci
-      - name: Allow installing cert in Mac OS Big Sur
+      - name: Allow running mkcert on Mac
         run: sudo security authorizationdb write com.apple.trust-settings.admin allow
-        if: matrix.os == 'macOS-latest'
+        if: runner.os == 'MacOS'
       - name: Install mkcert
         run: brew install mkcert
         if: runner.os == 'MacOS'

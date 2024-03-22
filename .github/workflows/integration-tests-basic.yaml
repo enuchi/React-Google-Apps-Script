@@ -1,8 +1,8 @@
-# name: Local integration tests - Basic Version
+name: Local integration tests - Basic Version
 
-# on:
-#   pull_request:
-#     branches: [main]
+on:
+  pull_request:
+    branches: [main]
 
 # jobs:
 #   basic-integration-test:
@@ -21,9 +21,6 @@
 #           node-version: ${{ matrix.node-version }}
 #       - name: Install packages [npm ci]
 #         run: npm ci
-#       - name: Allow installing cert in Mac OS Big Sur
-#         run: sudo security authorizationdb write com.apple.trust-settings.admin allow
-#         if: matrix.os == 'macOS-latest'
 #       - name: Allow running mkcert on Mac
 #         run: sudo security authorizationdb write com.apple.trust-settings.admin allow
 #         if: runner.os == 'MacOS'
