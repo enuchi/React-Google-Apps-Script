@@ -9,9 +9,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-10.15, macos-latest, windows-latest]
+        os: [macos-11, macos-latest, windows-latest]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        node-version: [12, 14, 16]
+        node-version: [14, 16, 18]
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v2
@@ -21,9 +21,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install packages [npm ci]
         run: npm ci
-      - name: Allow installing cert in Mac OS Big Sur
+      - name: Allow running mkcert on Mac
         run: sudo security authorizationdb write com.apple.trust-settings.admin allow
-        if: matrix.os == 'macOS-latest'
+        if: runner.os == 'MacOS'
       - name: Install mkcert
         run: brew install mkcert
         if: runner.os == 'MacOS'

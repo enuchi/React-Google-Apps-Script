@@ -3,7 +3,7 @@
  <img width="400" src="https://i.imgur.com/83Y7bWN.png" alt="React & Google Apps Script logos"></a>
 </p>
 <p align="center"><i>
-  Update 2023: Now with support for React v18 and React Fast Refresh
+  With support for React v18 and React Fast Refresh
 </i></p>
 
 <div align="center">

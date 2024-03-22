@@ -8,9 +8,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-10.15, macos-latest, windows-latest]
+        os: [macos-11, macos-latest, windows-latest]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        node-version: [12, 14, 16]
+        node-version: [14, 16, 18]
     timeout-minutes: 11
     steps:
       - uses: actions/checkout@v2
@@ -20,9 +20,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install packages [npm ci]
         run: npm ci
-      - name: Allow installing cert in Mac OS Big Sur
+      - name: Allow running mkcert on Mac
         run: sudo security authorizationdb write com.apple.trust-settings.admin allow
-        if: matrix.os == 'macOS-latest'
+        if: runner.os == 'MacOS'
       - name: Install mkcert
         run: brew install mkcert
         if: runner.os == 'MacOS'
@@ -32,7 +32,7 @@ jobs:
       - name: Install https cert [npm setup:https]
         run: npm run setup:https
         if: runner.os == 'MacOS'
-      - run: | 
+      - run: |
           mkdir certs
           .\test\generate-cert.ps1
         shell: pwsh
@@ -67,6 +67,8 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       - name: Build and deploy dev setup [npm run deploy:dev]
         run: npm run deploy:dev
+        env:
+          NODE_OPTIONS: '--max_old_space_size=4096'
       - name: Run integration tests
         run: npm run test:integration:extended
         shell: bash
