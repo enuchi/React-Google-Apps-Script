@@ -34,7 +34,12 @@ const openAddon = async (page) => {
       process.env.TEST_RECOVERY_EMAIL
     ); // type recovery email
     await page.waitForTimeout(6000);
-    await page.click('#identifierNext'); // click "next" button
+
+    // print body inner html to console
+    await page.evaluate(() => {
+      console.log(document.body.innerHTML);
+    });
+    await page.click('div[data-primary-action-label] button'); // click "next" button
     await page.waitForTimeout(5000);
   }
 
@@ -57,6 +62,9 @@ const openAddon = async (page) => {
       console.log('The "Simplify your sign-in" page isn\'t shown');
     }
   }
+
+  // print html body to console
+  // console.log(await page.evaluate(() => document.body.innerHTML));
 
   // take snapshot and store in __diff_output__ folder and name with date time stamp
   const currentTime = new Date().toISOString().replace(/[:.]/g, '-');
