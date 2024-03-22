@@ -58,6 +58,11 @@ const openAddon = async (page) => {
     }
   }
 
+  // take snapshot and store in __diff_output__ folder
+  await page.screenshot({
+    path: './test/__image_snapshots__/__diff_output__/open-addon.png',
+  });
+
   await page.waitForSelector(
     'div.menu-button.goog-control.goog-inline-block:nth-child(10)',
     { visible: true }
