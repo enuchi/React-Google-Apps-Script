@@ -32,7 +32,7 @@ jobs:
       - name: Install https cert [npm setup:https]
         run: npm run setup:https
         if: runner.os == 'MacOS'
-      - run: | 
+      - run: |
           mkdir certs
           .\test\generate-cert.ps1
         shell: pwsh
@@ -67,6 +67,8 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       - name: Build and deploy dev setup [npm run deploy:dev]
         run: npm run deploy:dev
+        env:
+          NODE_OPTIONS: '--max_old_space_size=4096'
       - name: Run integration tests
         run: npm run test:integration:extended
         shell: bash
