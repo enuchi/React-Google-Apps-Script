@@ -60,7 +60,7 @@ const openAddon = async (page) => {
 
   // take snapshot and store in __diff_output__ folder
   await page.screenshot({
-    path: './test/__image_snapshots__/__diff_output__/open-addon.png',
+    path: './test/__image_snapshots__/errors/nth-child.png',
   });
 
   await page.waitForSelector(

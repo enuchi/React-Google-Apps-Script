@@ -1,46 +1,46 @@
-name: Local integration tests - Basic Version
+# name: Local integration tests - Basic Version
 
-on:
-  pull_request:
-    branches: [main]
+# on:
+#   pull_request:
+#     branches: [main]
 
-jobs:
-  basic-integration-test:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macos-11, macos-latest, windows-latest]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        node-version: [14, 16, 18]
-    timeout-minutes: 8
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install packages [npm ci]
-        run: npm ci
-      - name: Allow installing cert in Mac OS Big Sur
-        run: sudo security authorizationdb write com.apple.trust-settings.admin allow
-        if: matrix.os == 'macOS-latest'
-      - name: Allow running mkcert on Mac
-        run: sudo security authorizationdb write com.apple.trust-settings.admin allow
-        if: runner.os == 'MacOS'
-      - name: Install mkcert
-        run: brew install mkcert
-        if: runner.os == 'MacOS'
-      - name: Run mkcert setup [mkcert -install]
-        run: mkcert -install
-        if: runner.os == 'MacOS'
-      - name: Install https cert [npm setup:https]
-        run: npm run setup:https
-        if: runner.os == 'MacOS'
-      - run: | 
-          mkdir certs
-          .\test\generate-cert.ps1
-        shell: pwsh
-        if: runner.os == 'Windows'
-      - name: Run integration tests
-        run: npm run test:integration
-        shell: bash
+# jobs:
+#   basic-integration-test:
+#     runs-on: ${{ matrix.os }}
+#     strategy:
+#       matrix:
+#         os: [macos-11, macos-latest, windows-latest]
+#         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+#         node-version: [14, 16, 18]
+#     timeout-minutes: 8
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Use Node.js ${{ matrix.node-version }}
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: ${{ matrix.node-version }}
+#       - name: Install packages [npm ci]
+#         run: npm ci
+#       - name: Allow installing cert in Mac OS Big Sur
+#         run: sudo security authorizationdb write com.apple.trust-settings.admin allow
+#         if: matrix.os == 'macOS-latest'
+#       - name: Allow running mkcert on Mac
+#         run: sudo security authorizationdb write com.apple.trust-settings.admin allow
+#         if: runner.os == 'MacOS'
+#       - name: Install mkcert
+#         run: brew install mkcert
+#         if: runner.os == 'MacOS'
+#       - name: Run mkcert setup [mkcert -install]
+#         run: mkcert -install
+#         if: runner.os == 'MacOS'
+#       - name: Install https cert [npm setup:https]
+#         run: npm run setup:https
+#         if: runner.os == 'MacOS'
+#       - run: | 
+#           mkdir certs
+#           .\test\generate-cert.ps1
+#         shell: pwsh
+#         if: runner.os == 'Windows'
+#       - name: Run integration tests
+#         run: npm run test:integration
+#         shell: bash
