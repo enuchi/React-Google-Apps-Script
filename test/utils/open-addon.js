@@ -38,6 +38,26 @@ const openAddon = async (page) => {
     await page.waitForTimeout(5000);
   }
 
+  if (
+    await page.evaluate(
+      () =>
+        document.querySelector('h1#headingText') &&
+        document
+          .querySelector('h1#headingText')
+          .innerText.includes('implify your sign')
+    )
+  ) {
+    try {
+      await page.click(
+        'div[data-secondary-action-label] > div > div:nth-child(2) button'
+      );
+      await page.waitForTimeout(6000);
+    } catch {
+      // eslint-disable-next-line no-console
+      console.log('The "Simplify your sign-in" page isn\'t shown');
+    }
+  }
+
   await page.waitForSelector(
     'div.menu-button.goog-control.goog-inline-block:nth-child(10)',
     { visible: true }
