@@ -70,5 +70,5 @@ jobs:
         env:
           NODE_OPTIONS: '--max_old_space_size=4096'
       - name: Run integration tests
-        run: npm run test:integration:extended:image
+        run: npm run test:integration:extended
         shell: bash
