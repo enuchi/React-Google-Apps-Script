@@ -1,3 +1,5 @@
+TODO: Update for new `dev-server-wrapper.html` standalone app (not React).
+
 # Development App Wrapper
 
 This directory contains the app needed to run development mode.
