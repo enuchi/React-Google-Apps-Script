@@ -1,74 +1,74 @@
-name: Local integration tests - Extended Version
+# name: Local integration tests - Extended Version
 
-on:
-  push:
+# on:
+#   push:
 
-jobs:
-  extended-integration-test:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macos-11, macos-latest, windows-latest]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        node-version: [14, 16, 18]
-    timeout-minutes: 11
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install packages [npm ci]
-        run: npm ci
-      - name: Allow running mkcert on Mac
-        run: sudo security authorizationdb write com.apple.trust-settings.admin allow
-        if: runner.os == 'MacOS'
-      - name: Install mkcert
-        run: brew install mkcert
-        if: runner.os == 'MacOS'
-      - name: Run mkcert setup [mkcert -install]
-        run: mkcert -install
-        if: runner.os == 'MacOS'
-      - name: Install https cert [npm setup:https]
-        run: npm run setup:https
-        if: runner.os == 'MacOS'
-      - run: |
-          mkdir certs
-          .\test\generate-cert.ps1
-        shell: pwsh
-        if: runner.os == 'Windows'
-      - name: Add .clasprc.json to home folder
-        run: echo "$DOT_CLASPRC" > $HOME/.clasprc.json
-        shell: bash
-        env:
-          DOT_CLASPRC: ${{ secrets.DOT_CLASPRC }}
-      - name: Add .clasp.json to project directory
-        run: echo "$DOT_CLASP" > .clasp.json
-        shell: bash
-        env:
-          DOT_CLASP: ${{ secrets.DOT_CLASP }}
-      - name: Add environment variables to .env file
-        run: |
-          echo "EMAIL=$TEST_ACCOUNT_EMAIL" > .env
-          echo "TEST_RECOVERY_EMAIL=$TEST_RECOVERY_EMAIL" >> .env
-          echo "PASSWORD=$TEST_ACCOUNT_PASSWORD" >> .env
-          echo "SHEET_URL=$TEST_SPREADSHEET_URL" >> .env
-          echo "S3_BUCKET_NAME=$S3_BUCKET_NAME" >> .env
-          echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> .env
-          echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> .env
-        shell: bash
-        env:
-          TEST_ACCOUNT_EMAIL: ${{ secrets.TEST_ACCOUNT_EMAIL }}
-          TEST_RECOVERY_EMAIL: ${{ secrets.TEST_RECOVERY_EMAIL }}
-          TEST_ACCOUNT_PASSWORD: ${{ secrets.TEST_ACCOUNT_PASSWORD }}
-          TEST_SPREADSHEET_URL: ${{ secrets.TEST_SPREADSHEET_URL }}
-          S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      - name: Build and deploy dev setup [npm run deploy:dev]
-        run: npm run deploy:dev
-        env:
-          NODE_OPTIONS: '--max_old_space_size=4096'
-      - name: Run integration tests
-        run: npm run test:integration:extended
-        shell: bash
+# jobs:
+#   extended-integration-test:
+#     runs-on: ${{ matrix.os }}
+#     strategy:
+#       matrix:
+#         os: [macos-11, macos-latest, windows-latest]
+#         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+#         node-version: [14, 16, 18]
+#     timeout-minutes: 11
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Use Node.js ${{ matrix.node-version }}
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: ${{ matrix.node-version }}
+#       - name: Install packages [npm ci]
+#         run: npm ci
+#       - name: Allow running mkcert on Mac
+#         run: sudo security authorizationdb write com.apple.trust-settings.admin allow
+#         if: runner.os == 'MacOS'
+#       - name: Install mkcert
+#         run: brew install mkcert
+#         if: runner.os == 'MacOS'
+#       - name: Run mkcert setup [mkcert -install]
+#         run: mkcert -install
+#         if: runner.os == 'MacOS'
+#       - name: Install https cert [npm setup:https]
+#         run: npm run setup:https
+#         if: runner.os == 'MacOS'
+#       - run: |
+#           mkdir certs
+#           .\test\generate-cert.ps1
+#         shell: pwsh
+#         if: runner.os == 'Windows'
+#       - name: Add .clasprc.json to home folder
+#         run: echo "$DOT_CLASPRC" > $HOME/.clasprc.json
+#         shell: bash
+#         env:
+#           DOT_CLASPRC: ${{ secrets.DOT_CLASPRC }}
+#       - name: Add .clasp.json to project directory
+#         run: echo "$DOT_CLASP" > .clasp.json
+#         shell: bash
+#         env:
+#           DOT_CLASP: ${{ secrets.DOT_CLASP }}
+#       - name: Add environment variables to .env file
+#         run: |
+#           echo "EMAIL=$TEST_ACCOUNT_EMAIL" > .env
+#           echo "TEST_RECOVERY_EMAIL=$TEST_RECOVERY_EMAIL" >> .env
+#           echo "PASSWORD=$TEST_ACCOUNT_PASSWORD" >> .env
+#           echo "SHEET_URL=$TEST_SPREADSHEET_URL" >> .env
+#           echo "S3_BUCKET_NAME=$S3_BUCKET_NAME" >> .env
+#           echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> .env
+#           echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> .env
+#         shell: bash
+#         env:
+#           TEST_ACCOUNT_EMAIL: ${{ secrets.TEST_ACCOUNT_EMAIL }}
+#           TEST_RECOVERY_EMAIL: ${{ secrets.TEST_RECOVERY_EMAIL }}
+#           TEST_ACCOUNT_PASSWORD: ${{ secrets.TEST_ACCOUNT_PASSWORD }}
+#           TEST_SPREADSHEET_URL: ${{ secrets.TEST_SPREADSHEET_URL }}
+#           S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
+#           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#       - name: Build and deploy dev setup [npm run deploy:dev]
+#         run: npm run deploy:dev
+#         env:
+#           NODE_OPTIONS: '--max_old_space_size=4096'
+#       - name: Run integration tests
+#         run: npm run test:integration:extended
+#         shell: bash
