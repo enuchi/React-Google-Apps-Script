@@ -13,9 +13,27 @@ const outDir = './dist';
 const clientEntrypoints = [
   {
     name: 'CLIENT - Dialog Demo',
-    // entry: './src/client/dialog-demo/index.jsx',
-    filename: 'dialog-demo',
-    template: 'dialog-demo/index.html', // only use part after root
+    // entry: './src/client/dialog-demo/index.js',
+    filename: 'dialog-demo', // we'll add the .html suffix to these
+    template: 'dialog-demo/index.html',
+  },
+  {
+    name: 'CLIENT - Dialog Demo Bootstrap',
+    // entry: './src/client/dialog-demo-bootstrap/index.js',
+    filename: 'dialog-demo-bootstrap',
+    template: 'dialog-demo-bootstrap/index.html',
+  },
+  {
+    name: 'CLIENT - Dialog Demo MUI',
+    // entry: './src/client/dialog-demo-mui/index.js',
+    filename: 'dialog-demo-mui',
+    template: 'dialog-demo-mui/index.html',
+  },
+  {
+    name: 'CLIENT - Dialog Demo Tailwind CSS',
+    // entry: './src/client/dialog-demo-tailwindcss/index.js',
+    filename: 'dialog-demo-tailwindcss',
+    template: 'dialog-demo-tailwindcss/index.html',
   },
   {
     name: 'CLIENT - Sidebar About Page',
@@ -50,13 +68,30 @@ const clientBuildConfig = ({ clientEntrypointRoot, template }) =>
       minify: true,
       rollupOptions: {
         // add externals for react and react-dom
-        external: ['react', 'react-dom'],
+        external: [
+          'react',
+          'react-dom',
+          'react-transition-group',
+          'react-bootstrap',
+          '@mui/material',
+          '@emotion/react',
+          '@emotion/styled',
+          'gas-client',
+          '@types/react',
+        ],
         output: {
           format: 'iife', // needed to use globals from UMD builds
           dir: outDir,
           globals: {
             react: 'React',
             'react-dom': 'ReactDOM',
+            'react-transition-group': 'ReactTransitionGroup',
+            'react-bootstrap': 'ReactBootstrap',
+            '@mui/material': 'MaterialUI',
+            '@emotion/react': 'emotionReact',
+            '@emotion/styled': 'emotionStyled',
+            'gas-client': 'GASClient',
+            '@types/react': '@types/react',
           },
         },
         input: resolve(__dirname, clientRoot, template),
