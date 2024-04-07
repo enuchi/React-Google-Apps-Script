@@ -1,6 +1,7 @@
 {
   "name": "react-google-apps-script",
   "version": "2.1.1",
+  "type": "module",
   "description": "Starter project for using React with Google Apps Script",
   "repository": {
     "type": "git",
@@ -71,6 +72,7 @@
     "jest": "^28.1.1",
     "jest-environment-node": "^28.1.1",
     "jest-image-snapshot": "^5.1.0",
+    "postcss-preset-env": "^9.5.4",
     "prettier": "^2.7.0",
     "puppeteer": "^14.3.0",
     "puppeteer-extra": "^3.2.3",
