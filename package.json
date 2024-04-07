@@ -7,18 +7,19 @@
     "url": "https://github.com/enuchi/React-Google-Apps-Script.git"
   },
   "scripts": {
+    "dev": "vite",
     "test:integration": "jest --forceExit test/local-development.test",
     "test:integration:extended": "cross-env IS_EXTENDED=true jest --forceExit test/local-development.test",
     "login": "clasp login",
     "setup": "rimraf .clasp.json && mkdirp dist && clasp create --type sheets --title \"My React Project\" --rootDir ./dist && mv ./dist/.clasp.json ./.clasp.json && rimraf dist",
     "open": "clasp open --addon",
+    "push": "clasp push",
     "setup:https": "mkdirp certs && mkcert -key-file ./certs/key.pem -cert-file ./certs/cert.pem localhost 127.0.0.1",
-    "build:dev": "cross-env NODE_ENV=development webpack",
-    "build": "cross-env NODE_ENV=production webpack",
-    "deploy:dev": "rimraf dist && npm run build:dev && npx clasp push",
-    "deploy": "rimraf dist && npm run build && npx clasp push",
-    "serve": "cross-env NODE_ENV=development webpack serve",
-    "start": "npm run deploy:dev && npm run serve"
+    "build:dev": "tsc && vite build --mode development",
+    "build": "tsc && vite build --mode production",
+    "deploy:dev": "yarn build:dev && yarn push",
+    "deploy": "yarn build && yarn push",
+    "start": "yarn deploy:dev && yarn dev"
   },
   "keywords": [
     "react",
