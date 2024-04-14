@@ -18,8 +18,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install packages [npm ci]
-        run: npm ci
+      - name: Install packages
+        run: yarn install
       - name: Allow running mkcert on Mac
         run: sudo security authorizationdb write com.apple.trust-settings.admin allow
         if: runner.os == 'MacOS'
@@ -29,8 +29,8 @@ jobs:
       - name: Run mkcert setup [mkcert -install]
         run: mkcert -install
         if: runner.os == 'MacOS'
-      - name: Install https cert [npm setup:https]
-        run: npm run setup:https
+      - name: Install https cert [yarn setup:https]
+        run: yarn setup:https
         if: runner.os == 'MacOS'
       - run: |
           mkdir certs
@@ -65,10 +65,10 @@ jobs:
           S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      - name: Build and deploy dev setup [npm run deploy:dev]
-        run: npm run deploy:dev
+      - name: Build and deploy dev setup [yarn deploy:dev]
+        run: yarn deploy:dev
         env:
           NODE_OPTIONS: '--max_old_space_size=4096'
       - name: Run integration tests
-        run: npm run test:integration:extended
+        run: yarn test:integration:extended
         shell: bash
