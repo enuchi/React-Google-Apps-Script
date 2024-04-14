@@ -1,9 +1,18 @@
 <!-- 
-This is a development server page that serves as a wrapper for Google Apps Script (GAS) client-side development. 
-It loads the gas-client library (as an external), sets up an iframe that points to a local development server, 
-and establishes a communication bridge between the GAS server functions and the local development server. 
+This is a development server page that serves as a wrapper for Google Apps Script (GAS) client-side development.
+
+It is meant to be run inside a Google Sheets/Docs/Forms dialog window during local development.
+
+It loads the gas-client library (as an external), sets up an iframe that points to a local development
+server (such as running with vite), and establishes a communication bridge between the GAS server functions and the local development server. 
+
 This allows for local development and testing of client-side code while still being able to interact with 
 the GAS server-side functions.
+
+Two placeholders are used in this file that will need to be replaced in a build step:
+- __PORT__: The port number of the local development server. (e.g. 3000)
+- __FILE_NAME__: The name of the file being loaded. (e.g. dialog-demo-bootstrap/index.html)
+
 -->
 <!DOCTYPE html>
 <html>
@@ -22,7 +31,7 @@ the GAS server-side functions.
     </style>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        // These values will be replaced during the build process        
+        // These values need to be replaced during the build process
         const PORT = '__PORT__';
         const FILE_NAME = '__FILE_NAME__';
 
@@ -30,7 +39,7 @@ the GAS server-side functions.
         iframe.src = 'https://localhost:' + PORT + '/' + FILE_NAME;
         const { serverFunctions } = new window.GASClient.GASClient({
           allowedDevelopmentDomains: (origin) =>
-            /https:\/\/.*\.googleusercontent\.com$/.test(origin)
+            /https:\/\/.*\.googleusercontent\.com$/.test(origin),
         });
 
         const handleRequest = (event) => {
@@ -52,7 +61,7 @@ the GAS server-side functions.
                   type: 'RESPONSE',
                   id,
                   status: 'ERROR',
-                  response: err
+                  response: err,
                 },
                 'https://localhost:' + PORT
               );
