@@ -1,4 +1,4 @@
-const openAddon = async (page) => {
+export const openAddon = async (page) => {
   await page.goto(process.env.SHEET_URL);
 
   await page.click('a:nth-child(2)'); // click on signin button
@@ -104,5 +104,3 @@ const openAddon = async (page) => {
 
   await page.waitForTimeout(3000);
 };
-
-module.exports = { openAddon };

@@ -1,10 +1,11 @@
-const fs = require('fs');
-const path = require('path');
-const { exec } = require('child_process');
-const { configureToMatchImageSnapshot } = require('jest-image-snapshot');
-const { openAddon } = require('./utils/open-addon');
+import fs from 'fs';
+import path from 'path';
+import { exec } from 'child_process';
+import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
+import { openAddon } from './utils/open-addon';
 
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 const isExtended = `${process.env.IS_EXTENDED}` === 'true';
 
@@ -26,10 +27,10 @@ const srcTestFile = path.join(
 );
 
 const webpackDevServerReady = async (process) => {
-  console.log('Waiting for Webpack Dev Server to finish loading...');
+  console.log('Waiting for vite to serve...');
   return new Promise((resolve) => {
     process.stdout.on('data', (data) => {
-      if (data.includes('CLIENT - Dialog Demo Bootstrap')) {
+      if (data.includes('ready in')) {
         resolve();
       }
     });
@@ -42,7 +43,7 @@ describe(`Local setup ${isExtended ? '*extended*' : ''}`, () => {
   const containerSelector = isExtended ? '.script-app-dialog' : 'body';
 
   beforeAll(async () => {
-    process = exec('npm run serve');
+    process = exec('yarn dev');
     page = await global.__BROWSER_GLOBAL__.newPage();
 
     await page.setViewport({
@@ -56,7 +57,7 @@ describe(`Local setup ${isExtended ? '*extended*' : ''}`, () => {
     if (isExtended) {
       await openAddon(page);
     } else {
-      await page.goto('https://localhost:3000/dialog-demo-bootstrap-impl.html');
+      await page.goto('https://localhost:3000/dialog-demo-bootstrap/index.html');
       await page.waitForTimeout(3000);
     }
   });
