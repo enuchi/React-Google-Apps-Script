@@ -64,13 +64,13 @@ if (existsSync(keyPath) && existsSync(certPath)) {
 
 // If mkcert -install cannot be used on Windows machines (in pipeline, for example), the
 // script at test/generate-cert.ps1 can be used to create a .pfx cert
-// if (existsSync(pfxPath)) {
-//   // use pfx file if it's found
-//   devServerOptions.https = {
-//     pfx: readFileSync(pfxPath),
-//     passphrase: 'abc123',
-//   };
-// }
+if (existsSync(pfxPath)) {
+  // use pfx file if it's found
+  devServerOptions.https = {
+    pfx: readFileSync(pfxPath),
+    passphrase: 'abc123',
+  };
+}
 
 const clientServeConfig = () =>
   defineConfig({
