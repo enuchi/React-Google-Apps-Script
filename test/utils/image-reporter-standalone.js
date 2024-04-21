@@ -10,7 +10,7 @@
  *
  * Note: If image reporter doesn't work in pipeline can try running as standalone script
  * by creating a separate script file and running like this:
- * "test:integration": "jest test/local-development.test || node test/utils/image-reporter-standalone.js"
+ * "test:integration:extended:report": "cross-env IS_EXTENDED=true jest --forceExit test/local-development.test || node test/utils/image-reporter-standalone.js",
  */
 
 import fs from 'fs';
