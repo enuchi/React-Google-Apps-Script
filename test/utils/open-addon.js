@@ -7,6 +7,10 @@ export const openAddon = async (page) => {
   await page.type('input[name="identifier"]', process.env.EMAIL); // type email
   await page.click('#identifierNext'); // click "next" button
 
+  // temporarily add screenshot here
+  await page.screenshot({ path: './test/__image_snapshots__/screenshot1.png' });
+  await page.evaluate(() => console.log(document.querySelector('body')));
+
   await page.waitForSelector('input[name="Passwd"]', { visible: true });
   await page.type('input[name="Passwd"]', process.env.PASSWORD); // type pass
   await page.waitForTimeout(500);

@@ -11,6 +11,7 @@
     "dev": "vite",
     "test:integration": "jest --forceExit test/local-development.test",
     "test:integration:extended": "cross-env IS_EXTENDED=true jest --forceExit test/local-development.test",
+    "test:integration:extended:report": "cross-env IS_EXTENDED=true jest --forceExit test/local-development.test || node test/utils/image-reporter-standalone.js",
     "login": "clasp login",
     "setup": "rimraf .clasp.json && mkdirp dist && clasp create --type sheets --title \"My React Project\" --rootDir ./dist && mv ./dist/.clasp.json ./.clasp.json && rimraf dist",
     "open": "clasp open --addon",
