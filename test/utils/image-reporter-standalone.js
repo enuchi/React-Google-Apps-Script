@@ -15,7 +15,7 @@
 
 import fs from 'fs';
 import AWS from 'aws-sdk/global.js';
-// import S3 from 'aws-sdk/clients/s3.js'; // this is needed
+import S3 from 'aws-sdk/clients/s3.js'; // this is needed
 
 import dotenv from 'dotenv';
 dotenv.config();
