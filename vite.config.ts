@@ -150,7 +150,6 @@ const serverBuildConfig: BuildOptions = {
 
 const buildConfig = ({ mode }: { mode: string }) => {
   const targets = [{ src: copyAppscriptEntry, dest: './' }];
-
   if (mode === 'development') {
     targets.push(
       ...clientEntrypoints.map((entrypoint) => ({
@@ -160,8 +159,8 @@ const buildConfig = ({ mode }: { mode: string }) => {
         transform: (contents: string) =>
           contents
             .toString()
-            .replace('__PORT__', String(PORT))
-            .replace('__FILE_NAME__', entrypoint.template),
+            .replace(/__PORT__/g, String(PORT))
+            .replace(/__FILE_NAME__/g, entrypoint.template),
       }))
     );
   }
