@@ -3,7 +3,7 @@
  <img width="400" src="https://i.imgur.com/83Y7bWN.png" alt="React & Google Apps Script logos"></a>
 </p>
 <p align="center"><i>
-  With support for React v18 and React Fast Refresh
+  Built with React v18 and Vite for best-in-class frontend development.
 </i></p>
 
 <div align="center">
@@ -48,27 +48,27 @@
 
 You can add custom [user interfaces inside dialog windows](https://developers.google.com/apps-script/guides/html), but the platform is designed for simple HTML pages built with [templates](https://developers.google.com/apps-script/guides/html/templates) and [jQuery](https://developers.google.com/apps-script/guides/html/best-practices#take_advantage_of_jquery).
 
-However, using this repo, it's easy to run [React](https://reactjs.org/) apps inside these dialogs, and build everything from small projects to advanced add-ons that can be published on the G Suite Marketplace.
+However, using this repo, it's easy to run [React](https://reactjs.org/) apps inside these dialogs, and build everything from small projects to advanced add-ons that can be published on the Google Workspace Marketplace.
 
 <p align="center">
  <img width="75%" src="https://i.imgur.com/BZvQ5ua.png" alt="React & Google Apps Script">
 </p>
 
-This repo is a boilerplate project that uses React and the same development tools that you use for building traditional websites, all inside Google Apps Script projects.
+This repo is a boilerplate project for developing React apps with Google Apps Script projects. You can use this starter template to build your own React apps and deploy them inside Google Sheets, Docs, Forms and Slides for use in dialogs and sidebars, as well as publishing add-ons in the Google Workspace Marketplace.
 
-See below how to get started!
+Read on to get started!
 
 <br/>
 
 ## 🚜 Install <a name = "install"></a>
 
-These instructions will get you set up with a copy of the React project code on your local machine. It will also get you logged in to `clasp` so you can manage script projects from the command line.
+These instructions will get you set up with a copy of the React project code on your local machine. It will also get you logged in to `clasp`, which lets manage script projects from the command line.
 
 See [deploy](#deploy) for notes on how to deploy the project and see it live in a Google Spreadsheet.
 
 ### Prerequisites <a name = "prerequisites"></a>
 
-- Make sure you're running at least [Node.js](https://nodejs.org/en/download/) v14 and `npm` v6.
+- Make sure you're running at least [Node.js](https://nodejs.org/en/download/) v18 and [yarn (classic)](https://classic.yarnpkg.com/lang/en/docs/install/).
 
 - You'll need to enable the Google Apps Script API. You can do that by visiting [script.google.com/home/usersettings](https://script.google.com/home/usersettings).
 
@@ -81,25 +81,27 @@ See [deploy](#deploy) for notes on how to deploy the project and see it live in 
 ```bash
 git clone https://github.com/enuchi/React-Google-Apps-Script.git
 cd React-Google-Apps-Script
-npm install
+yarn install
 ```
 
+<!-- TODO: new vid -->
 <img width="100%" src="https://i.imgur.com/EGSsCqO.gif">
 
 **2.** Next, we'll need to log in to [clasp](https://github.com/google/clasp), which lets us manage our Google Apps Script projects locally.
 
 ```bash
-npm run login
+yarn run login
 ```
-
+<!-- TODO: new vid -->
 <img width="100%" src="https://i.imgur.com/zKCgkMl.gif">
 
 **3.** Now let's run the setup script to create a New spreadsheet and script project from the command line.
 
 ```bash
-npm run setup
+yarn run setup
 ```
 
+<!-- TODO: new vid -->
 <img width="100%" src="https://imgur.com/Zk2eHFV.gif">
 
 Alternatively, you can use an existing Google Spreadsheet and Script file instead of creating a new one.
@@ -134,13 +136,14 @@ Next, let's deploy the app so we can see it live in Google Spreadsheets.
 Run the deploy command. You may be prompted to update your manifest file. Type 'yes'.
 
 ```bash
-npm run deploy
+yarn run deploy
 ```
 
 The deploy command will build all necessary files using production settings, including all server code (Google Apps Script code), client code (React bundle), and config files. All bundled files will be outputted to the `dist/` folder, then pushed to the Google Apps Script project.
 
-Now open Google Sheets and navigate to your new spreadsheet (e.g. the file "My React Project"). You can also run `npm run open`. Make sure to refresh the page if you already had it open. You will now see a new menu item appear containing your app!
+Now open Google Sheets and navigate to your new spreadsheet (e.g. the file "My React Project"). You can also run `yarn run open`. Make sure to refresh the page if you already had it open. You will now see a new menu item appear containing your app!
 
+<!-- TODO: new vid -->
 <img width="100%" src="https://i.imgur.com/W7UkEpv.gif">
 
 <br/>
@@ -149,6 +152,7 @@ Now open Google Sheets and navigate to your new spreadsheet (e.g. the file "My R
 
 We can develop our client-side React apps locally, and see our changes directly inside our Google Spreadsheet dialog window.
 
+<!-- TODO: new vid -->
 <img width="100%" src="https://i.imgur.com/EsnOEHP.gif">
 
 There are two steps to getting started: installing a certificate (first time only), and running the start command.
@@ -176,20 +180,22 @@ There are two steps to getting started: installing a certificate (first time onl
    Create the certs in your repo:
 
    ```
-   npm run setup:https
+   yarn run setup:https
    ```
 
 2. Now you're ready to start:
    ```bash
-   npm run start
+   yarn run start
    ```
 
 The start command will create and deploy a development build, and serve your local files.
 
+<!-- TODO: new vid -->
 <img width="100%" src="https://imgur.com/uD4uZZK.gif">
 
 After running the start command, navigate to your spreadsheet and open one of the menu items. It should now be serving your local files. When you make and save changes to your React app, your app will reload instantly within the Google Spreadsheet, and have access to any server-side functions!
 
+<!-- TODO: new vid -->
 <img width="100%" src="https://i.imgur.com/EsnOEHP.gif">
 
 Support for [Fast Refresh](https://github.com/pmmmwh/react-refresh-webpack-plugin) now means that only modified components are refreshed when files are changed, and state is not lost.
@@ -210,14 +216,14 @@ You will need to use the "standalone" version of React DevTools since our React 
 1. In your repo install the React DevTools package as a dev dependency:
 
    ```bash
-   npm install -D react-devtools
+   yarn add -D react-devtools
    ```
 
 2. In a new terminal window run `npx react-devtools` to launch the DevTools standalone app.
 
 3. Add `<script src="http://localhost:8097"></script>` to the top of your `<head>` in your React app, e.g. in the [index.html](https://github.com/enuchi/React-Google-Apps-Script/blob/e73e51e56e99903885ef8dd5525986f99038d8bf/src/client/dialog-demo-bootstrap/index.html) file in the sample Bootstrap app.
 
-4. Deploy your app (`npm run deploy:dev`) and you should see DevTools tool running and displaying your app hierarchy.
+4. Deploy your app (`yarn run deploy:dev`) and you should see DevTools tool running and displaying your app hierarchy.
 
    <img width="100%" src="https://user-images.githubusercontent.com/31550519/110273600-ee9eae80-7f9a-11eb-9796-31353b47dfa8.gif">
 
@@ -248,13 +254,13 @@ Note that if you are choosing to use one framework, for example `Tailwind`, for 
 <details>
   <summary>Here are some steps to take to clean up the repo if you are only using a single library</summary>
 
-1. Uninstall unneeded dependencies (`npm uninstall react-bootstrap ...` etc.)
+1. Uninstall unneeded dependencies (`yarn remove react-bootstrap ...` etc.)
 
 2. Remove the unneeded menu bar items from the server code.
 
 3. Remove the unneeded client code.
 
-4. Update the `clientEntrypoints` in the [webpack config file](./webpack.config.js) to only target the relevant apps.
+4. Update the `clientEntrypoints` in the [vite config file](./vite.config.ts) to only target the relevant apps.
 
 <br/>
 
@@ -262,29 +268,32 @@ Note that if you are choosing to use one framework, for example `Tailwind`, for 
 
 </br>
 
-### [New!] Typescript
+### Typescript
 
-This project now supports typescript!
+This project is built mainly with typescript but also supports Javascript, and examples of both are included here, both in server-side and client-side (React) code. The included sample app has a typescript example using the Bootstrap component library.
 
-To use, simply use a typescript extension in either the client code (.ts/.tsx) or the server code (.ts), and your typescript file will compile to the proper format.
+To use typescript, simply use a typescript extension in either the client code (.ts/.tsx) or the server code (.ts), and your typescript file will compile to the proper format.
 
 For client-side code, see [FormInput.tsx in the Bootstrap demo](./src/client/dialog-demo-bootstrap/components/FormInput.tsx) for an example file. Note that it is okay to have a mix of javascript and typescript, as seen in the Bootstrap demo.
 
 To use typescript in server code, just change the file extension to .ts. The server-side code already utilizes type definitions for Google Apps Script APIs.
 
-A basic typescript configuration is used here, because after code is transpiled from typescript to javascript it is once again transpiled to code that is compatible with Google Apps Script. However, if you want more control over your setup you can modify the included [tsconfig.json file](./tsconfig.json).
+A basic typescript configuration is used here that correctly transpiles to code that is compatible with Google Apps Script. However, if you want more control over your setup you can modify the included [tsconfig.json file](./tsconfig.json).
 
 ### Adding packages
 
 You can add packages to your client-side React app.
 
-For instance, install `react-transition-group` from npm:
+For instance, install `react-transition-group`:
 
 ```bash
-npm install react-transition-group
+yarn add react-transition-group
 ```
 
-Important: Since Google Apps Scripts projects don't let you easily reference external files, this project will bundle an entire app into one HTML file. This can result in large files if you are importing large packages. To help reduce the size of these large HTML files, you can try to externalize packages by using a CDN to load packages. For packages that can be loaded through a CDN (usually they will have a UMD build), you can configure the CDN details here in the [webpack config file](./webpack.config.js#L187). If set up properly, this will add a script tag that will load packages from a CDN, reducing your overall bundle size.
+Important: Since Google Apps Scripts projects don't let you easily reference external files, this project will bundle an entire app into one HTML file. If you are importing large libraries this can result in a large file. To help reduce the size of these large HTML files, you can try to externalize packages by using a CDN to load packages. For packages that can be loaded through a CDN (usually they will have a UMD build), you can configure the externals and globals details in the [vite config file](./vite.config.ts). You will also need to include a script element in the head of the `index.html` file, loading the library from a CDN, and making sure it supports a UMD build, e.g.
+`<script crossorigin src="https://unpkg.com/react-transition-group@4.4.2/dist/react-transition-group.min.js"></script>`.
+
+If set up properly, this will add a script tag that will load packages from a CDN, reducing your overall bundle size.
 
 ### Styles
 
@@ -295,8 +304,6 @@ import './styles.css';
 ```
 
 Many external component libraries require a css stylesheet in order to work properly. You can import stylesheets in the HTML template, [as shown here with the Bootstrap stylesheet](./src/client/dialog-demo-bootstrap/index.html).
-
-The webpack.config.js file can also be modified to support scss and other style libraries.
 
 ### Modifying scopes
 
@@ -309,13 +316,13 @@ See https://developers.google.com/apps-script/manifest for information on the `a
 This project uses the [gas-client](https://github.com/enuchi/gas-client) package to more easily call server-side functions using promises.
 
 ```js
-// Google's documentation wants you to do this. Boo.
+// Google's client-side google.script.run utility requires calling server-side functions like this:
 google.script.run
   .withSuccessHandler((response) => doSomething(response))
   .withFailureHandler((err) => handleError(err))
   .addSheet(sheetTitle);
 
-// Poof! With a little magic we can now do this:
+// Using gas-client we can use more familiar promises style like this:
 import Server from 'gas-client';
 const { serverFunctions } = new Server();
 
@@ -325,7 +332,7 @@ serverFunctions
   .then((response) => doSomething(response))
   .catch((err) => handleError(err));
 
-// Or we can equally use async/await style:
+// Or with async/await:
 async () => {
   try {
     const response = await serverFunctions.addSheet(sheetTitle);
@@ -336,7 +343,7 @@ async () => {
 };
 ```
 
-In development, `gas-client` will interact with [the custom Webpack Dev Server package](https://github.com/enuchi/Google-Apps-Script-Webpack-Dev-Server) which allows us to run our app within the dialog window and still interact with Google Apps Script functions.
+In development, `gas-client` will allow you to call server-side functions from your local environment. In production, it will use Google's underlying `google.script.run` utility.
 
 ### Autocomplete
 
