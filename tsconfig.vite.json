@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "types": ["gas-types-detailed"],
     "composite": true,
     "skipLibCheck": true,
     "module": "ESNext",
