@@ -35,7 +35,7 @@ jobs:
         if: runner.os == 'MacOS'
       - run: | 
           mkdir certs
-          .\test\generate-cert.ps1
+          .\scripts\generate-cert.ps1
         shell: pwsh
         if: runner.os == 'Windows'
       - name: Run integration tests
