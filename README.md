@@ -46,23 +46,20 @@
 
 [Google Apps Script](https://developers.google.com/apps-script/overview) is Google's Javascript-based development platform for building applications and add-ons for Google Sheets, Docs, Forms and other Google Apps.
 
-You can add custom [user interfaces inside dialog windows](https://developers.google.com/apps-script/guides/html), but the platform is designed for simple HTML pages built with [templates](https://developers.google.com/apps-script/guides/html/templates) and [jQuery](https://developers.google.com/apps-script/guides/html/best-practices#take_advantage_of_jquery).
-
-However, using this repo, it's easy to run [React](https://reactjs.org/) apps inside these dialogs, and build everything from small projects to advanced add-ons that can be published on the Google Workspace Marketplace.
+Google Apps Scripts lets you add custom [user interfaces inside dialog windows](https://developers.google.com/apps-script/guides/html). Using this template, it's easy to run [React](https://reactjs.org/) apps inside these dialogs, and build everything from small projects to advanced add-ons that can be published in the Google Workspace Marketplace.
 
 <p align="center">
  <img width="75%" src="https://i.imgur.com/BZvQ5ua.png" alt="React & Google Apps Script">
 </p>
 
-This repo is a boilerplate project for developing React apps with Google Apps Script projects. You can use this starter template to build your own React apps and deploy them inside Google Sheets, Docs, Forms and Slides for use in dialogs and sidebars, as well as publishing add-ons in the Google Workspace Marketplace.
+This repo is a boilerplate project for developing React apps with Google Apps Script projects. You can use this starter template to build your own React apps and deploy them inside Google Sheets, Docs, Forms and Slides for use in dialogs and sidebars. Sample code is provided showing how your React app can interact with the underlying Google Apps Script server-side code.
 
-Read on to get started!
-
+Read on to get started with your own project!
 <br/>
 
 ## 🚜 Install <a name = "install"></a>
 
-These instructions will get you set up with a copy of the React project code on your local machine. It will also get you logged in to `clasp`, which lets manage script projects from the command line.
+These instructions will get you set up with a copy of the React project code on your local machine. It will also get you logged in to `clasp`, which lets you manage script projects from the command line.
 
 See [deploy](#deploy) for notes on how to deploy the project and see it live in a Google Spreadsheet.
 
@@ -72,11 +69,15 @@ See [deploy](#deploy) for notes on how to deploy the project and see it live in 
 
 - You'll need to enable the Google Apps Script API. You can do that by visiting [script.google.com/home/usersettings](https://script.google.com/home/usersettings).
 
-- To use live reload while developing, you'll need to serve your files locally using HTTPS. See [local development](#local-development) below for how to set up your local environment.
+- To use live reload while developing, you'll need to serve your files locally using HTTPS. See [local development](#local-development) below for instructions on setting up your local environment.
 
 ### 🏁 Getting started <a name = "getting-started"></a>
 
-**1.** First, let's clone the repo and install the dependencies.
+Full steps to getting your local environment set up, deploying your app, and also running your app locally for local development are shown in the video below:
+
+<!-- Add video here -->
+
+**1.** First, let's clone the repo and install the dependencies. This project is published as a public template, so you can also fork the repo or select "Use this template" in GitHub.
 
 ```bash
 git clone https://github.com/enuchi/React-Google-Apps-Script.git
@@ -84,25 +85,17 @@ cd React-Google-Apps-Script
 yarn install
 ```
 
-<!-- TODO: new vid -->
-<img width="100%" src="https://i.imgur.com/EGSsCqO.gif">
 
 **2.** Next, we'll need to log in to [clasp](https://github.com/google/clasp), which lets us manage our Google Apps Script projects locally.
 
 ```bash
 yarn run login
 ```
-<!-- TODO: new vid -->
-<img width="100%" src="https://i.imgur.com/zKCgkMl.gif">
-
 **3.** Now let's run the setup script to create a New spreadsheet and script project from the command line.
 
 ```bash
 yarn run setup
 ```
-
-<!-- TODO: new vid -->
-<img width="100%" src="https://imgur.com/Zk2eHFV.gif">
 
 Alternatively, you can use an existing Google Spreadsheet and Script file instead of creating a new one.
 
@@ -143,17 +136,11 @@ The deploy command will build all necessary files using production settings, inc
 
 Now open Google Sheets and navigate to your new spreadsheet (e.g. the file "My React Project"). You can also run `yarn run open`. Make sure to refresh the page if you already had it open. You will now see a new menu item appear containing your app!
 
-<!-- TODO: new vid -->
-<img width="100%" src="https://i.imgur.com/W7UkEpv.gif">
-
 <br/>
 
 ## 🎈 Local Development <a name="local-development"></a>
 
 We can develop our client-side React apps locally, and see our changes directly inside our Google Spreadsheet dialog window.
-
-<!-- TODO: new vid -->
-<img width="100%" src="https://i.imgur.com/EsnOEHP.gif">
 
 There are two steps to getting started: installing a certificate (first time only), and running the start command.
 
@@ -190,15 +177,7 @@ There are two steps to getting started: installing a certificate (first time onl
 
 The start command will create and deploy a development build, and serve your local files.
 
-<!-- TODO: new vid -->
-<img width="100%" src="https://imgur.com/uD4uZZK.gif">
-
 After running the start command, navigate to your spreadsheet and open one of the menu items. It should now be serving your local files. When you make and save changes to your React app, your app will reload instantly within the Google Spreadsheet, and have access to any server-side functions!
-
-<!-- TODO: new vid -->
-<img width="100%" src="https://i.imgur.com/EsnOEHP.gif">
-
-Support for [Fast Refresh](https://github.com/pmmmwh/react-refresh-webpack-plugin) now means that only modified components are refreshed when files are changed, and state is not lost.
 
 <br/>
 
@@ -244,7 +223,7 @@ The included sample app has five menu items that demonstrate how to load pages i
 - `Sheet Editor` - This is a basic app that opens in a dialog window that demonstrates how to select, create and delete sheets in a Google Sheets documents through server calls. It uses vanilla React with no component library.
 - `Sheet Editor (Boostrap)` - The same basic app is included but styled with the Bootstrap library using [`react-bootstrap`](https://react-bootstrap.github.io/). The bootstrap example also contains an example of a page built with typescript (see below).
 - `Sheet Editor (MUI)` - A similar example using [`Material UI`](https://mui.com/).
-- `Sheet Editor (Tailwind CSS)` - Another example, using [`Tailwind`](https://tailwindcss.com/)
+- `Sheet Editor (Tailwind CSS)` - Another example, using [`Tailwind CSS`](https://tailwindcss.com/)
 - `About me` - This is just a simple page that demonstrates the use of a sidebar dialog.
 
 Access the dialogs through the new menu item that appears. You may need to refresh the spreadsheet and approve the app's permissions the first time you use it.
@@ -293,7 +272,9 @@ yarn add react-transition-group
 Important: Since Google Apps Scripts projects don't let you easily reference external files, this project will bundle an entire app into one HTML file. If you are importing large libraries this can result in a large file. To help reduce the size of these large HTML files, you can try to externalize packages by using a CDN to load packages. For packages that can be loaded through a CDN (usually they will have a UMD build), you can configure the externals and globals details in the [vite config file](./vite.config.ts). You will also need to include a script element in the head of the `index.html` file, loading the library from a CDN, and making sure it supports a UMD build, e.g.
 `<script crossorigin src="https://unpkg.com/react-transition-group@4.4.2/dist/react-transition-group.min.js"></script>`.
 
-If set up properly, this will add a script tag that will load packages from a CDN, reducing your overall bundle size.
+If set up properly, this will load packages from the CDN in production and will reduce your overall bundle size.
+
+Make sure that you update the script tag with the same version of the package you are installing with yarn, so that you are using the same version in development and production.
 
 ### Styles
 
