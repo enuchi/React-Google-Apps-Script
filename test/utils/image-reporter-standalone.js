@@ -39,7 +39,7 @@ const s3 = new AWS.S3({ apiVersion: '2006-03-01' });
 
 const targetDirectories = [
   './test/__image_snapshots__/',
-  // './test/__image_snapshots__/__diff_output__/',
+  './test/__image_snapshots__/__diff_output__/',
 ];
 targetDirectories.forEach((targetDirectory) => {
   fs.readdirSync(targetDirectory, { withFileTypes: true }).forEach((dirent) => {
