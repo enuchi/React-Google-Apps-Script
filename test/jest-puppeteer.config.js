@@ -1,6 +1,6 @@
 export default {
   launch: {
-    headless: true,
+    headless: false,
     product: 'chrome',
     args: [
       '--force-color-profile=generic-rgb',

@@ -9,7 +9,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-11, macos-latest, windows-latest]
+        os: [macos-11, macos-12, windows-latest]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
         node-version: [18, 20]
     timeout-minutes: 8
