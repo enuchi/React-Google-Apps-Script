@@ -16,31 +16,26 @@ const devServerWrapper = './dev/dev-server-wrapper.html';
 const clientEntrypoints = [
   {
     name: 'CLIENT - Dialog Demo',
-    // entry: './src/client/dialog-demo/index.js',
     filename: 'dialog-demo', // we'll add the .html suffix to these
     template: 'dialog-demo/index.html',
   },
   {
     name: 'CLIENT - Dialog Demo Bootstrap',
-    // entry: './src/client/dialog-demo-bootstrap/index.js',
     filename: 'dialog-demo-bootstrap',
     template: 'dialog-demo-bootstrap/index.html',
   },
   {
     name: 'CLIENT - Dialog Demo MUI',
-    // entry: './src/client/dialog-demo-mui/index.js',
     filename: 'dialog-demo-mui',
     template: 'dialog-demo-mui/index.html',
   },
   {
     name: 'CLIENT - Dialog Demo Tailwind CSS',
-    // entry: './src/client/dialog-demo-tailwindcss/index.js',
     filename: 'dialog-demo-tailwindcss',
     template: 'dialog-demo-tailwindcss/index.html',
   },
   {
     name: 'CLIENT - Sidebar About Page',
-    // entry: './src/client/sidebar-about-page/index.js',
     filename: 'sidebar-about-page',
     template: 'sidebar-about-page/index.html',
   },
