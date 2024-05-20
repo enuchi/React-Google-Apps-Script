@@ -75,7 +75,8 @@ See [deploy](#deploy) for notes on how to deploy the project and see it live in 
 
 Full steps to getting your local environment set up, deploying your app, and also running your app locally for local development are shown in the video below:
 
-<!-- Add video here -->
+https://github.com/enuchi/React-Google-Apps-Script/assets/31550519/83622b83-0d0e-43de-a589-36f96d51c9c4
+
 
 **1.** First, let's clone the repo and install the dependencies. This project is published as a public template, so you can also fork the repo or select "Use this template" in GitHub.
 
@@ -121,6 +122,8 @@ You will need to update the `.clasp.json` file in the root of this project with 
 </details>
 
 Next, let's deploy the app so we can see it live in Google Spreadsheets.
+
+https://github.com/enuchi/React-Google-Apps-Script/assets/31550519/0c67c4b8-e3f5-4345-8460-470e9211aeb9
 
 <br/>
 
@@ -178,6 +181,8 @@ There are two steps to getting started: installing a certificate (first time onl
 The start command will create and deploy a development build, and serve your local files.
 
 After running the start command, navigate to your spreadsheet and open one of the menu items. It should now be serving your local files. When you make and save changes to your React app, your app will reload instantly within the Google Spreadsheet, and have access to any server-side functions!
+
+https://github.com/enuchi/React-Google-Apps-Script/assets/31550519/981604ac-bdea-489d-97fa-72e6d24ba6dd
 
 <br/>
 
