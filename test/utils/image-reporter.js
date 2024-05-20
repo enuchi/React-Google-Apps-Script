@@ -13,10 +13,12 @@
  * "test:integration": "jest test/local-development.test || node test/utils/image-reporter-standalone.js"
  */
 
-const fs = require('fs');
-const AWS = require('aws-sdk/global');
-const S3 = require('aws-sdk/clients/s3'); // this is needed
-require('dotenv').config();
+import fs from 'fs';
+import AWS from 'aws-sdk/global.js';
+import S3 from 'aws-sdk/clients/s3.js'; // this is needed
+
+import dotenv from "dotenv";
+dotenv.config();
 
 const UPLOAD_BUCKET = process.env.S3_BUCKET_NAME;
 
@@ -27,7 +29,7 @@ AWS.config.update({
 
 const s3 = new AWS.S3({ apiVersion: '2006-03-01' });
 
-class ImageReporter {
+export default class ImageReporter {
   constructor(globalConfig, options) {
     this._globalConfig = globalConfig;
     this._options = options;
@@ -79,5 +81,3 @@ class ImageReporter {
     }
   }
 }
-
-module.exports = ImageReporter;

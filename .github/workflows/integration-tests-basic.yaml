@@ -9,18 +9,18 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-11, macos-latest, windows-latest]
+        os: [macos-12, macos-13, windows-2022]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        node-version: [14, 16, 18]
+        node-version: [18, 20]
     timeout-minutes: 8
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install packages [npm ci]
-        run: npm ci
+      - name: Install packages
+        run: yarn install
       - name: Allow running mkcert on Mac
         run: sudo security authorizationdb write com.apple.trust-settings.admin allow
         if: runner.os == 'MacOS'
@@ -30,14 +30,14 @@ jobs:
       - name: Run mkcert setup [mkcert -install]
         run: mkcert -install
         if: runner.os == 'MacOS'
-      - name: Install https cert [npm setup:https]
-        run: npm run setup:https
+      - name: Install https cert [yarn setup:https]
+        run: yarn setup:https
         if: runner.os == 'MacOS'
       - run: | 
           mkdir certs
-          .\test\generate-cert.ps1
+          .\scripts\generate-cert.ps1
         shell: pwsh
         if: runner.os == 'Windows'
       - name: Run integration tests
-        run: npm run test:integration
+        run: yarn test:integration
         shell: bash

@@ -1,19 +1,31 @@
 {
   "root": true,
-  "parser": "@babel/eslint-parser",
-  "extends": ["airbnb-base", "plugin:prettier/recommended"],
-  "plugins": ["prettier"],
+  "extends": [
+    "airbnb-base",
+    "plugin:prettier/recommended",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  "plugins": ["react-refresh", "prettier"],
   "rules": {
     "prettier/prettier": "error",
     "camelcase": "warn",
     "import/prefer-default-export": "warn",
     "import/no-extraneous-dependencies": "warn",
     "prefer-object-spread": "warn",
-    "spaced-comment":"off"
+    "spaced-comment": "off",
+    "react-refresh/only-export-components": [
+      "warn",
+      { "allowConstantExport": true }
+    ]
   },
   "parserOptions": {
     "babelOptions": {
       "configFile": "./dev/.babelrc"
     }
-  }
+  },
+  "env": { "browser": true, "es2020": true },
+  "ignorePatterns": ["dist", ".eslintrc.json"],
+  "parser": "@typescript-eslint/parser"
 }

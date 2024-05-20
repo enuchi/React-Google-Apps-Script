@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   launch: {
     headless: false,
     product: 'chrome',

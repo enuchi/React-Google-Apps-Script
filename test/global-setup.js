@@ -2,18 +2,19 @@
 // jestjs.io/docs/puppeteer#custom-example-without-jest-puppeteer-preset
 // This allows using stealth mode.
 
-const { mkdir, writeFile } = require('fs').promises;
-const os = require('os');
-const path = require('path');
-const puppeteer = require('puppeteer-extra');
+import fs from 'fs';
+const fsPromises = fs.promises;
+import os from 'os';
+import path from 'path';
+import puppeteer from 'puppeteer-extra';
 
 // add stealth plugin and use defaults (all evasion techniques)
-const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
 const DIR = path.join(os.tmpdir(), 'jest_puppeteer_global_setup');
-const jestPuppeteerConfig = require('./jest-puppeteer.config');
+import jestPuppeteerConfig from './jest-puppeteer.config.js';
 
-module.exports = async function globalSetup() {
+export default async function globalSetup() {
   puppeteer.use(StealthPlugin());
   const browser = await puppeteer.launch(jestPuppeteerConfig.launch);
   // store the browser instance so we can teardown it later
@@ -21,6 +22,6 @@ module.exports = async function globalSetup() {
   global.__BROWSER_GLOBAL__ = browser;
 
   // use the file system to expose the wsEndpoint for TestEnvironments
-  await mkdir(DIR, { recursive: true });
-  await writeFile(path.join(DIR, 'wsEndpoint'), browser.wsEndpoint());
+  await fsPromises.mkdir(DIR, { recursive: true });
+  await fsPromises.writeFile(path.join(DIR, 'wsEndpoint'), browser.wsEndpoint());
 };

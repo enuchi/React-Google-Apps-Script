@@ -10,13 +10,15 @@
  *
  * Note: If image reporter doesn't work in pipeline can try running as standalone script
  * by creating a separate script file and running like this:
- * "test:integration": "jest test/local-development.test || node test/utils/image-reporter-standalone.js"
+ * "test:integration:extended:report": "cross-env IS_EXTENDED=true jest --forceExit test/local-development.test || node test/utils/image-reporter-standalone.js",
  */
 
-const fs = require('fs');
-const AWS = require('aws-sdk/global');
-const S3 = require('aws-sdk/clients/s3'); // this is needed
-require('dotenv').config();
+import fs from 'fs';
+import AWS from 'aws-sdk/global.js';
+import S3 from 'aws-sdk/clients/s3.js'; // this is needed
+
+import dotenv from 'dotenv';
+dotenv.config();
 
 const UPLOAD_BUCKET = process.env.S3_BUCKET_NAME;
 
