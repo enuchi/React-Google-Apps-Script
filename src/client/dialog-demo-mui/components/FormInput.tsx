@@ -23,9 +23,7 @@ const FormInput = ({ submitNewSheet }: FormInputProps) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-    >
+    <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={10}>
           <TextField

@@ -3,9 +3,10 @@
 // This allows using stealth mode.
 
 import fs from 'fs';
-const fsPromises = fs.promises;
 import os from 'os';
 import path from 'path';
+
+const fsPromises = fs.promises;
 
 const DIR = path.join(os.tmpdir(), 'jest_puppeteer_global_setup');
 export default async function globalTeardown() {
@@ -14,4 +15,4 @@ export default async function globalTeardown() {
 
   // clean-up the wsEndpoint file
   await fsPromises.rmdir(DIR, { recursive: true, force: true });
-};
+}
