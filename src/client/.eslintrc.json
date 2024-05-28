@@ -8,11 +8,6 @@
     "plugin:react-hooks/recommended"
   ],
   "plugins": ["react-refresh", "prettier"],
-  "parserOptions": {
-    "babelOptions": {
-      "configFile": "./dev/.babelrc"
-    }
-  },
   "rules": {
     "prettier/prettier": "error",
     "camelcase": "warn",
