@@ -9,6 +9,7 @@
   },
   "scripts": {
     "dev": "vite",
+    "lint": "eslint .",
     "test:integration": "jest --forceExit test/local-development.test",
     "test:integration:extended": "cross-env IS_EXTENDED=true jest --forceExit test/local-development.test",
     "test:integration:extended:ci-reporter": "cross-env IS_EXTENDED=true jest --forceExit || node test/utils/image-reporter-standalone.js",
@@ -48,9 +49,6 @@
     "react-transition-group": "^4.4.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.4",
-    "@babel/plugin-proposal-class-properties": "^7.18.6",
-    "@babel/preset-env": "^7.24.4",
     "@google/clasp": "^2.4.2",
     "@types/expect-puppeteer": "^5.0.0",
     "@types/jest-environment-puppeteer": "^5.0.2",
