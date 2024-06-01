@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { resolve } from 'path';
 import { BuildOptions, ServerOptions, build, defineConfig } from 'vite';
 import { existsSync, readFileSync } from 'fs';
@@ -150,7 +151,7 @@ const buildConfig = ({ mode }: { mode: string }) => {
       ...clientEntrypoints.map((entrypoint) => ({
         src: devServerWrapper,
         dest: './',
-        rename: entrypoint.filename + '.html',
+        rename: `${entrypoint.filename}.html`,
         transform: (contents: string) =>
           contents
             .toString()
@@ -175,16 +176,19 @@ const buildConfig = ({ mode }: { mode: string }) => {
         name: 'build-client-production-bundles',
         closeBundle: async () => {
           console.log('Building client production bundles...');
+          // eslint-disable-next-line no-restricted-syntax
           for (const clientEntrypoint of clientEntrypoints) {
             console.log('Building client bundle for', clientEntrypoint.name);
+            // eslint-disable-next-line no-await-in-loop
             const buildOutput = await build(
               clientBuildConfig({
                 clientEntrypointRoot: clientEntrypoint.filename,
                 template: clientEntrypoint.template,
               })
             );
+            // eslint-disable-next-line no-await-in-loop
             await writeFile(
-              resolve(__dirname, outDir, clientEntrypoint.filename + '.html'),
+              resolve(__dirname, outDir, `${clientEntrypoint.filename}.html`),
               // @ts-expect-error - output is an array of RollupOutput
               buildOutput.output[0].source
             );
@@ -207,4 +211,5 @@ export default async ({ command, mode }: { command: string; mode: string }) => {
     // for 'build' mode, we have two paths: build assets for local development, and build for production
     return buildConfig({ mode });
   }
+  return {};
 };
