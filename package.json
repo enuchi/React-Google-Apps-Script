@@ -49,6 +49,7 @@
     "react-transition-group": "^4.4.2"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.24.6",
     "@google/clasp": "^2.4.2",
     "@types/expect-puppeteer": "^5.0.0",
     "@types/jest-environment-puppeteer": "^5.0.2",
