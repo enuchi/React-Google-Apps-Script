@@ -1,7 +1,11 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import PropTypes from 'prop-types';
 
-const FormInput = ({ submitNewSheet }: { submitNewSheet: Function }) => {
+const FormInput = ({
+  submitNewSheet,
+}: {
+  submitNewSheet: (arg: string) => void;
+}) => {
   const [inputValue, setInputValue] = useState('');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) =>

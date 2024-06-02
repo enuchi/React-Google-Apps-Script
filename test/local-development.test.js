@@ -2,9 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import { exec } from 'child_process';
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
+import dotenv from 'dotenv';
 import { openAddon } from './utils/open-addon';
 
-import dotenv from 'dotenv';
 dotenv.config();
 
 const isExtended = `${process.env.IS_EXTENDED}` === 'true';
@@ -57,7 +57,9 @@ describe(`Local setup ${isExtended ? '*extended*' : ''}`, () => {
     if (isExtended) {
       await openAddon(page);
     } else {
-      await page.goto('https://localhost:3000/dialog-demo-bootstrap/index.html');
+      await page.goto(
+        'https://localhost:3000/dialog-demo-bootstrap/index.html'
+      );
       await page.waitForTimeout(3000);
     }
   });

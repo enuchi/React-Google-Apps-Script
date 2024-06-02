@@ -1,12 +1,14 @@
 {
   "root": true,
-  "parser": "@babel/eslint-parser",
+  "parser": "@typescript-eslint/parser",
   "extends": [
     "airbnb-base",
     "plugin:prettier/recommended",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:jest/recommended"
   ],
-  "plugins": ["babel", "prettier"],
+  "plugins": ["prettier"],
   "env": {
     "browser": true,
     "es6": true,
@@ -27,8 +29,9 @@
     "jest/no-done-callback": "off",
     "prettier/prettier": "error",
     "camelcase": "warn",
-    "import/prefer-default-export": "warn",
+    "import/prefer-default-export": "off",
     "import/no-extraneous-dependencies": "warn",
+    "import/extensions": "off",
     "jest/expect-expect": "off",
     "no-new": "off",
     "no-underscore-dangle": "off"
