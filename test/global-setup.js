@@ -10,7 +10,7 @@ import puppeteer from 'puppeteer-extra';
 // add stealth plugin and use defaults (all evasion techniques)
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
-import jestPuppeteerConfig from './jest-puppeteer.config';
+import jestPuppeteerConfig from './jest-puppeteer.config.js';
 
 const fsPromises = fs.promises;
 const DIR = path.join(os.tmpdir(), 'jest_puppeteer_global_setup');
