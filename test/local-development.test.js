@@ -40,7 +40,7 @@ const webpackDevServerReady = async (process) => {
 describe(`Local setup ${isExtended ? '*extended*' : ''}`, () => {
   let page;
   let process;
-  const containerSelector = isExtended ? '.script-app-dialog' : 'body';
+  const containerSelector = isExtended ? 'div[role="dialog"]' : 'body';
 
   beforeAll(async () => {
     process = exec('yarn dev');

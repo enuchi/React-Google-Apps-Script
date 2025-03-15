@@ -1,6 +1,7 @@
 export const openAddon = async (page) => {
   await page.goto(process.env.SHEET_URL);
 
+  await page.waitForTimeout(3000); // pause for 3 seconds
   await page.click('a:nth-child(2)'); // click on signin button
 
   await page.waitForSelector('input[name="identifier"]', { visible: true });
@@ -97,10 +98,10 @@ export const openAddon = async (page) => {
       new MouseEvent('mouseup', { bubbles: true })
     );
   });
-  await page.waitForSelector('.script-app-dialog', {
+  await page.waitForSelector('div[role="dialog"]', {
     visible: true,
     timeout: 10000,
   });
 
-  await page.waitForTimeout(3000);
+  await page.waitForTimeout(10000);
 };
