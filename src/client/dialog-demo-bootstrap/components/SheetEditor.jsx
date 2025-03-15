@@ -4,10 +4,14 @@ import { Button, ListGroup } from 'react-bootstrap';
 import FormInput from './FormInput';
 
 // This is a wrapper for google.script.run that lets us use promises.
-import { serverFunctions } from '../../utils/serverFunctions';
+import {
+  serverFunctions,
+  scriptHostFunctions,
+} from '../../utils/serverFunctions';
 
 const SheetEditor = () => {
   const [names, setNames] = useState([]);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     serverFunctions.getSheetsData().then(setNames).catch(alert);
@@ -77,6 +81,29 @@ const SheetEditor = () => {
             ))}
         </TransitionGroup>
       </ListGroup>
+      {names.length > 0 && (
+        <div className="d-flex justify-content-end py-3">
+          {!isExpanded ? (
+            <Button
+              variant="light"
+              className="mr-2"
+              onClick={() => {
+                scriptHostFunctions.setHeight(1000);
+                scriptHostFunctions.setWidth(1000);
+                setIsExpanded(true);
+              }}
+            >
+              Expand Dialog
+            </Button>
+          ) : null}
+          <Button
+            variant="outline-dark"
+            onClick={() => scriptHostFunctions.close()}
+          >
+            Close Dialog Window
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

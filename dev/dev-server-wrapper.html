@@ -20,7 +20,7 @@ Two placeholders are used in this file that will need to be replaced in a build 
     <base target="_top" />
     <title>Dev Server</title>
     <!-- Load gas-client as external. Exposed global variable is GASClient.  -->
-    <script src="https://unpkg.com/gas-client@1.1.1/dist/index.js"></script>
+    <script src="https://unpkg.com/gas-client@1.2.0/dist/index.js"></script>
     <style>
       body,
       html {
@@ -37,14 +37,20 @@ Two placeholders are used in this file that will need to be replaced in a build 
 
         const iframe = document.getElementById('iframe');
         iframe.src = 'https://localhost:' + PORT + '/' + FILE_NAME;
-        const { serverFunctions } = new window.GASClient.GASClient({
-          allowedDevelopmentDomains: (origin) =>
-            /https:\/\/.*\.googleusercontent\.com$/.test(origin),
-        });
+
+        const { serverFunctions, scriptHostFunctions } =
+          new window.GASClient.GASClient({
+            allowedDevelopmentDomains: (origin) =>
+              /https:\/\/.*\.googleusercontent\.com$/.test(origin),
+          });
 
         const handleRequest = (event) => {
           const request = event.data;
           const { type, functionName, id, args } = request;
+
+          if (type === 'SCRIPT_HOST_FUNCTION_REQUEST') {
+            scriptHostFunctions[functionName](...args);
+          }
 
           if (type !== 'REQUEST') return;
 

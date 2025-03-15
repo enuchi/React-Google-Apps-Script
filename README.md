@@ -309,8 +309,8 @@ google.script.run
   .addSheet(sheetTitle);
 
 // Using gas-client we can use more familiar promises style like this:
-import Server from 'gas-client';
-const { serverFunctions } = new Server();
+import { GASClient } from 'gas-client';
+const { serverFunctions, scriptHostFunctions } = new GASClient({});
 
 // We now have access to all our server functions, which return promises!
 serverFunctions
@@ -327,6 +327,12 @@ async () => {
     handleError(err);
   }
 };
+
+// Use scriptHostFunctions to control dialogs
+scriptHostFunctions.close(); // close a dialog or sidebar
+scriptHostFunctions.setWidth(400); // set dialog width to 400px
+scriptHostFunctions.setHeight(800); // set dialog height to 800px
+
 ```
 
 In development, `gas-client` will allow you to call server-side functions from your local environment. In production, it will use Google's underlying `google.script.run` utility.
