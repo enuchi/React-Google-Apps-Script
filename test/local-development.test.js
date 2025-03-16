@@ -26,7 +26,7 @@ const srcTestFile = path.join(
   '../src/client/dialog-demo-bootstrap/components/SheetEditor.jsx'
 );
 
-const webpackDevServerReady = async (process) => {
+const viteDevServerReady = async (process) => {
   console.log('Waiting for vite to serve...');
   return new Promise((resolve) => {
     process.stdout.on('data', (data) => {
@@ -52,7 +52,7 @@ describe(`Local setup ${isExtended ? '*extended*' : ''}`, () => {
       deviceScaleFactor: 1,
     });
 
-    await webpackDevServerReady(process);
+    await viteDevServerReady(process);
 
     if (isExtended) {
       await openAddon(page);
