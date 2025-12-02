@@ -202,7 +202,7 @@ const buildConfig = ({ mode }: { mode: string }) => {
 };
 
 // https://vitejs.dev/config/
-export default async ({ command, mode }: { command: string; mode: string }) => {
+export default defineConfig(async ({ command, mode }) => {
   if (command === 'serve') {
     // for 'serve' mode, we only want to serve the client bundle locally
     return clientServeConfig();
@@ -212,4 +212,4 @@ export default async ({ command, mode }: { command: string; mode: string }) => {
     return buildConfig({ mode });
   }
   return {};
-};
+});
