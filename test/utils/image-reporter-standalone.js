@@ -42,6 +42,10 @@ const targetDirectories = [
   './test/__image_snapshots__/__diff_output__/',
 ];
 targetDirectories.forEach((targetDirectory) => {
+  if (!fs.existsSync(targetDirectory)) {
+    return;
+  }
+  
   fs.readdirSync(targetDirectory, { withFileTypes: true }).forEach((dirent) => {
     if (!dirent.isFile()) return;
     const path = `images/${dirent.name}`;

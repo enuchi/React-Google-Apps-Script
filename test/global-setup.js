@@ -17,7 +17,10 @@ const DIR = path.join(os.tmpdir(), 'jest_puppeteer_global_setup');
 
 export default async function globalSetup() {
   puppeteer.use(StealthPlugin());
-  const browser = await puppeteer.launch(jestPuppeteerConfig.launch);
+  const browser = await puppeteer.launch({
+    ...jestPuppeteerConfig.launch,
+    timeout: 120000, // Increase timeout to 2 minutes for CI environments
+  });
   // store the browser instance so we can teardown it later
   // this global is only available in the teardown but not in TestEnvironments
   global.__BROWSER_GLOBAL__ = browser;

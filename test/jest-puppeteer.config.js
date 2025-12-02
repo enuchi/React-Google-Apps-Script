@@ -9,6 +9,7 @@ export default {
       '--enable-font-antialiasing',
       '--disable-gpu',
     ],
+    timeout: 60000,
   },
   browserContext: 'default',
 };
