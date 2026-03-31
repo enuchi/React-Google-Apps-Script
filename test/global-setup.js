@@ -29,7 +29,9 @@ export async function setup() {
 }
 
 export async function teardown() {
-  await browser.close();
+  if (browser) {
+    await browser.close();
+  }
 
   // clean-up the wsEndpoint file
   await fsPromises.rm(DIR, { recursive: true, force: true });
