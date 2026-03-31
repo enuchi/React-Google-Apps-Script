@@ -1,6 +1,5 @@
-// Use custom jest puppeteer preset as described here:
-// jestjs.io/docs/puppeteer#custom-example-without-jest-puppeteer-preset
-// This allows using stealth mode.
+// Custom Puppeteer setup for Vitest
+// Launches a shared browser instance and exposes the wsEndpoint via filesystem
 
 import fs from 'fs';
 import os from 'os';
@@ -15,17 +14,23 @@ import jestPuppeteerConfig from './jest-puppeteer.config.js';
 const fsPromises = fs.promises;
 const DIR = path.join(os.tmpdir(), 'jest_puppeteer_global_setup');
 
-export default async function globalSetup() {
-  puppeteer.use(StealthPlugin());
-  const browser = await puppeteer.launch(jestPuppeteerConfig.launch);
-  // store the browser instance so we can teardown it later
-  // this global is only available in the teardown but not in TestEnvironments
-  global.__BROWSER_GLOBAL__ = browser;
+let browser;
 
-  // use the file system to expose the wsEndpoint for TestEnvironments
+export async function setup() {
+  puppeteer.use(StealthPlugin());
+  browser = await puppeteer.launch(jestPuppeteerConfig.launch);
+
+  // use the file system to expose the wsEndpoint for test files
   await fsPromises.mkdir(DIR, { recursive: true });
   await fsPromises.writeFile(
     path.join(DIR, 'wsEndpoint'),
     browser.wsEndpoint()
   );
+}
+
+export async function teardown() {
+  await browser.close();
+
+  // clean-up the wsEndpoint file
+  await fsPromises.rm(DIR, { recursive: true, force: true });
 }

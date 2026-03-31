@@ -10,9 +10,9 @@
   "scripts": {
     "dev": "vite",
     "lint": "eslint .",
-    "test:integration": "jest --forceExit test/local-development.test",
-    "test:integration:extended": "cross-env IS_EXTENDED=true jest --forceExit test/local-development.test",
-    "test:integration:extended:ci-reporter": "cross-env IS_EXTENDED=true jest --forceExit || node test/utils/image-reporter-standalone.js",
+    "test:integration": "vitest run test/local-development.test.js --reporter=default",
+    "test:integration:extended": "cross-env IS_EXTENDED=true vitest run test/local-development.test.js --reporter=default",
+    "test:integration:extended:ci-reporter": "cross-env IS_EXTENDED=true vitest run test/local-development.test.js --reporter=default || node test/utils/image-reporter-standalone.js",
     "login": "clasp login",
     "setup": "rimraf .clasp.json && mkdirp dist && clasp create --type sheets --title \"My React Project\" --rootDir ./dist && mv ./dist/.clasp.json ./.clasp.json && rimraf dist",
     "open": "clasp open --addon",
@@ -20,9 +20,9 @@
     "setup:https": "mkdirp certs && mkcert -key-file ./certs/key.pem -cert-file ./certs/cert.pem localhost 127.0.0.1",
     "build:dev": "tsc && vite build --mode development",
     "build": "tsc && vite build --mode production",
-    "deploy:dev": "yarn build:dev && yarn push",
-    "deploy": "yarn build && yarn push",
-    "start": "yarn deploy:dev && yarn dev"
+    "deploy:dev": "pnpm run build:dev && pnpm run push",
+    "deploy": "pnpm run build && pnpm run push",
+    "start": "pnpm run deploy:dev && pnpm run dev"
   },
   "keywords": [
     "react",
@@ -49,10 +49,7 @@
     "react-transition-group": "^4.4.2"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.24.6",
     "@google/clasp": "^2.4.2",
-    "@types/expect-puppeteer": "^5.0.0",
-    "@types/jest-environment-puppeteer": "^5.0.2",
     "@types/node": "^20.11.30",
     "@types/puppeteer": "^5.4.6",
     "@types/react": "^18.2.66",
@@ -69,13 +66,10 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-googleappsscript": "^1.0.4",
     "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-jest": "^26.5.3",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "gas-types-detailed": "^1.1.2",
-    "jest": "^28.1.1",
-    "jest-environment-node": "^28.1.1",
     "jest-image-snapshot": "^5.1.0",
     "postcss": "^8.4.38",
     "postcss-preset-env": "^9.5.4",
@@ -88,6 +82,7 @@
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vite-plugin-singlefile": "^2.0.1",
-    "vite-plugin-static-copy": "^1.0.1"
+    "vite-plugin-static-copy": "^1.0.1",
+    "vitest": "^3.1.1"
   }
 }

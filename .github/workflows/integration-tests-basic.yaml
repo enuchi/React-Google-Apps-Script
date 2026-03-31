@@ -15,12 +15,16 @@ jobs:
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install packages
-        run: yarn install
+        run: pnpm install
       - name: Allow running mkcert on Mac
         run: sudo security authorizationdb write com.apple.trust-settings.admin allow
         if: runner.os == 'MacOS'
@@ -30,14 +34,14 @@ jobs:
       - name: Run mkcert setup [mkcert -install]
         run: mkcert -install
         if: runner.os == 'MacOS'
-      - name: Install https cert [yarn setup:https]
-        run: yarn setup:https
+      - name: Install https cert [pnpm setup:https]
+        run: pnpm setup:https
         if: runner.os == 'MacOS'
-      - run: | 
+      - run: |
           mkdir certs
           .\scripts\generate-cert.ps1
         shell: pwsh
         if: runner.os == 'Windows'
       - name: Run integration tests
-        run: yarn test:integration
+        run: pnpm test:integration
         shell: bash

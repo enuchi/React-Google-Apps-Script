@@ -1,11 +1,16 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { exec } from 'child_process';
+import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
 import dotenv from 'dotenv';
+import puppeteer from 'puppeteer';
 import { openAddon } from './utils/open-addon';
 
 dotenv.config();
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const isExtended = `${process.env.IS_EXTENDED}` === 'true';
 
@@ -19,11 +24,15 @@ const toMatchImageSnapshot = configureToMatchImageSnapshot({
   allowSizeMismatch: true,
 });
 expect.extend({ toMatchImageSnapshot });
-jest.setTimeout(180000);
 
 const srcTestFile = path.join(
   __dirname,
   '../src/client/dialog-demo-bootstrap/components/SheetEditor.jsx'
+);
+
+const DIR = path.join(
+  (await import('os')).tmpdir(),
+  'jest_puppeteer_global_setup'
 );
 
 const viteDevServerReady = async (process) => {
@@ -40,11 +49,19 @@ const viteDevServerReady = async (process) => {
 describe(`Local setup ${isExtended ? '*extended*' : ''}`, () => {
   let page;
   let process;
+  let browser;
   const containerSelector = isExtended ? 'div[role="dialog"]' : 'body';
 
   beforeAll(async () => {
-    process = exec('yarn dev');
-    page = await global.__BROWSER_GLOBAL__.newPage();
+    // Connect to the browser launched by globalSetup
+    const wsEndpoint = await fs.promises.readFile(
+      path.join(DIR, 'wsEndpoint'),
+      'utf8'
+    );
+    browser = await puppeteer.connect({ browserWSEndpoint: wsEndpoint });
+
+    process = exec('pnpm dev');
+    page = await browser.newPage();
 
     await page.setViewport({
       width: 800,
